@@ -1,22 +1,20 @@
 package server;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import javax.websocket.DeploymentException;
-import java.awt.*;
 import java.util.Scanner;
 
 public class Server extends Application {
 
-    public static final int PORT = 3000;
-    public static final String HOST_NAME = "localhost";
-    public static final String ROOT_PATH = "";
-    public static final String FACE_ENDPOINT = "face";
+    //UI scene
+    private static Scene scene;
 
     /**
      * The main entry point for all JavaFX applications.
@@ -34,7 +32,7 @@ public class Server extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("server.fxml"));
         primaryStage.setTitle("Server");
-        Scene scene = new Scene(root, 500, 700);
+        scene = new Scene(root, 500, 700);
         primaryStage.setScene(scene);
         //Set window resizable
         primaryStage.setResizable(false);
@@ -44,24 +42,8 @@ public class Server extends Application {
 
     public static void main(String[] args) {
 
-        //Launch JavaFX UI
+        //Launch JavaFX UI in a new thread
         launch(args);
 
-        org.glassfish.tyrus.server.Server server =
-                new org.glassfish.tyrus.server.Server(
-                        HOST_NAME,
-                        PORT,
-                        "/" + ROOT_PATH,
-                        ServerEndpoint.class );
-        try {
-            server.start();
-            System.out.println( "Press any key to stop the server.." );
-            new Scanner(System.in).nextLine();
-        } catch (DeploymentException e) {
-            throw new RuntimeException(e);
-        } finally {
-            server.stop();
-        }
     }
-
 }
