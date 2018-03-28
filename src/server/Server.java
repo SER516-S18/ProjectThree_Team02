@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javax.websocket.DeploymentException;
+import java.awt.*;
 import java.util.Scanner;
 
 public class Server extends Application {
@@ -32,12 +34,17 @@ public class Server extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("server.fxml"));
         primaryStage.setTitle("Server");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Scene scene = new Scene(root, 500, 700);
+        primaryStage.setScene(scene);
+        //Set window resizable
+        primaryStage.setResizable(false);
+        primaryStage.sizeToScene();
         primaryStage.show();
     }
 
     public static void main(String[] args) {
 
+        //Launch JavaFX UI
         launch(args);
 
         org.glassfish.tyrus.server.Server server =
