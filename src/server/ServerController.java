@@ -1,5 +1,8 @@
 package server;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -8,7 +11,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.LogManager;
@@ -23,6 +30,7 @@ public class ServerController implements Initializable{
     private Service<Void> networkThread;
 
     @FXML Button powerButton;
+    @FXML TextArea logTextArea;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -50,33 +58,43 @@ public class ServerController implements Initializable{
                         } finally {
                             server.stop();
                         }
-
                         return null;
                     }
                 };
             }
         };
 
+        System.out.println("Press Start Button to start server.\n");
+
         networkThread.setOnRunning(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.println("Started!");
+                System.out.println("Websocket Server Started: ws://" + HOST_NAME + ":" + PORT + "\n");
             }
         });
 
         networkThread.setOnFailed(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.println("Error!");
+                System.out.println("Error Occurred\n");
             }
         });
 
         networkThread.setOnCancelled(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.println("Stopped!");
+                System.out.println("Websocket Server Stopped\n");
             }
         });
+
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                appendText(String.valueOf((char) b));
+            }
+        };
+        System.setOut(new PrintStream(out, true));
+
     }
 
     @FXML private void powerControl(ActionEvent event){
@@ -89,5 +107,13 @@ public class ServerController implements Initializable{
             powerButton.setText("Stop");
         }
 
+    }
+
+    /**
+     *
+     * @param str
+     */
+    public void appendText(String str) {
+        Platform.runLater(() -> logTextArea.appendText(str));
     }
 }

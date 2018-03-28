@@ -23,6 +23,7 @@ public class ServerEndpoint {
         /*if ("quit".equalsIgnoreCase(message.getContent())) {
             session.close();
         }*/
+
         System.out.println(format("From Client(%s): %s", session.getId(), message.getContent()));
         session.getBasicRemote().sendObject( message );
     }
@@ -31,6 +32,7 @@ public class ServerEndpoint {
     public void onOpen(Session session) {
         System.out.println(format("%s connected", session.getId()));
         connections.add(session);
+        throw new NullPointerException("demo");
     }
 
     @OnClose

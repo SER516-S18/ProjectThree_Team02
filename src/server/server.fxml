@@ -277,7 +277,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="278.0" prefWidth="500.0" GridPane.rowIndex="1">
                      <children>
-                        <TextArea id="logTextArea" editable="false" prefHeight="302.0" prefWidth="500.0" style="-fx-background-color: transparent;">
+                        <TextArea fx:id="logTextArea" editable="false" prefHeight="302.0" prefWidth="500.0" style="-fx-background-color: transparent;">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin></TextArea>
