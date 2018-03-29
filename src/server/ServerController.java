@@ -1,6 +1,7 @@
 package server;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -77,10 +78,24 @@ public class ServerController implements Initializable{
             networkThread.cancel();
             frequencyTextField.setDisable(false);
             powerButton.setText("Start");
+            //Setting button style class to unpressedPowerButton
+            ObservableList<String> styleClasses = powerButton.getStyleClass();
+            for(int i = 0; i < styleClasses.size(); i++){
+                if(styleClasses.get(i).equals("pressedPowerButton")){
+                    powerButton.getStyleClass().set(i, "unpressedPowerButton");
+                }
+            }
         }else{
             networkThread.restart();
             frequencyTextField.setDisable(true);
             powerButton.setText("Stop");
+            //Setting button style class to pressedPowerButton
+            ObservableList<String> styleClasses = powerButton.getStyleClass();
+            for(int i = 0; i < styleClasses.size(); i++){
+                if(styleClasses.get(i).equals("unpressedPowerButton")){
+                    powerButton.getStyleClass().set(i, "pressedPowerButton");
+                }
+            }
         }
     }
 
@@ -132,6 +147,7 @@ public class ServerController implements Initializable{
                 Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest.toString()), "utf-8"));
                 writer.write(logContent);
                 writer.close();
+                System.out.println("Log file has been saved to: " + dest.toString() + curTime + ".txt");
             } catch (Exception e){
                 System.out.println("Cannot Save File " + dest.toString());
             }

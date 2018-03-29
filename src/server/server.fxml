@@ -96,7 +96,7 @@
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="powerButton" mnemonicParsing="false" onAction="#powerControl" prefHeight="70.0" prefWidth="70.0" text="Start">
+                        <Button fx:id="powerButton" mnemonicParsing="false" onAction="#powerControl" prefHeight="70.0" prefWidth="70.0" styleClass="unpressedPowerButton" text="Start">
                            <font>
                               <Font size="16.0" />
                            </font>
