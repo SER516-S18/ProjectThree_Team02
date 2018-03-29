@@ -39,6 +39,47 @@ public class ServerController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
+        //Create Network Service
+        initNetworkService();
+
+        //Redirect stdout to text area
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                Platform.runLater(() -> logTextArea.appendText(String.valueOf((char) b)));
+            }
+        };
+        System.setOut(new PrintStream(out, true));
+
+        //Inital work done
+        System.out.print("Press Start Button to start server.\n");
+    }
+
+    /**
+     * Event Listener for Button powerControl
+     * When button be clicked will produce an event
+     * Button fx:id: powerControl
+     * @param event
+     */
+    @FXML private void powerControl(ActionEvent event){
+
+        if(networkThread.isRunning()){
+            networkThread.cancel();
+            powerButton.setText("Start");
+        }else{
+            networkThread.restart();
+            powerButton.setText("Stop");
+        }
+
+    }
+
+    /**
+     * Create network Service
+     * It can run as background thread
+     * Make sure not blocking main JavaFX UI thread.
+     * @see Service
+     */
+    private void initNetworkService(){
         //Create new background network thread using JavaFX Service
         networkThread = new Service<Void>() {
             @Override
@@ -69,33 +110,8 @@ public class ServerController implements Initializable{
             }
         };
 
-        //Add Event handlers for net thread
+        //Add Event handlers for network thread
         addEventHnadlerForNetworkThread();
-
-        //Redirect stdout to text area
-        OutputStream out = new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-                Platform.runLater(() -> logTextArea.appendText(String.valueOf((char) b)));
-            }
-        };
-        System.setOut(new PrintStream(out, true));
-
-        //Inital work done
-
-        System.out.print("Press Start Button to start server.\n");
-    }
-
-    @FXML private void powerControl(ActionEvent event){
-
-        if(networkThread.isRunning()){
-            networkThread.cancel();
-            powerButton.setText("Start");
-        }else{
-            networkThread.restart();
-            powerButton.setText("Stop");
-        }
-
     }
 
     /**
@@ -125,5 +141,4 @@ public class ServerController implements Initializable{
             }
         });
     }
-
 }
