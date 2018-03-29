@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.LogManager;
 
+/**
+ * TODO: Add comment
+ */
 public class ServerController implements Initializable{
 
     public static final int PORT = 3000;
@@ -70,7 +73,6 @@ public class ServerController implements Initializable{
             networkThread.restart();
             powerButton.setText("Stop");
         }
-
     }
 
     /**
@@ -94,10 +96,11 @@ public class ServerController implements Initializable{
                                         PORT,
                                         "/" + ROOT_PATH,
                                         ServerEndpoint.class);
-                        //Disable logger
+                        //Disable default websocket server logger
                         LogManager.getLogManager().reset();
                         try {
                             server.start();
+                            //When Main JavaFX thread call cancel() method, isCancelled will become true.
                             while(!isCancelled()){}
                         } catch (Exception e) {
                             throw new RuntimeException(e);
