@@ -1,8 +1,6 @@
 package server;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -64,37 +62,39 @@ public class ServerController implements Initializable{
             }
         };
 
-        System.out.println("Press Start Button to start server.\n");
-
-        networkThread.setOnRunning(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                System.out.println("Websocket Server Started: ws://" + HOST_NAME + ":" + PORT + "\n");
-            }
-        });
-
-        networkThread.setOnFailed(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                System.out.println("Error Occurred\n");
-            }
-        });
-
-        networkThread.setOnCancelled(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                System.out.println("Websocket Server Stopped\n");
-            }
-        });
-
+        //Redirect stdout to text area
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 appendText(String.valueOf((char) b));
             }
         };
+
         System.setOut(new PrintStream(out, true));
 
+        System.out.print("Press Start Button to start server.\n");
+
+        networkThread.setOnRunning(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.print("Websocket Server Started: ws://" + HOST_NAME + ":" + PORT + "\n");
+            }
+        });
+
+        networkThread.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.print("Error Occurred\n");
+            }
+        });
+
+        networkThread.setOnCancelled(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.println();
+                System.out.print("Websocket Server Stopped\n");
+            }
+        });
     }
 
     @FXML private void powerControl(ActionEvent event){
@@ -110,8 +110,10 @@ public class ServerController implements Initializable{
     }
 
     /**
-     *
+     * Used to redirect stdout to textarea
+     * It will run when UI thread idle
      * @param str
+     * @see Platform
      */
     public void appendText(String str) {
         Platform.runLater(() -> logTextArea.appendText(str));
