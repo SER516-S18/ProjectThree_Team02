@@ -65,7 +65,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Text>
-                              <TextField alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="40.0" text="1">
+                              <TextField fx:id="frequencyTextField" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="40.0" text="1">
                                  <font>
                                     <Font name="Consolas" size="12.0" />
                                  </font>
@@ -290,7 +290,7 @@
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="clearButton" onAction="#clearControl" mnemonicParsing="false" text="Clear">
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearControl" text="Clear">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>

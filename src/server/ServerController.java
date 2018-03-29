@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,6 +33,7 @@ public class ServerController implements Initializable{
 
     @FXML Button powerButton;
     @FXML TextArea logTextArea;
+    @FXML TextField frequencyTextField;
 
     /**
      * All works after create controller
@@ -68,9 +70,11 @@ public class ServerController implements Initializable{
 
         if(networkThread.isRunning()){
             networkThread.cancel();
+            frequencyTextField.setDisable(false);
             powerButton.setText("Start");
         }else{
             networkThread.restart();
+            frequencyTextField.setDisable(true);
             powerButton.setText("Stop");
         }
     }
