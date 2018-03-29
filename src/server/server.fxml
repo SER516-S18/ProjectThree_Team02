@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="700.0" maxWidth="500.0" minHeight="700.0" minWidth="500.0" prefHeight="700.0" prefWidth="500.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerController">
+<AnchorPane fx:id="anchorPane" maxHeight="700.0" maxWidth="500.0" minHeight="700.0" minWidth="500.0" prefHeight="700.0" prefWidth="500.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerController">
    <children>
       <Pane prefHeight="25.0" prefWidth="500.0">
          <children>
@@ -250,7 +250,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" text="Active" />
+                        <Button mnemonicParsing="false" prefWidth="50.0" text="Active" />
                         <CheckBox mnemonicParsing="false" text="Auto Reset">
                            <font>
                               <Font size="16.0" />
@@ -290,9 +290,14 @@
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearControl" text="Clear">
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearControl" prefWidth="50.0" text="Clear">
                            <HBox.margin>
                               <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="saveLogButton" mnemonicParsing="false" onAction="#saveLogControl" prefWidth="50.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
