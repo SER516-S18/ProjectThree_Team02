@@ -59,9 +59,9 @@ public class ServerController implements Initializable{
     }
 
     /**
-     * Event Listener for Button powerControl
+     * Event Listener for Button powerButton
      * When button be clicked will produce an event
-     * Button fx:id: powerControl
+     * Button fx:id: powerButton
      * @param event
      */
     @FXML private void powerControl(ActionEvent event){
@@ -73,6 +73,17 @@ public class ServerController implements Initializable{
             networkThread.restart();
             powerButton.setText("Stop");
         }
+    }
+
+    /**
+     * Event Listener for Button clearButton
+     * When button be clicked will produce an event
+     * Button fx:id: clearButton
+     * @param event
+     */
+    @FXML private void clearControl(ActionEvent event){
+        logTextArea.clear();
+        System.out.print("Log console has been cleared!\n");
     }
 
     /**
