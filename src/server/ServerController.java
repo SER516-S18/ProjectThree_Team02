@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -137,6 +136,16 @@ public class ServerController implements Initializable{
                 System.out.println("Cannot Save File " + dest.toString());
             }
         }
+    }
+
+    /**
+     * Event Listener for Button saveLogButton
+     * When button be clicked will produce an event
+     * Button fx:id: saveLogButton
+     * @param event
+     */
+    @FXML private void menuExit(ActionEvent event){
+        Platform.exit();
     }
 
     /**
