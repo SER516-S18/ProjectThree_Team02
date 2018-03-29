@@ -30,9 +30,16 @@ public class ServerController implements Initializable{
     @FXML Button powerButton;
     @FXML TextArea logTextArea;
 
+    /**
+     * All works after create controller
+     * All initial works should in this method
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
+        //Create new background network thread using JavaFX Service
         networkThread = new Service<Void>() {
             @Override
             protected Task<Void> createTask(){
@@ -62,18 +69,40 @@ public class ServerController implements Initializable{
             }
         };
 
+        //Add Event handlers for net thread
+        addEventHnadlerForNetworkThread();
+
         //Redirect stdout to text area
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
-                appendText(String.valueOf((char) b));
+                Platform.runLater(() -> logTextArea.appendText(String.valueOf((char) b)));
             }
         };
-
         System.setOut(new PrintStream(out, true));
 
-        System.out.print("Press Start Button to start server.\n");
+        //Inital work done
 
+        System.out.print("Press Start Button to start server.\n");
+    }
+
+    @FXML private void powerControl(ActionEvent event){
+
+        if(networkThread.isRunning()){
+            networkThread.cancel();
+            powerButton.setText("Start");
+        }else{
+            networkThread.restart();
+            powerButton.setText("Stop");
+        }
+
+    }
+
+    /**
+     * Add event handlers for network thread
+     * @see Service
+     */
+    private void addEventHnadlerForNetworkThread(){
         networkThread.setOnRunning(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
@@ -91,31 +120,10 @@ public class ServerController implements Initializable{
         networkThread.setOnCancelled(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.println();
                 System.out.print("Websocket Server Stopped\n");
+                System.out.println();
             }
         });
     }
 
-    @FXML private void powerControl(ActionEvent event){
-
-        if(networkThread.isRunning()){
-            networkThread.cancel();
-            powerButton.setText("Start");
-        }else{
-            networkThread.restart();
-            powerButton.setText("Stop");
-        }
-
-    }
-
-    /**
-     * Used to redirect stdout to textarea
-     * It will run when UI thread idle
-     * @param str
-     * @see Platform
-     */
-    public void appendText(String str) {
-        Platform.runLater(() -> logTextArea.appendText(str));
-    }
 }
