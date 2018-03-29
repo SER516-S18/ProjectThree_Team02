@@ -17,12 +17,21 @@ import static util.JsonUtil.formatMessage;
 
 public class Client extends Application {
 
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("Client.fxml"));
+        primaryStage.setTitle("Client");
+        primaryStage.setScene(new Scene(root, 770, 600));
+        primaryStage.show();
+    }
     public static final String PORT = "3000";
     public static final String SERVER_ENDPOINT = "face";
     public static final String SERVER =
             "ws://localhost:" + PORT + "/" + SERVER_ENDPOINT;
 
     public static void main(String[] args) throws Exception {
+        launch(args);
         ClientManager client = ClientManager.createClient();
         String message;
 
@@ -39,14 +48,7 @@ public class Client extends Application {
             System.out.println( "Sending to server: " + msg );
             session.getBasicRemote().sendText( msg );
         } while (!message.equalsIgnoreCase("quit"));
-        launch(args);
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Users/sanaydevi/Downloads/ProjectThree_Team02-master/src/client/Client.fxml"));
-        primaryStage.setTitle("Client");
-        primaryStage.setScene(new Scene(root, 770, 600));
-        primaryStage.show();
-    }
+
 }
