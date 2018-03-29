@@ -1,16 +1,14 @@
 package server;
 
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import javax.websocket.DeploymentException;
-import java.util.Scanner;
-
+/**
+ * TODO: Add comment
+ */
 public class Server extends Application {
 
     //UI scene
@@ -30,11 +28,14 @@ public class Server extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("server.fxml"));
-        primaryStage.setTitle("Server");
+        primaryStage.setTitle("SER516 Team02 Server");
+
         scene = new Scene(root, 500, 700);
+
         primaryStage.setScene(scene);
-        //Set window resizable
+        //Set window non-resizable
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         primaryStage.show();
@@ -45,6 +46,5 @@ public class Server extends Application {
         //Launch JavaFX UI
         //Main Thread
         launch(args);
-
     }
 }
