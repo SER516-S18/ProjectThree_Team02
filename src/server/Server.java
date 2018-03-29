@@ -42,7 +42,8 @@ public class Server extends Application {
 
     public static void main(String[] args) {
 
-        //Launch JavaFX UI in a new thread
+        //Launch JavaFX UI
+        //Main Thread
         launch(args);
 
     }
