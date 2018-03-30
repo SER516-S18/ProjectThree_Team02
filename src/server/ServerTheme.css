@@ -31,6 +31,21 @@
     -fx-background-radius: 3,2,1;
 }
 
+/* Other buttons*/
+.serverButton {
+    -fx-padding: 1;
+}
+
+/* Check Box*/
+.serverCheckBox {
+
+}
+
+/* Text Field */
+.serverTextField {
+    -fx-padding: 0;
+}
+
 /* Log Console TextArea */
 .text-area {
     -fx-background-color: transparent;
