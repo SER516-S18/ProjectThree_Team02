@@ -66,7 +66,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="frequencyTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" text="1" />
+                              <TextField fx:id="frequencyTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" sec">
                                  <font>
                                     <Font size="14.0" />
@@ -143,12 +143,12 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="exatementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" text="0.60" />
+                        <TextField fx:id="exatementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="engagementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" text="0.20" />
+                        <TextField fx:id="engagementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -165,7 +165,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                      <children>
-                        <TextField fx:id="longtermTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" text="0.47" />
+                        <TextField fx:id="longtermTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -239,7 +239,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <TextField fx:id="upperfaceTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" text="0.00" />
+                        <TextField fx:id="upperfaceTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -247,7 +247,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="lowerfaceTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" text="0.00" />
+                        <TextField fx:id="lowerfaceTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -263,7 +263,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <children>
-                        <CheckBox mnemonicParsing="false" styleClass="serverCheckBox" text="Auto Reset">
+                        <CheckBox fx:id="autoresetCheckbox" mnemonicParsing="false" styleClass="serverCheckBox" text="Auto Reset">
                            <font>
                               <Font size="14.0" />
                            </font>

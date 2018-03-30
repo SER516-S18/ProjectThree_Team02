@@ -13,31 +13,31 @@ public class ServerModel {
     public static final double DEFAULT_EMO_STATE_INTERVAL = 0.25;
 
     private SimpleDoubleProperty emoStateInterval;
-    private SimpleDoubleProperty timeElapsed;
+    //private SimpleDoubleProperty timeElapsed;
     private SimpleBooleanProperty autoRest;
 
     private SimpleStringProperty eyeDataType;
     private SimpleStringProperty lowerfaceDataType;
     private SimpleStringProperty upperfaceDataType;
-    private SimpleStringProperty emotionalStatesDataType;
+    //private SimpleStringProperty emotionalStatesDataType;
 
-    private SimpleDoubleProperty eyeDataValue;
+    //private SimpleDoubleProperty eyeDataValue;
     private SimpleDoubleProperty lowerfaceDataValue;
     private SimpleDoubleProperty upperfaceDataValue;
-    private SimpleDoubleProperty emotionalStatesDataValue;
+    //private SimpleDoubleProperty emotionalStatesDataValue;
 
     public ServerModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);
         autoRest = new SimpleBooleanProperty(false);
-        timeElapsed = new SimpleDoubleProperty((double)0);
+        //timeElapsed = new SimpleDoubleProperty((double)0);
         eyeDataType = new SimpleStringProperty(EyeData.BLINK);
         lowerfaceDataType = new SimpleStringProperty(LowerfaceData.SMILE);
         upperfaceDataType = new SimpleStringProperty(UpperfaceData.RAISE_BROW);
-        emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
-        eyeDataValue = new SimpleDoubleProperty((double)0);
+        //emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
+        //eyeDataValue = new SimpleDoubleProperty((double)0);
         lowerfaceDataValue = new SimpleDoubleProperty((double)0);
         upperfaceDataValue = new SimpleDoubleProperty((double)0);
-        emotionalStatesDataValue = new SimpleDoubleProperty((double)0);
+        //emotionalStatesDataValue = new SimpleDoubleProperty((double)0);
     }
 
     public double getEmoStateInterval() {
@@ -52,17 +52,19 @@ public class ServerModel {
         this.emoStateInterval.set(emoStateInterval);
     }
 
+    /*
     public double getTimeElapsed() {
         return timeElapsed.get();
-    }
+    }*/
 
+    /*
     public SimpleDoubleProperty timeElapsedProperty() {
         return timeElapsed;
     }
 
     public void setTimeElapsed(double timeElapsed) {
         this.timeElapsed.set(timeElapsed);
-    }
+    }*/
 
     public String getEyeDataType() {
         return eyeDataType.get();
@@ -100,6 +102,7 @@ public class ServerModel {
         this.upperfaceDataType.set(upperfaceDataType);
     }
 
+    /*
     public String getEmotionalStatesDataType() {
         return emotionalStatesDataType.get();
     }
@@ -122,7 +125,7 @@ public class ServerModel {
 
     public void setEyeDataValue(double eyeDataValue) {
         this.eyeDataValue.set(eyeDataValue);
-    }
+    }*/
 
     public double getLowerfaceDataValue() {
         return lowerfaceDataValue.get();
@@ -148,6 +151,7 @@ public class ServerModel {
         this.upperfaceDataValue.set(upperfaceDataValue);
     }
 
+    /*
     public double getEmotionalStatesDataValue() {
         return emotionalStatesDataValue.get();
     }
@@ -158,7 +162,7 @@ public class ServerModel {
 
     public void setEmotionalStatesDataValue(double emotionalStatesDataValue) {
         this.emotionalStatesDataValue.set(emotionalStatesDataValue);
-    }
+    }*/
 
     public boolean isAutoRest() {
         return autoRest.get();

@@ -1,10 +1,15 @@
 package server;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 /**
  * TODO: Add comment
@@ -13,6 +18,9 @@ public class Server extends Application {
 
     //UI scene
     private static Scene scene;
+
+    //Model
+    private static ServerModel serverModel;
 
     /**
      * The main entry point for all JavaFX applications.
@@ -35,6 +43,22 @@ public class Server extends Application {
         scene = new Scene(root, 420, 500);
 
         primaryStage.setScene(scene);
+
+        serverModel = new ServerModel();
+
+        //Binding data values with model
+        TextField frequencyTextFiled = (TextField) scene.lookup("#frequencyTextField");
+        Bindings.bindBidirectional(frequencyTextFiled.textProperty(), serverModel.emoStateIntervalProperty(), new NumberStringConverter());
+
+        TextField upperfaceTextField = (TextField) scene.lookup("#upperfaceTextField");
+        Bindings.bindBidirectional(upperfaceTextField.textProperty(), serverModel.upperfaceDataValueProperty(), new NumberStringConverter());
+
+        TextField lowerfaceTextField = (TextField) scene.lookup("#lowerfaceTextField");
+        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), serverModel.lowerfaceDataValueProperty(), new NumberStringConverter());
+
+        CheckBox autoresetCheckbox = (CheckBox) scene.lookup("#autoresetCheckbox");
+        Bindings.bindBidirectional(autoresetCheckbox.selectedProperty(), serverModel.autoRestProperty());
+
 
         //Set window non-resizable
         primaryStage.setResizable(false);
