@@ -1,14 +1,14 @@
 package server;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,12 +25,14 @@ import java.util.ResourceBundle;
  */
 public class ServerController implements Initializable{
 
-    private Service<Void> networkThread;
+    private ServerNetworkService<Void> networkThread;
 
     @FXML private AnchorPane anchorPane;
     @FXML private Button powerButton;
     @FXML private TextArea logTextArea;
-    @FXML private TextField frequencyTextField;
+    @FXML private ChoiceBox choiceboxUpperface;
+    @FXML private ChoiceBox choiceboxLowerface;
+    @FXML private ChoiceBox choiceboxEye;
 
     /**
      * All works after create controller
@@ -45,6 +47,7 @@ public class ServerController implements Initializable{
         networkThread = new ServerNetworkService();
 
         //Redirect stdout to text area
+        //Using Platform.runLater() to aboid blocking main UI thread
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
@@ -52,6 +55,14 @@ public class ServerController implements Initializable{
             }
         };
         System.setOut(new PrintStream(out, true));
+
+        //Setting choice boxes
+        choiceboxUpperface.setItems(FXCollections.observableArrayList("Raise Brow", "Furrow Brow"));
+        choiceboxUpperface.getSelectionModel().selectFirst();
+        choiceboxLowerface.setItems(FXCollections.observableArrayList("Smile", "Clench", "smirkLeft", "smirkRight", "laugh"));
+        choiceboxLowerface.getSelectionModel().selectFirst();
+        choiceboxEye.setItems(FXCollections.observableArrayList("Blink", "Wink Left", "Wink Right", "Look Left", "Look Right"));
+        choiceboxEye.getSelectionModel().selectFirst();
 
         //Inital work done
         System.out.print("Press Start Button to start server.\n");
@@ -67,7 +78,6 @@ public class ServerController implements Initializable{
 
         if(networkThread.isRunning()){
             networkThread.cancel();
-            frequencyTextField.setDisable(false);
             powerButton.setText("Start");
             //Setting button style class to unpressedPowerButton
             ObservableList<String> styleClasses = powerButton.getStyleClass();
@@ -78,7 +88,7 @@ public class ServerController implements Initializable{
             }
         }else{
             networkThread.restart();
-            frequencyTextField.setDisable(true);
+
             powerButton.setText("Stop");
             //Setting button style class to pressedPowerButton
             ObservableList<String> styleClasses = powerButton.getStyleClass();
@@ -98,7 +108,7 @@ public class ServerController implements Initializable{
      */
     @FXML private void clearControl(ActionEvent event){
         logTextArea.clear();
-        System.out.print("Log console has been cleared!\n");
+        //System.out.print("Log console has been cleared!\n");
     }
 
     /**
@@ -136,6 +146,7 @@ public class ServerController implements Initializable{
             try{
                 //Save log file to local storage
                 Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest.toString()), "utf-8"));
+                //TODO: that maybe block Main UI thread, should find a way to optimize it
                 writer.write(logContent);
                 writer.close();
                 System.out.println("Log file has been saved to: " + dest.toString() + curTime + ".txt");
@@ -154,5 +165,4 @@ public class ServerController implements Initializable{
     @FXML private void menuExit(ActionEvent event){
         Platform.exit();
     }
-
 }

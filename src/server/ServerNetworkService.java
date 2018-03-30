@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 
 import java.util.logging.LogManager;
 
-public class ServerNetworkService extends Service{
+public class ServerNetworkService<T> extends Service<T>{
 
     public static final int PORT = 3000;
     public static final String HOST_NAME = "localhost";

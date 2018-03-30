@@ -29,12 +29,13 @@ public class Server extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("server.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("serverUI.fxml"));
         primaryStage.setTitle("SER516 Team02 Server");
 
         scene = new Scene(root, 420, 500);
 
         primaryStage.setScene(scene);
+
         //Set window non-resizable
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
