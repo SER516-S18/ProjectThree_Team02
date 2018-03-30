@@ -32,7 +32,7 @@ public class Server extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("server.fxml"));
         primaryStage.setTitle("SER516 Team02 Server");
 
-        scene = new Scene(root, 500, 700);
+        scene = new Scene(root, 420, 500);
 
         primaryStage.setScene(scene);
         //Set window non-resizable
