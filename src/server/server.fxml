@@ -8,11 +8,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="700.0" maxWidth="500.0" minHeight="700.0" minWidth="500.0" prefHeight="700.0" prefWidth="500.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerController">
+<AnchorPane fx:id="anchorPane" maxHeight="500.0" maxWidth="400.0" minHeight="500.0" minWidth="400.0" prefHeight="500.0" prefWidth="400.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerController">
    <children>
-      <Pane prefHeight="25.0" prefWidth="500.0">
+      <Pane prefHeight="25.0" prefWidth="400.0">
          <children>
-            <MenuBar prefHeight="25.0" prefWidth="500.0">
+            <MenuBar prefHeight="25.0" prefWidth="400.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -29,15 +29,16 @@
             </MenuBar>
          </children>
       </Pane>
-      <GridPane layoutY="25.0" prefHeight="675.0" prefWidth="500.0">
+      <GridPane layoutY="25.0" prefHeight="475.0" prefWidth="400.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="108.0" minHeight="108.0" prefHeight="108.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="108.0" minHeight="108.0" prefHeight="108.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="162.0" minHeight="162.0" prefHeight="162.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="297.0" minHeight="297.0" prefHeight="297.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="105.0" minHeight="105.0" prefHeight="105.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="195.0" minHeight="195.0" prefHeight="195.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <GridPane prefHeight="125.0" prefWidth="500.0">
@@ -62,7 +63,7 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data Sending Interval: ">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Text>
                               <TextField fx:id="frequencyTextField" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="40.0" text="1">
@@ -72,24 +73,24 @@
                               </TextField>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" sec">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Text>
                            </children>
                            <GridPane.margin>
-                              <Insets left="35.0" />
+                              <Insets left="10.0" />
                            </GridPane.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <CheckBox mnemonicParsing="false" text="Auto Repeat">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </CheckBox>
                            </children>
                            <GridPane.margin>
-                              <Insets left="35.0" />
+                              <Insets left="10.0" />
                            </GridPane.margin>
                         </HBox>
                      </children>
@@ -100,6 +101,9 @@
                            <font>
                               <Font size="16.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
@@ -107,9 +111,9 @@
             </GridPane>
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="235.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="80.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="4.0" prefWidth="116.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="148.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="4.0" prefWidth="98.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="70.0" />
               </columnConstraints>
               <rowConstraints>
@@ -121,32 +125,32 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Exatement ">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </children>
                      <GridPane.margin>
-                        <Insets left="35.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets left="35.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Engagement/Boredom">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <TextField prefHeight="25.0" prefWidth="40.0" text="0.60" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <TextField prefHeight="25.0" prefWidth="40.0" text="0.20" />
                      </children></HBox>
@@ -154,7 +158,7 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Term">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </children>
@@ -171,9 +175,9 @@
             </GridPane>
             <GridPane GridPane.rowIndex="2">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="299.0" minWidth="10.0" prefWidth="137.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="166.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="198.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="299.0" minWidth="10.0" prefWidth="84.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="111.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="164.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -185,36 +189,36 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Upperface">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </children>
                      <GridPane.margin>
-                        <Insets left="35.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lowerface">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </children>
                      <GridPane.margin>
-                        <Insets left="35.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Eye">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </children>
                      <GridPane.margin>
-                        <Insets left="35.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -237,7 +241,7 @@
                         <TextField prefWidth="40.0" text="0.00" />
                      </children>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -245,7 +249,7 @@
                         <TextField prefWidth="40.0" text="0.00" />
                      </children>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -253,7 +257,7 @@
                         <Button mnemonicParsing="false" prefWidth="50.0" text="Active" />
                         <CheckBox mnemonicParsing="false" text="Auto Reset">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="14.0" />
                            </font>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -261,52 +265,48 @@
                         </CheckBox>
                      </children>
                      <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </HBox>
-               </children>
-            </GridPane>
-            <GridPane GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="274.0" minHeight="10.0" prefHeight="274.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER" prefHeight="278.0" prefWidth="500.0" GridPane.rowIndex="1">
-                     <children>
-                        <TextArea fx:id="logTextArea" editable="false" prefHeight="302.0" prefWidth="500.0">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin></TextArea>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Log: ">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Text>
-                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearControl" prefWidth="50.0" text="Clear">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="saveLogButton" mnemonicParsing="false" onAction="#saveLogControl" prefWidth="50.0" text="Save">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
                </children>
             </GridPane>
+            <GridPane GridPane.rowIndex="4">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="195.0" minHeight="195.0" prefHeight="195.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="278.0" prefWidth="500.0">
+                     <children>
+                        <TextArea fx:id="logTextArea" editable="false" prefHeight="231.0" prefWidth="400.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Log: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearControl" prefWidth="50.0" text="Clear">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="saveLogButton" mnemonicParsing="false" onAction="#saveLogControl" prefWidth="50.0" text="Save">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </HBox>
          </children>
       </GridPane>
    </children>
