@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static java.lang.String.format;
 
-@javax.websocket.server.ServerEndpoint(value = "/" + ServerController.FACE_ENDPOINT, encoders = JsonPayloadEncoder.class, decoders = JsonPayloadDecoder.class)
+@javax.websocket.server.ServerEndpoint(value = "/" + ServerNetworkService.FACE_ENDPOINT, encoders = JsonPayloadEncoder.class, decoders = JsonPayloadDecoder.class)
 public class ServerEndpoint {
 
     private static Set<Session> connections = Collections.synchronizedSet(new HashSet<Session>());

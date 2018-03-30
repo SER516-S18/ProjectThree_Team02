@@ -3,10 +3,7 @@ package server;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,17 +19,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.LogManager;
 
 /**
  * TODO: Add comment
  */
 public class ServerController implements Initializable{
-
-    public static final int PORT = 3000;
-    public static final String HOST_NAME = "localhost";
-    public static final String ROOT_PATH = "";
-    public static final String FACE_ENDPOINT = "face";
 
     private Service<Void> networkThread;
 
@@ -51,7 +42,7 @@ public class ServerController implements Initializable{
     public void initialize(URL location, ResourceBundle resources){
 
         //Create Network Service
-        initNetworkService();
+        networkThread = new ServerNetworkService();
 
         //Redirect stdout to text area
         OutputStream out = new OutputStream() {
@@ -164,73 +155,4 @@ public class ServerController implements Initializable{
         Platform.exit();
     }
 
-    /**
-     * Create network Service
-     * It can run as background thread
-     * Make sure not blocking main JavaFX UI thread.
-     * @see Service
-     */
-    private void initNetworkService(){
-        //Create new background network thread using JavaFX Service
-        networkThread = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask(){
-                return new Task<Void>(){
-                    @Override
-                    protected Void call() throws Exception {
-
-                        org.glassfish.tyrus.server.Server server =
-                                new org.glassfish.tyrus.server.Server(
-                                        HOST_NAME,
-                                        PORT,
-                                        "/" + ROOT_PATH,
-                                        ServerEndpoint.class);
-                        //Disable default websocket server logger
-                        LogManager.getLogManager().reset();
-                        try {
-                            server.start();
-                            //When Main JavaFX thread call cancel() method, isCancelled will become true.
-                            while(!isCancelled()){}
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        } finally {
-                            server.stop();
-                        }
-                        return null;
-                    }
-                };
-            }
-        };
-
-        //Add Event handlers for network thread
-        addEventHnadlerForNetworkThread();
-    }
-
-    /**
-     * Add event handlers for network thread
-     * @see Service
-     */
-    private void addEventHnadlerForNetworkThread(){
-        networkThread.setOnRunning(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                System.out.print("Websocket Server Started: ws://" + HOST_NAME + ":" + PORT + "\n");
-            }
-        });
-
-        networkThread.setOnFailed(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                System.out.print("Error Occurred\n");
-            }
-        });
-
-        networkThread.setOnCancelled(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                System.out.print("Websocket Server Stopped\n");
-                System.out.println();
-            }
-        });
-    }
 }
