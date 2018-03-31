@@ -19,18 +19,6 @@ public class Server extends Application {
     //UI scene
     private static Scene scene;
 
-    //Model
-    private static ServerModel serverModel;
-
-    /**
-     * @return Singleton server model instance
-     */
-    protected static ServerModel getServerModel(){
-        if( serverModel == null ){
-            serverModel = new ServerModel();
-        }
-        return serverModel;
-    }
 
     /**
      * The main entry point for all JavaFX applications.
@@ -54,21 +42,18 @@ public class Server extends Application {
 
         primaryStage.setScene(scene);
 
-        // Instantiates server model if not done already.
-        getServerModel();
-
         //Binding data values with model
         TextField frequencyTextFiled = (TextField) scene.lookup("#frequencyTextField");
-        Bindings.bindBidirectional(frequencyTextFiled.textProperty(), serverModel.emoStateIntervalProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(frequencyTextFiled.textProperty(), ServerModel.getInstance().emoStateIntervalProperty(), new NumberStringConverter());
 
         TextField upperfaceTextField = (TextField) scene.lookup("#upperfaceTextField");
-        Bindings.bindBidirectional(upperfaceTextField.textProperty(), serverModel.upperfaceDataValueProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(upperfaceTextField.textProperty(), ServerModel.getInstance().upperfaceDataValueProperty(), new NumberStringConverter());
 
         TextField lowerfaceTextField = (TextField) scene.lookup("#lowerfaceTextField");
-        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), serverModel.lowerfaceDataValueProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), ServerModel.getInstance().lowerfaceDataValueProperty(), new NumberStringConverter());
 
         CheckBox autoresetCheckbox = (CheckBox) scene.lookup("#autoresetCheckbox");
-        Bindings.bindBidirectional(serverModel.autoRestProperty(), autoresetCheckbox.selectedProperty());
+        Bindings.bindBidirectional(ServerModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
 
 
         //Set window non-resizable
