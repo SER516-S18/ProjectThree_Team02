@@ -1,11 +1,11 @@
-package datadefine;
+package model;
 
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-public class UpperfaceData {
+public class UpperFaceData {
 
     public static final String RAISE_BROW = "Raise Brow";
     public static final String FURROW_BROW = "Furrow Brow";
@@ -13,16 +13,16 @@ public class UpperfaceData {
     private double raiseBrow;
     private double furrowBrow;
 
-    public UpperfaceData() {
+    public UpperFaceData() {
         raiseBrow = 0;
         furrowBrow = 0;
     }
 
-    public UpperfaceData(String jstr) {
+    public UpperFaceData(String jstr) {
         setFromString(jstr);
     }
 
-    public UpperfaceData(JsonObject jobj) {
+    public UpperFaceData(JsonObject jobj) {
         setFromJsonObject(jobj);
     }
 
@@ -42,6 +42,7 @@ public class UpperfaceData {
         this.furrowBrow = furrowBrow;
     }
 
+    // TODO - this should be in the client controller
     public void setFromString(String jstr) {
         JsonReader reader = Json.createReader(new StringReader(jstr));
         JsonObject jobj = reader.readObject();
@@ -49,15 +50,9 @@ public class UpperfaceData {
         setFromJsonObject(jobj);
     }
 
+    // TODO - this should be in the client controller
     public void setFromJsonObject(JsonObject jobj) {
         setRaiseBrow(jobj.getJsonNumber(RAISE_BROW).doubleValue());
         setFurrowBrow(jobj.getJsonNumber(FURROW_BROW).doubleValue());
-    }
-
-    public JsonObject getJsonObject() {
-        return Json.createObjectBuilder()
-                .add(RAISE_BROW, getRaiseBrow())
-                .add(FURROW_BROW, getFurrowBrow())
-                .build();
     }
 }

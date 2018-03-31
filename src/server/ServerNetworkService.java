@@ -4,14 +4,16 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import javax.websocket.Session;
 
+import java.io.IOException;
 import java.util.logging.LogManager;
 
 public class ServerNetworkService<T> extends Service<T>{
 
     public static final int PORT = 3000;
     public static final String HOST_NAME = "localhost";
-    public static final String ROOT_PATH = "";
+    public static final String ROOT_PATH = "/";
     public static final String FACE_ENDPOINT = "face";
 
     /**
@@ -30,14 +32,20 @@ public class ServerNetworkService<T> extends Service<T>{
                         new org.glassfish.tyrus.server.Server(
                                 HOST_NAME,
                                 PORT,
-                                "/" + ROOT_PATH,
+                                ROOT_PATH,
                                 ServerEndpoint.class);
                 //Disable default websocket server logger
                 LogManager.getLogManager().reset();
                 try {
                     server.start();
                     //When Main JavaFX thread call cancel() method, isCancelled will become true.
-                    while(!isCancelled()){}
+                    while(!isCancelled()){
+                        // Send data to the clients when in a sending state
+                        // TODO - do this without polling
+                        while(ServerController.getInstance().isSendingData()){
+                            sendPayloadToAllClients();
+                        }
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 } finally {
@@ -74,5 +82,23 @@ public class ServerNetworkService<T> extends Service<T>{
                 System.out.println();
             }
         });
+    }
+
+    /**
+     * Send the JSON payload containing face values, frequency and status
+     */
+    private void sendPayloadToAllClients(){
+        String jsonPayload = ServerController.getInstance().formatMessage();
+        for( Session connection : ServerEndpoint.connections ){
+            try {
+                connection.getBasicRemote().sendText( jsonPayload );
+                System.out.println( "Sent data to client " +
+                        connection.getId() );
+            } catch( IOException e ){
+                System.out.println( "Failed to send data to client: "
+                        + connection.getId() );
+                e.printStackTrace();
+            }
+        }
     }
 }

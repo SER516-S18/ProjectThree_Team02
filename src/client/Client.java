@@ -10,10 +10,7 @@ import org.glassfish.tyrus.client.ClientManager;
 import javax.websocket.Session;
 import java.net.URI;
 import java.util.Scanner;
-import javafx.*;
 
-
-import static util.JsonUtil.formatMessage;
 
 public class Client extends Application {
 
@@ -40,11 +37,12 @@ public class Client extends Application {
         Session session = client.connectToServer(
                 ClientEndpoint.class,
                 new URI( SERVER ) );
+        System.out.println("Connected to server");
         // repeatedly read a network.message and send it to the server
         // (until quit)
         do {
             message = scanner.nextLine();
-            String msg = formatMessage( message );
+            String msg = message;
             System.out.println( "Sending to server: " + msg );
             session.getBasicRemote().sendText( msg );
         } while (!message.equalsIgnoreCase("quit"));

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="500.0" maxWidth="420.0" minHeight="500.0" minWidth="420.0" prefHeight="500.0" prefWidth="420.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerController">
+<AnchorPane fx:id="anchorPane" maxHeight="500.0" maxWidth="420.0" minHeight="500.0" minWidth="420.0" prefHeight="500.0" prefWidth="420.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerUIController">
    <children>
       <HBox prefHeight="25.0" prefWidth="420.0">
          <children>
@@ -79,7 +79,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Auto Repeat">
+                              <CheckBox fx:id="autoRepeatCheckbox" mnemonicParsing="false" text="Auto Repeat">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

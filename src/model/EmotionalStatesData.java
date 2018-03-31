@@ -1,4 +1,4 @@
-package datadefine;
+package model;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -86,6 +86,7 @@ public class EmotionalStatesData {
         this.Focus = focus;
     }
 
+    // TODO - this should be in the client controller
     public void setFromString(String jstr) {
         JsonReader reader = Json.createReader(new StringReader(jstr));
         JsonObject jobj = reader.readObject();
@@ -93,6 +94,7 @@ public class EmotionalStatesData {
         setFromJsonObject(jobj);
     }
 
+    // TODO - this should be in the client controller
     public void setFromJsonObject(JsonObject jobj) {
         setInterest(jobj.getJsonNumber(INTEREST).doubleValue());
         setEngagement(jobj.getJsonNumber(ENGAGEMENT).doubleValue());
@@ -100,15 +102,5 @@ public class EmotionalStatesData {
         setRelaxation(jobj.getJsonNumber(RELAXATION).doubleValue());
         setExcitement(jobj.getJsonNumber(EXCITEMENT).doubleValue());
         setFocus(jobj.getJsonNumber(FOCUS).doubleValue());
-    }
-
-    public JsonObject getJsonObject() {
-        return Json.createObjectBuilder()
-                .add(INTEREST, getInterest())
-                .add(ENGAGEMENT, getEngagement())
-                .add(STRESS, getStress())
-                .add(EXCITEMENT, getExcitement())
-                .add(FOCUS, getFocus())
-                .build();
     }
 }
