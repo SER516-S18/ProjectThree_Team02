@@ -79,8 +79,10 @@ public class ServerUIController implements Initializable{
         choiceboxEye.setItems(FXCollections.observableArrayList("Blink", "Wink Left", "Wink Right", "Look Left", "Look Right"));
         choiceboxEye.getSelectionModel().selectFirst();
 
+        //Setting auto-repeat default checked
+        autoRepeatCheckbox.setSelected(true);
+
         //Inital work done
-        System.out.print("Press Start Button to start server.\n");
     }
 
     /**
@@ -101,6 +103,7 @@ public class ServerUIController implements Initializable{
                     powerButton.getStyleClass().set(i, "unpressedPowerButton");
                 }
             }
+            System.out.println("Stop sending data.");
         // If we are not already sending data and the auto-repeat box is checked
         } else if(autoRepeatCheckbox.isSelected()){
             ServerController.getInstance().setIsSendingData( true );
