@@ -11,6 +11,8 @@ public class ServerModel {
 
     public static final double DEFAULT_EMO_STATE_INTERVAL = 0.25;
 
+    private static ServerModel instance;
+
     private SimpleDoubleProperty emoStateInterval;
     //private SimpleDoubleProperty timeElapsed;
     private SimpleBooleanProperty autoRest;
@@ -24,7 +26,7 @@ public class ServerModel {
     private SimpleDoubleProperty upperfaceDataValue;
     //private SimpleDoubleProperty emotionalStatesDataValue;
 
-    public ServerModel() {
+    private ServerModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);
         autoRest = new SimpleBooleanProperty(false);
         //timeElapsed = new SimpleDoubleProperty((double)0);
@@ -36,6 +38,16 @@ public class ServerModel {
         lowerfaceDataValue = new SimpleDoubleProperty((double)0);
         upperfaceDataValue = new SimpleDoubleProperty((double)0);
         //emotionalStatesDataValue = new SimpleDoubleProperty((double)0);
+    }
+
+    /**
+     * @return Singleton instance of ServerModel
+     */
+    protected static ServerModel getInstance(){
+        if( instance == null ){
+            instance = new ServerModel();
+        }
+        return instance;
     }
 
     public double getEmoStateInterval() {
