@@ -1,9 +1,8 @@
 package server;
 
-import datadefine.EmotionalStatesData;
-import datadefine.EyeData;
-import datadefine.LowerfaceData;
-import datadefine.UpperfaceData;
+import model.EyeData;
+import model.LowerFaceData;
+import model.UpperFaceData;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -15,7 +14,6 @@ public class ServerModel {
     private SimpleDoubleProperty emoStateInterval;
     //private SimpleDoubleProperty timeElapsed;
     private SimpleBooleanProperty autoRest;
-
     private SimpleStringProperty eyeDataType;
     private SimpleStringProperty lowerfaceDataType;
     private SimpleStringProperty upperfaceDataType;
@@ -31,8 +29,8 @@ public class ServerModel {
         autoRest = new SimpleBooleanProperty(false);
         //timeElapsed = new SimpleDoubleProperty((double)0);
         eyeDataType = new SimpleStringProperty(EyeData.BLINK);
-        lowerfaceDataType = new SimpleStringProperty(LowerfaceData.SMILE);
-        upperfaceDataType = new SimpleStringProperty(UpperfaceData.RAISE_BROW);
+        lowerfaceDataType = new SimpleStringProperty(LowerFaceData.SMILE);
+        upperfaceDataType = new SimpleStringProperty(UpperFaceData.RAISE_BROW);
         //emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
         //eyeDataValue = new SimpleDoubleProperty((double)0);
         lowerfaceDataValue = new SimpleDoubleProperty((double)0);

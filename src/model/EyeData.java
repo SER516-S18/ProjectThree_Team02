@@ -1,4 +1,4 @@
-package datadefine;
+package model;
 
 import java.io.StringReader;
 import javax.json.Json;
@@ -75,6 +75,7 @@ public class EyeData {
         this.lookRight = lookRight;
     }
 
+    // TODO - this should be in the client controller
     public void setFromString(String jstr) {
         JsonReader reader = Json.createReader(new StringReader(jstr));
         JsonObject jobj = reader.readObject();
@@ -82,21 +83,12 @@ public class EyeData {
         setFromJsonObject(jobj);
     }
 
+    // TODO - this should be in the client controller
     public void setFromJsonObject(JsonObject jobj) {
         setBlink(jobj.getBoolean(BLINK));
         setWinkLeft(jobj.getBoolean(WINK_LEFT));
         setWinkRight(jobj.getBoolean(WINK_RIGHT));
         setLookLeft(jobj.getBoolean(LOOK_LEFT));
         setLookRight(jobj.getBoolean(LOOK_RIGHT));
-    }
-
-    public JsonObject getJsonObject() {
-        return Json.createObjectBuilder()
-                .add(BLINK, getBlink())
-                .add(WINK_LEFT, getWinkLeft())
-                .add(WINK_RIGHT, getWinkRight())
-                .add(LOOK_LEFT, getLookLeft())
-                .add(LOOK_RIGHT, getLookRight())
-                .build();
     }
 }

@@ -1,11 +1,11 @@
-package datadefine;
+package model;
 
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-public class LowerfaceData {
+public class LowerFaceData {
 
     public static final String SMILE = "Smile";
     public static final String CLENCH = "Clench";
@@ -19,7 +19,7 @@ public class LowerfaceData {
     private double smirkRight;
     private double laugh;
 
-    public LowerfaceData() {
+    public LowerFaceData() {
         smile = 0;
         clench = 0;
         smirkLeft = 0;
@@ -27,11 +27,11 @@ public class LowerfaceData {
         laugh = 0;
     }
 
-    public LowerfaceData(String jstr) {
+    public LowerFaceData(String jstr) {
         setFromString(jstr);
     }
 
-    public LowerfaceData(JsonObject jobj) {
+    public LowerFaceData(JsonObject jobj) {
         setFromJsonObject(jobj);
     }
 
@@ -75,6 +75,7 @@ public class LowerfaceData {
         this.laugh = laugh;
     }
 
+    // TODO - this should be in the client controller
     public void setFromString(String jstr) {
         JsonReader reader = Json.createReader(new StringReader(jstr));
         JsonObject jobj = reader.readObject();
@@ -82,21 +83,12 @@ public class LowerfaceData {
         setFromJsonObject(jobj);
     }
 
+    // TODO - this should be in the client controller
     public void setFromJsonObject(JsonObject jobj) {
         setSmile(jobj.getJsonNumber(SMILE).doubleValue());
         setClench(jobj.getJsonNumber(CLENCH).doubleValue());
         setSmirkLeft(jobj.getJsonNumber(SMIRK_LEFT).doubleValue());
         setSmirkRight(jobj.getJsonNumber(SMIRK_RIGHT).doubleValue());
         setLaugh(jobj.getJsonNumber(LAUGH).doubleValue());
-    }
-
-    public JsonObject getJsonObject() {
-        return Json.createObjectBuilder()
-                .add(SMILE, getSmile())
-                .add(CLENCH, getClench())
-                .add(SMIRK_LEFT, getSmirkLeft())
-                .add(SMIRK_RIGHT, getSmirkRight())
-                .add(LAUGH, getLaugh())
-                .build();
     }
 }

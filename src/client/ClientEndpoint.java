@@ -1,17 +1,12 @@
 package client;
 
-import network.JsonPayload;
-import network.JsonPayloadDecoder;
-import network.JsonPayloadEncoder;
-
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import java.text.SimpleDateFormat;
 
 import static java.lang.String.format;
 
-@javax.websocket.ClientEndpoint(encoders = JsonPayloadEncoder.class, decoders = JsonPayloadDecoder.class)
+@javax.websocket.ClientEndpoint()
 public class ClientEndpoint {
 
     @OnOpen
@@ -22,7 +17,7 @@ public class ClientEndpoint {
     }
 
     @OnMessage
-    public void onMessage( JsonPayload message ) {
-        System.out.println( "Received From Server: " + message.getContent() );
+    public void onMessage( String message ) {
+        System.out.println( "Received From Server: " + message );
     }
 }

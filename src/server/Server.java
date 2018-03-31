@@ -23,6 +23,16 @@ public class Server extends Application {
     private static ServerModel serverModel;
 
     /**
+     * @return Singleton server model instance
+     */
+    protected static ServerModel getServerModel(){
+        if( serverModel == null ){
+            serverModel = new ServerModel();
+        }
+        return serverModel;
+    }
+
+    /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
      * and after the system is ready for the application to begin running.
@@ -44,7 +54,8 @@ public class Server extends Application {
 
         primaryStage.setScene(scene);
 
-        serverModel = new ServerModel();
+        // Instantiates server model if not done already.
+        getServerModel();
 
         //Binding data values with model
         TextField frequencyTextFiled = (TextField) scene.lookup("#frequencyTextField");
@@ -57,7 +68,7 @@ public class Server extends Application {
         Bindings.bindBidirectional(lowerfaceTextField.textProperty(), serverModel.lowerfaceDataValueProperty(), new NumberStringConverter());
 
         CheckBox autoresetCheckbox = (CheckBox) scene.lookup("#autoresetCheckbox");
-        Bindings.bindBidirectional(autoresetCheckbox.selectedProperty(), serverModel.autoRestProperty());
+        Bindings.bindBidirectional(serverModel.autoRestProperty(), autoresetCheckbox.selectedProperty());
 
 
         //Set window non-resizable

@@ -1,168 +1,117 @@
 package server;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import model.EmotionalStatesData;
+import model.EyeData;
+import model.LowerFaceData;
+import model.UpperFaceData;
 
-import java.io.*;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ResourceBundle;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
-/**
- * TODO: Add comment
- */
-public class ServerController implements Initializable{
+public class ServerController {
 
-    private ServerNetworkService<Void> networkThread;
-
-    @FXML private AnchorPane anchorPane;
-    @FXML private Button powerButton;
-    @FXML private TextArea logTextArea;
-    @FXML private ChoiceBox choiceboxUpperface;
-    @FXML private ChoiceBox choiceboxLowerface;
-    @FXML private ChoiceBox choiceboxEye;
+    private static ServerController instance;
+    private EmotionalStatesData emoStates;
+    private EyeData eyeData;
+    private LowerFaceData lowerFaceData;
+    private UpperFaceData upperFaceData;
+    private boolean isSendingData = false;
+    public static final String JSON_FACE_KEY = "Expressive";
+    public static final String JSON_EMO_KEY = "Affective";
 
     /**
-     * All works after create controller
-     * All initial works should in this method
-     * @param location
-     * @param resources
+     * @return Singleton instance of ServerController
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources){
-
-        //Create Network Service
-        networkThread = new ServerNetworkService();
-
-        //Redirect stdout to text area
-        //Using Platform.runLater() to aboid blocking main UI thread
-        OutputStream out = new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-                Platform.runLater(() -> logTextArea.appendText(String.valueOf((char) b)));
-            }
-        };
-        System.setOut(new PrintStream(out, true));
-
-        //Setting choice boxes
-        choiceboxUpperface.setItems(FXCollections.observableArrayList("Raise Brow", "Furrow Brow"));
-        choiceboxUpperface.getSelectionModel().selectFirst();
-        choiceboxLowerface.setItems(FXCollections.observableArrayList("Smile", "Clench", "smirkLeft", "smirkRight", "laugh"));
-        choiceboxLowerface.getSelectionModel().selectFirst();
-        choiceboxEye.setItems(FXCollections.observableArrayList("Blink", "Wink Left", "Wink Right", "Look Left", "Look Right"));
-        choiceboxEye.getSelectionModel().selectFirst();
-
-        //Inital work done
-        System.out.print("Press Start Button to start server.\n");
-    }
-
-    /**
-     * Event Listener for Button powerButton
-     * When button be clicked will produce an event
-     * Button fx:id: powerButton
-     * @param event
-     */
-    @FXML private void powerControl(ActionEvent event){
-
-        if(networkThread.isRunning()){
-            networkThread.cancel();
-            powerButton.setText("Start");
-            //Setting button style class to unpressedPowerButton
-            ObservableList<String> styleClasses = powerButton.getStyleClass();
-            for(int i = 0; i < styleClasses.size(); i++){
-                if(styleClasses.get(i).equals("pressedPowerButton")){
-                    powerButton.getStyleClass().set(i, "unpressedPowerButton");
-                }
-            }
-        }else{
-            networkThread.restart();
-
-            powerButton.setText("Stop");
-            //Setting button style class to pressedPowerButton
-            ObservableList<String> styleClasses = powerButton.getStyleClass();
-            for(int i = 0; i < styleClasses.size(); i++){
-                if(styleClasses.get(i).equals("unpressedPowerButton")){
-                    powerButton.getStyleClass().set(i, "pressedPowerButton");
-                }
-            }
+    public static ServerController getInstance(){
+        if( instance == null ){
+            instance = new ServerController();
         }
+        return instance;
     }
 
     /**
-     * Event Listener for Button clearButton
-     * When button be clicked will produce an event
-     * Button fx:id: clearButton
-     * @param event
+     * @return true if server is sending data, false otherwise
      */
-    @FXML private void clearControl(ActionEvent event){
-        logTextArea.clear();
-        //System.out.print("Log console has been cleared!\n");
+    public boolean isSendingData() {
+        return isSendingData;
+    }
+
+
+    /**
+     * @param sendingData true if server is sending data, false otherwise
+     */
+    public void setIsSendingData( boolean sendingData ) {
+        isSendingData = sendingData;
     }
 
     /**
-     * Event Listener for Button saveLogButton
-     * When button be clicked will produce an event
-     * Button fx:id: saveLogButton
-     * @param event
+     * @return Server emotional state model
      */
-    @FXML private void saveLogControl(ActionEvent event){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Log File");
-
-        //Getting primary stage of UI
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
-
-        //Getting and setting default dir
-        File userDir = new File(System.getProperty("user.dir"));
-        fileChooser.setInitialDirectory(userDir);
-
-        //Setting initial file type
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
-
-        //Setting default file name
-        //Default file name is xxxx.log, xxx -> current time
-        DateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-        String curTime = dateFormat.format(new Date());
-        fileChooser.setInitialFileName(curTime);
-
-        //Open save dialog, and get filepath
-        File dest = fileChooser.showSaveDialog(stage);
-
-        if(dest != null){
-            //Getting log content
-            String logContent = logTextArea.getText();
-            try{
-                //Save log file to local storage
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest.toString()), "utf-8"));
-                //TODO: that maybe block Main UI thread, should find a way to optimize it
-                writer.write(logContent);
-                writer.close();
-                System.out.println("Log file has been saved to: " + dest.toString() + curTime + ".txt");
-            } catch (Exception e){
-                System.out.println("Cannot Save File " + dest.toString());
-            }
-        }
+    public EmotionalStatesData getEmoStates() {
+        return emoStates;
     }
 
     /**
-     * Event Listener for Button saveLogButton
-     * When button be clicked will produce an event
-     * Button fx:id: saveLogButton
-     * @param event
+     * @return Server eye data model
      */
-    @FXML private void menuExit(ActionEvent event){
-        Platform.exit();
+    public EyeData getEyeData() {
+        return eyeData;
+    }
+
+    /**
+     * @return Server lower face data model
+     */
+    public LowerFaceData getLowerFaceData() {
+        return lowerFaceData;
+    }
+
+    /**
+     * @return Server upper face data model
+     */
+    public UpperFaceData getUpperFaceData() {
+        return upperFaceData;
+    }
+
+    private ServerController(){
+        // Create models
+        emoStates = new EmotionalStatesData();
+        eyeData = new EyeData();
+        lowerFaceData = new LowerFaceData();
+        upperFaceData = new UpperFaceData();
+    }
+
+    /**
+     * Format JSON message for sending to the clients
+     * @return Json payload as a string for sending
+     */
+    protected String formatMessage() {
+        JsonObject jsonToSend;
+        // Affective
+        JsonObjectBuilder emoJson = Json.createObjectBuilder()
+                .add(EmotionalStatesData.INTEREST, emoStates.getInterest())
+                .add(EmotionalStatesData.ENGAGEMENT, emoStates.getEngagement())
+                .add(EmotionalStatesData.STRESS, emoStates.getStress())
+                .add(EmotionalStatesData.EXCITEMENT, emoStates.getExcitement())
+                .add(EmotionalStatesData.FOCUS, emoStates.getFocus());
+        // Expressive
+        JsonObjectBuilder faceJson = Json.createObjectBuilder()
+                .add(EyeData.BLINK, eyeData.getBlink())
+                .add(EyeData.WINK_LEFT, eyeData.getWinkLeft())
+                .add(EyeData.WINK_RIGHT, eyeData.getWinkRight())
+                .add(EyeData.LOOK_LEFT, eyeData.getLookLeft())
+                .add(EyeData.LOOK_RIGHT, eyeData.getLookRight())
+                .add(LowerFaceData.SMILE, lowerFaceData.getSmile())
+                .add(LowerFaceData.CLENCH, lowerFaceData.getClench())
+                .add(LowerFaceData.SMIRK_LEFT, lowerFaceData.getSmirkLeft())
+                .add(LowerFaceData.SMIRK_RIGHT, lowerFaceData.getSmirkRight())
+                .add(LowerFaceData.LAUGH, lowerFaceData.getLaugh())
+                .add(UpperFaceData.RAISE_BROW, upperFaceData.getRaiseBrow())
+                .add(UpperFaceData.FURROW_BROW, upperFaceData.getFurrowBrow());
+        // TODO - status and frequency
+        return Json.createObjectBuilder()
+                .add(JSON_FACE_KEY, faceJson)
+                .add(JSON_EMO_KEY, emoJson)
+                .build().toString();
     }
 }
