@@ -46,7 +46,7 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox choiceboxUpperface;
     @FXML private ChoiceBox choiceboxLowerface;
     @FXML private ChoiceBox choiceboxEye;
-    @FXML private CheckBox autoRepeatCheckbox;
+    @FXML private CheckBox autoresetCheckbox;
 
     /**
      * All works after create controller
@@ -102,7 +102,7 @@ public class ServerUIController implements Initializable{
                 }
             }
         // If we are not already sending data and the auto-repeat box is checked
-        } else if(autoRepeatCheckbox.isSelected()){
+        } else if(autoresetCheckbox.isSelected()){
             ServerController.getInstance().setIsSendingData( true );
             powerButton.setText(STOP_BUTTON_TEXT);
             //Setting button style class to pressedPowerButton
@@ -112,6 +112,7 @@ public class ServerUIController implements Initializable{
                     powerButton.getStyleClass().set(i, "pressedPowerButton");
                 }
             }
+            System.out.println("Sending Data, Auto repeat: open.");
         }
     }
 
