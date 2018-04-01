@@ -15,6 +15,7 @@ public class ServerNetworkService<T> extends Service<T>{
     public static final String HOST_NAME = "localhost";
     public static final String ROOT_PATH = "/";
     public static final String FACE_ENDPOINT = "face";
+    private static final long POLLING_SLEEP_TIME = 10; // ms
 
     /**
      * Create network Service
@@ -24,7 +25,7 @@ public class ServerNetworkService<T> extends Service<T>{
      */
     @Override
     protected Task createTask() {
-        addEventHnadler();
+        addEventHandler();
         return new Task<Void>(){
             @Override
             protected Void call() throws Exception {
@@ -36,16 +37,34 @@ public class ServerNetworkService<T> extends Service<T>{
                                 ServerEndpoint.class);
                 //Disable default websocket server logger
                 LogManager.getLogManager().reset();
+
                 try {
                     server.start();
-                    //When Main JavaFX thread call cancel() method, isCancelled will become true.
+                    //When Main JavaFX thread call cancel() method, isCancelled
+                    //will become true.
                     while(!isCancelled()){
-                        // Send data to the clients when in a sending state
+
                         // TODO - do this without polling
-                        while(ServerController.getInstance().isSendingData()){
+                        // Send data with auto-repeat
+                        if( ServerModel.getInstance().isSendingData() ){
+
                             sendPayloadToAllClients();
+                            Thread.sleep((long)(ServerController.getInstance()
+                                    .getFreqModel().getFrequency() * 1000 ));
                         }
+
+                        // Send data once
+                        if( ServerModel.getInstance().isSendOnce() ){
+                            sendPayloadToAllClients();
+                            ServerModel.getInstance().setSendOnce(false);
+                        }
+
+                        Thread.sleep( POLLING_SLEEP_TIME );
                     }
+                } catch ( InterruptedException e ){
+                    e.printStackTrace();
+                    System.out.println("Internal Error while " +
+                            "sending to clients");
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 } finally {
@@ -60,7 +79,7 @@ public class ServerNetworkService<T> extends Service<T>{
      * Add event handlers for network thread
      * @see Service
      */
-    private void addEventHnadler(){
+    private void addEventHandler(){
         setOnRunning(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {

@@ -1,9 +1,6 @@
 package server;
 
-import model.EmotionalStatesData;
-import model.EyeData;
-import model.LowerFaceData;
-import model.UpperFaceData;
+import model.*;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -11,14 +8,15 @@ import javax.json.JsonObjectBuilder;
 
 public class ServerController {
 
+    public static final String JSON_FACE_KEY = "Expressive";
+    public static final String JSON_EMO_KEY = "Affective";
     private static ServerController instance;
     private EmotionalStatesData emoStates;
     private EyeData eyeData;
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
-    private boolean isSendingData = false;
-    public static final String JSON_FACE_KEY = "Expressive";
-    public static final String JSON_EMO_KEY = "Affective";
+    private Frequency freq;
+
 
     /**
      * @return Singleton instance of ServerController
@@ -31,18 +29,10 @@ public class ServerController {
     }
 
     /**
-     * @return true if server is sending data, false otherwise
+     * @return Frequency model
      */
-    public boolean isSendingData() {
-        return isSendingData;
-    }
-
-
-    /**
-     * @param sendingData true if server is sending data, false otherwise
-     */
-    public void setIsSendingData( boolean sendingData ) {
-        isSendingData = sendingData;
+    public Frequency getFreqModel() {
+        return freq;
     }
 
     /**
@@ -79,6 +69,7 @@ public class ServerController {
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
+        freq = new Frequency();
     }
 
     /**
@@ -108,10 +99,10 @@ public class ServerController {
                 .add(LowerFaceData.LAUGH, lowerFaceData.getLaugh())
                 .add(UpperFaceData.RAISE_BROW, upperFaceData.getRaiseBrow())
                 .add(UpperFaceData.FURROW_BROW, upperFaceData.getFurrowBrow());
-        // TODO - status and frequency
         return Json.createObjectBuilder()
                 .add(JSON_FACE_KEY, faceJson)
                 .add(JSON_EMO_KEY, emoJson)
+                .add(Frequency.FREQUENCY_KEY, freq.getFrequency())
                 .build().toString();
     }
 }

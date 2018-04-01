@@ -13,6 +13,8 @@ public class ServerModel {
 
     private static ServerModel instance;
 
+    private volatile boolean isSendingData = false;
+    private volatile boolean sendOnce = false;
     private SimpleDoubleProperty emoStateInterval;
     //private SimpleDoubleProperty timeElapsed;
     private SimpleBooleanProperty autoRest;
@@ -49,6 +51,23 @@ public class ServerModel {
         }
         return instance;
     }
+
+    public boolean isSendOnce() {
+        return sendOnce;
+    }
+
+    public void setSendOnce(boolean sendOnce) {
+        this.sendOnce = sendOnce;
+    }
+
+    public boolean isSendingData() {
+        return isSendingData;
+    }
+
+    public void setSendingData(boolean sendingData) {
+        isSendingData = sendingData;
+    }
+
 
     public double getEmoStateInterval() {
         return emoStateInterval.get();
