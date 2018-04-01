@@ -93,29 +93,26 @@ public class ServerUIController implements Initializable{
      */
     @FXML private void powerControl(ActionEvent event){
 
-        if(ServerController.getInstance().isSendingData()){
-            ServerController.getInstance().setIsSendingData( false );
-            powerButton.setText(START_BUTTON_TEXT);
-            //Setting button style class to unpressedPowerButton
-            ObservableList<String> styleClasses = powerButton.getStyleClass();
-            for(int i = 0; i < styleClasses.size(); i++){
-                if(styleClasses.get(i).equals("pressedPowerButton")){
-                    powerButton.getStyleClass().set(i, "unpressedPowerButton");
-                }
+        if( networkThread.isRunning() ) {
+            if (ServerModel.getInstance().isSendingData()) {
+                ServerModel.getInstance().setSendingData(false);
+                showStartButton();
+                System.out.println("Stop sending data.");
+                // If we are not already sending data and the auto-repeat box is checked
+            } else if (autoRepeatCheckbox.isSelected()) {
+                ServerModel.getInstance().setSendingData(true);
+                showStopButton();
+                System.out.println("Sending Data, Auto repeat: open.");
+                // If auto-repeat is not checked, then we want to send data one time
+                // on a button click
+            } else if (!ServerModel.getInstance().isSendingData()) {
+                ServerModel.getInstance().setSendOnce(true);
             }
-            System.out.println("Stop sending data.");
-        // If we are not already sending data and the auto-repeat box is checked
-        } else if(autoRepeatCheckbox.isSelected()){
-            ServerController.getInstance().setIsSendingData( true );
-            powerButton.setText(STOP_BUTTON_TEXT);
-            //Setting button style class to pressedPowerButton
-            ObservableList<String> styleClasses = powerButton.getStyleClass();
-            for(int i = 0; i < styleClasses.size(); i++){
-                if(styleClasses.get(i).equals("unpressedPowerButton")){
-                    powerButton.getStyleClass().set(i, "pressedPowerButton");
-                }
-            }
-            System.out.println("Sending Data, Auto repeat: open.");
+        } else {
+            System.out.println("Network problem detected");
+            showStartButton();
+            ServerModel.getInstance().setSendingData(false);
+            ServerModel.getInstance().setSendOnce(false);
         }
     }
 
@@ -183,5 +180,27 @@ public class ServerUIController implements Initializable{
      */
     @FXML private void menuExit(ActionEvent event){
         Platform.exit();
+    }
+
+    private void showStopButton(){
+        powerButton.setText(STOP_BUTTON_TEXT);
+        //Setting button style class to pressedPowerButton
+        ObservableList<String> styleClasses = powerButton.getStyleClass();
+        for (int i = 0; i < styleClasses.size(); i++) {
+            if (styleClasses.get(i).equals("unpressedPowerButton")) {
+                powerButton.getStyleClass().set(i, "pressedPowerButton");
+            }
+        }
+    }
+
+    private void showStartButton(){
+        powerButton.setText(START_BUTTON_TEXT);
+        //Setting button style class to unpressedPowerButton
+        ObservableList<String> styleClasses = powerButton.getStyleClass();
+        for (int i = 0; i < styleClasses.size(); i++) {
+            if (styleClasses.get(i).equals("pressedPowerButton")) {
+                powerButton.getStyleClass().set(i, "unpressedPowerButton");
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@ public class ServerNetworkService<T> extends Service<T>{
      */
     @Override
     protected Task createTask() {
-        addEventHnadler();
+        addEventHandler();
         return new Task<Void>(){
             @Override
             protected Void call() throws Exception {
@@ -36,14 +36,20 @@ public class ServerNetworkService<T> extends Service<T>{
                                 ServerEndpoint.class);
                 //Disable default websocket server logger
                 LogManager.getLogManager().reset();
+
                 try {
                     server.start();
                     //When Main JavaFX thread call cancel() method, isCancelled will become true.
                     while(!isCancelled()){
                         // Send data to the clients when in a sending state
                         // TODO - do this without polling
-                        while(ServerController.getInstance().isSendingData()){
+                        if( ServerModel.getInstance().isSendingData() ){
                             sendPayloadToAllClients();
+                        }
+
+                        if( ServerModel.getInstance().isSendOnce() ){
+                            sendPayloadToAllClients();
+                            ServerModel.getInstance().setSendOnce(false);
                         }
                     }
                 } catch (Exception e) {
@@ -60,7 +66,7 @@ public class ServerNetworkService<T> extends Service<T>{
      * Add event handlers for network thread
      * @see Service
      */
-    private void addEventHnadler(){
+    private void addEventHandler(){
         setOnRunning(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
