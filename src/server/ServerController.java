@@ -83,6 +83,7 @@ public class ServerController {
                 .add(EmotionalStatesData.INTEREST, emoStates.getInterest())
                 .add(EmotionalStatesData.ENGAGEMENT, emoStates.getEngagement())
                 .add(EmotionalStatesData.STRESS, emoStates.getStress())
+                .add(EmotionalStatesData.RELAXATION, emoStates.getRelaxation())
                 .add(EmotionalStatesData.EXCITEMENT, emoStates.getExcitement())
                 .add(EmotionalStatesData.FOCUS, emoStates.getFocus());
         // Expressive

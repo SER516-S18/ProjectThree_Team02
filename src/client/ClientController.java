@@ -3,6 +3,11 @@ package client;
 import model.*;
 import server.ServerNetworkService;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.StringReader;
+
 public class ClientController {
     public static final String JSON_FACE_KEY = "Expressive";
     public static final String JSON_EMO_KEY = "Affective";
@@ -60,6 +65,13 @@ public class ClientController {
         return upperFaceData;
     }
 
+    protected void decodeMessage(String jstr) {
+        JsonReader reader = Json.createReader(new StringReader(jstr));
+        JsonObject jobj = reader.readObject();
+        reader.close();
+        setFromJsonObject(jobj);
+    }
+
     private ClientController(){
         // Create models
         emoStates = new EmotionalStatesData();
@@ -68,4 +80,37 @@ public class ClientController {
         upperFaceData = new UpperFaceData();
         freq = new Frequency();
     }
+
+    private void setFromJsonObject(JsonObject jobj) {
+
+        // Affective
+        JsonObject emoJson = jobj.getJsonObject(JSON_EMO_KEY);
+        emoStates.setInterest(emoJson.getJsonNumber(EmotionalStatesData.INTEREST).doubleValue());
+        emoStates.setEngagement(emoJson.getJsonNumber(EmotionalStatesData.ENGAGEMENT).doubleValue());
+        emoStates.setStress(emoJson.getJsonNumber(EmotionalStatesData.STRESS).doubleValue());
+        emoStates.setRelaxation(emoJson.getJsonNumber(EmotionalStatesData.RELAXATION).doubleValue());
+        emoStates.setExcitement(emoJson.getJsonNumber(EmotionalStatesData.EXCITEMENT).doubleValue());
+        emoStates.setFocus(emoJson.getJsonNumber(EmotionalStatesData.FOCUS).doubleValue());
+
+        // Face
+        JsonObject faceJson = jobj.getJsonObject(JSON_FACE_KEY);
+        eyeData.setBlink(faceJson.getBoolean(EyeData.BLINK));
+        eyeData.setWinkLeft(faceJson.getBoolean(EyeData.WINK_LEFT));
+        eyeData.setWinkRight(faceJson.getBoolean(EyeData.WINK_RIGHT));
+        eyeData.setLookLeft(faceJson.getBoolean(EyeData.LOOK_LEFT));
+        eyeData.setLookRight(faceJson.getBoolean(EyeData.LOOK_RIGHT));
+
+        lowerFaceData.setSmile(faceJson.getJsonNumber(LowerFaceData.SMILE).doubleValue());
+        lowerFaceData.setClench(faceJson.getJsonNumber(LowerFaceData.CLENCH).doubleValue());
+        lowerFaceData.setSmirkLeft(faceJson.getJsonNumber(LowerFaceData.SMIRK_LEFT).doubleValue());
+        lowerFaceData.setSmirkRight(faceJson.getJsonNumber(LowerFaceData.SMIRK_RIGHT).doubleValue());
+        lowerFaceData.setLaugh(faceJson.getJsonNumber(LowerFaceData.LAUGH).doubleValue());
+
+        upperFaceData.setRaiseBrow(faceJson.getJsonNumber(UpperFaceData.RAISE_BROW).doubleValue());
+        upperFaceData.setFurrowBrow(faceJson.getJsonNumber(UpperFaceData.FURROW_BROW).doubleValue());
+
+        // Frequency
+        freq.setFrequency(jobj.getJsonNumber(Frequency.FREQUENCY_KEY).doubleValue());
+    }
 }
+

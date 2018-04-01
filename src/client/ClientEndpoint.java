@@ -19,5 +19,6 @@ public class ClientEndpoint {
     @OnMessage
     public void onMessage( String message ) {
         System.out.println( "Received From Server: " + message );
+        ClientController.getInstance().decodeMessage( message );
     }
 }
