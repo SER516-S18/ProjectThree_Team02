@@ -47,6 +47,7 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox choiceboxLowerface;
     @FXML private ChoiceBox choiceboxEye;
     @FXML private CheckBox autoRepeatCheckbox;
+    @FXML private TextField frequencyTextField;
 
     /**
      * All works after create controller
@@ -92,20 +93,30 @@ public class ServerUIController implements Initializable{
      * @param event
      */
     @FXML private void powerControl(ActionEvent event){
-
         if( networkThread.isRunning() ) {
             if (ServerModel.getInstance().isSendingData()) {
                 ServerModel.getInstance().setSendingData(false);
                 showStartButton();
                 System.out.println("Stop sending data.");
-                // If we are not already sending data and the auto-repeat box is checked
             } else if (autoRepeatCheckbox.isSelected()) {
-                ServerModel.getInstance().setSendingData(true);
-                showStopButton();
-                System.out.println("Sending Data, Auto repeat: open.");
+                // If we are not already sending data and the auto-repeat box is checked
+                if(isDouble(frequencyTextField.getText())) {
+                    double freq = Double.parseDouble(frequencyTextField.getText());
+                    if (freq >= 0.0) {
+                        ServerModel.getInstance().setSendingData(true);
+                        ServerController.getInstance()
+                                .getFreqModel().setFrequency(freq);
+                        showStopButton();
+                        System.out.println("Sending Data, Auto repeat: open.");
+                    } else {
+                        System.out.println("Invalid frequency value");
+                    }
+                } else {
+                    System.out.println("Frequency must be a number");
+                }
+            } else if (!ServerModel.getInstance().isSendingData()) {
                 // If auto-repeat is not checked, then we want to send data one time
                 // on a button click
-            } else if (!ServerModel.getInstance().isSendingData()) {
                 ServerModel.getInstance().setSendOnce(true);
             }
         } else {
@@ -202,5 +213,15 @@ public class ServerUIController implements Initializable{
                 powerButton.getStyleClass().set(i, "unpressedPowerButton");
             }
         }
+    }
+
+    private boolean isDouble(String dblStr){
+        boolean canParse = true;
+        try{
+            Double.valueOf(dblStr);
+        } catch( NumberFormatException e ) {
+            canParse = false;
+        }
+        return canParse;
     }
 }

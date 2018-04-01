@@ -7,7 +7,7 @@ package model;
 public class Frequency {
 
     public static final String FREQUENCY_KEY = "Frequency";
-    private double frequency;
+    private volatile double frequency;
 
     /**
      * @return Frequency rate (in seconds) that server is sending data

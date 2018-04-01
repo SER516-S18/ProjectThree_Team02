@@ -29,6 +29,13 @@ public class ServerController {
     }
 
     /**
+     * @return Frequency model
+     */
+    public Frequency getFreqModel() {
+        return freq;
+    }
+
+    /**
      * @return Server emotional state model
      */
     public EmotionalStatesData getEmoStates() {
@@ -62,6 +69,7 @@ public class ServerController {
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
+        freq = new Frequency();
     }
 
     /**
