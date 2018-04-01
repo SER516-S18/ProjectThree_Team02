@@ -76,13 +76,14 @@ public class ServerController {
      * Format JSON message for sending to the clients
      * @return Json payload as a string for sending
      */
-    protected String formatMessage() {
+    protected String getJsonMessage() {
         JsonObject jsonToSend;
         // Affective
         JsonObjectBuilder emoJson = Json.createObjectBuilder()
                 .add(EmotionalStatesData.INTEREST, emoStates.getInterest())
                 .add(EmotionalStatesData.ENGAGEMENT, emoStates.getEngagement())
                 .add(EmotionalStatesData.STRESS, emoStates.getStress())
+                .add(EmotionalStatesData.RELAXATION, emoStates.getRelaxation())
                 .add(EmotionalStatesData.EXCITEMENT, emoStates.getExcitement())
                 .add(EmotionalStatesData.FOCUS, emoStates.getFocus());
         // Expressive

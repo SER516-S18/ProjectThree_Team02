@@ -2,11 +2,11 @@ package client;
 
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class ClientModel {
+public class ClientUIModel {
 
     private SimpleDoubleProperty timeElapsed;
 
-    public ClientModel() {
+    public ClientUIModel() {
         timeElapsed.set(0);
     }
 

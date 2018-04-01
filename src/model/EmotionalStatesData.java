@@ -30,14 +30,6 @@ public class EmotionalStatesData {
         Focus = 0;
     }
 
-    public EmotionalStatesData(String jstr) {
-        setFromString(jstr);
-    }
-
-    public EmotionalStatesData(JsonObject jobj) {
-        setFromJsonObject(jobj);
-    }
-
     public double getInterest() {
         return Interest;
     }
@@ -84,23 +76,5 @@ public class EmotionalStatesData {
 
     public void setFocus(double focus) {
         this.Focus = focus;
-    }
-
-    // TODO - this should be in the client controller
-    public void setFromString(String jstr) {
-        JsonReader reader = Json.createReader(new StringReader(jstr));
-        JsonObject jobj = reader.readObject();
-        reader.close();
-        setFromJsonObject(jobj);
-    }
-
-    // TODO - this should be in the client controller
-    public void setFromJsonObject(JsonObject jobj) {
-        setInterest(jobj.getJsonNumber(INTEREST).doubleValue());
-        setEngagement(jobj.getJsonNumber(ENGAGEMENT).doubleValue());
-        setStress(jobj.getJsonNumber(STRESS).doubleValue());
-        setRelaxation(jobj.getJsonNumber(RELAXATION).doubleValue());
-        setExcitement(jobj.getJsonNumber(EXCITEMENT).doubleValue());
-        setFocus(jobj.getJsonNumber(FOCUS).doubleValue());
     }
 }

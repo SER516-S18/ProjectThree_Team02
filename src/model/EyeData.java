@@ -27,14 +27,6 @@ public class EyeData {
         lookRight = false;
     }
 
-    public EyeData(String jstr) {
-        setFromString(jstr);
-    }
-
-    public EyeData(JsonObject jobj) {
-        setFromJsonObject(jobj);
-    }
-
     public boolean getBlink() {
         return blink;
     }
@@ -73,22 +65,5 @@ public class EyeData {
 
     public void setLookRight(boolean lookRight) {
         this.lookRight = lookRight;
-    }
-
-    // TODO - this should be in the client controller
-    public void setFromString(String jstr) {
-        JsonReader reader = Json.createReader(new StringReader(jstr));
-        JsonObject jobj = reader.readObject();
-        reader.close();
-        setFromJsonObject(jobj);
-    }
-
-    // TODO - this should be in the client controller
-    public void setFromJsonObject(JsonObject jobj) {
-        setBlink(jobj.getBoolean(BLINK));
-        setWinkLeft(jobj.getBoolean(WINK_LEFT));
-        setWinkRight(jobj.getBoolean(WINK_RIGHT));
-        setLookLeft(jobj.getBoolean(LOOK_LEFT));
-        setLookRight(jobj.getBoolean(LOOK_RIGHT));
     }
 }

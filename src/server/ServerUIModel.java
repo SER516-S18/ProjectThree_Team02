@@ -7,11 +7,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class ServerModel {
+public class ServerUIModel {
 
     public static final double DEFAULT_EMO_STATE_INTERVAL = 0.25;
 
-    private static ServerModel instance;
+    private static ServerUIModel instance;
 
     private volatile boolean isSendingData = false;
     private volatile boolean sendOnce = false;
@@ -28,7 +28,7 @@ public class ServerModel {
     private SimpleDoubleProperty upperfaceDataValue;
     //private SimpleDoubleProperty emotionalStatesDataValue;
 
-    private ServerModel() {
+    private ServerUIModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);
         autoRest = new SimpleBooleanProperty(false);
         //timeElapsed = new SimpleDoubleProperty((double)0);
@@ -43,11 +43,11 @@ public class ServerModel {
     }
 
     /**
-     * @return Singleton instance of ServerModel
+     * @return Singleton instance of ServerUIModel
      */
-    protected static ServerModel getInstance(){
+    protected static ServerUIModel getInstance(){
         if( instance == null ){
-            instance = new ServerModel();
+            instance = new ServerUIModel();
         }
         return instance;
     }

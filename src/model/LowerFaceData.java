@@ -27,14 +27,6 @@ public class LowerFaceData {
         laugh = 0;
     }
 
-    public LowerFaceData(String jstr) {
-        setFromString(jstr);
-    }
-
-    public LowerFaceData(JsonObject jobj) {
-        setFromJsonObject(jobj);
-    }
-
     public double getSmile() {
         return smile;
     }
@@ -73,22 +65,5 @@ public class LowerFaceData {
 
     public void setLaugh(double laugh) {
         this.laugh = laugh;
-    }
-
-    // TODO - this should be in the client controller
-    public void setFromString(String jstr) {
-        JsonReader reader = Json.createReader(new StringReader(jstr));
-        JsonObject jobj = reader.readObject();
-        reader.close();
-        setFromJsonObject(jobj);
-    }
-
-    // TODO - this should be in the client controller
-    public void setFromJsonObject(JsonObject jobj) {
-        setSmile(jobj.getJsonNumber(SMILE).doubleValue());
-        setClench(jobj.getJsonNumber(CLENCH).doubleValue());
-        setSmirkLeft(jobj.getJsonNumber(SMIRK_LEFT).doubleValue());
-        setSmirkRight(jobj.getJsonNumber(SMIRK_RIGHT).doubleValue());
-        setLaugh(jobj.getJsonNumber(LAUGH).doubleValue());
     }
 }

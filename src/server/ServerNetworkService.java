@@ -46,7 +46,7 @@ public class ServerNetworkService<T> extends Service<T>{
 
                         // TODO - do this without polling
                         // Send data with auto-repeat
-                        if( ServerModel.getInstance().isSendingData() ){
+                        if( ServerUIModel.getInstance().isSendingData() ){
 
                             sendPayloadToAllClients();
                             Thread.sleep((long)(ServerController.getInstance()
@@ -54,9 +54,9 @@ public class ServerNetworkService<T> extends Service<T>{
                         }
 
                         // Send data once
-                        if( ServerModel.getInstance().isSendOnce() ){
+                        if( ServerUIModel.getInstance().isSendOnce() ){
                             sendPayloadToAllClients();
-                            ServerModel.getInstance().setSendOnce(false);
+                            ServerUIModel.getInstance().setSendOnce(false);
                         }
 
                         Thread.sleep( POLLING_SLEEP_TIME );
@@ -107,7 +107,7 @@ public class ServerNetworkService<T> extends Service<T>{
      * Send the JSON payload containing face values, frequency and status
      */
     private void sendPayloadToAllClients(){
-        String jsonPayload = ServerController.getInstance().formatMessage();
+        String jsonPayload = ServerController.getInstance().getJsonMessage();
         for( Session connection : ServerEndpoint.connections ){
             try {
                 connection.getBasicRemote().sendText( jsonPayload );

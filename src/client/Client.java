@@ -22,30 +22,9 @@ public class Client extends Application {
         primaryStage.setScene(new Scene(root, 770, 600));
         primaryStage.show();
     }
-    public static final String PORT = "3000";
-    public static final String SERVER_ENDPOINT = "face";
-    public static final String SERVER =
-            "ws://localhost:" + PORT + "/" + SERVER_ENDPOINT;
 
     public static void main(String[] args) throws Exception {
         launch(args);
-        ClientManager client = ClientManager.createClient();
-        String message;
-
-        // Connect to server
-        Scanner scanner = new Scanner(System.in);
-        Session session = client.connectToServer(
-                ClientEndpoint.class,
-                new URI( SERVER ) );
-        System.out.println("Connected to server");
-        // repeatedly read a network.message and send it to the server
-        // (until quit)
-        do {
-            message = scanner.nextLine();
-            String msg = message;
-            System.out.println( "Sending to server: " + msg );
-            session.getBasicRemote().sendText( msg );
-        } while (!message.equalsIgnoreCase("quit"));
     }
 
 

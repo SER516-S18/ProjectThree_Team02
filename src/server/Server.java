@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 /**
@@ -44,16 +43,16 @@ public class Server extends Application {
 
         //Binding data values with model
         TextField frequencyTextFiled = (TextField) scene.lookup("#frequencyTextField");
-        Bindings.bindBidirectional(frequencyTextFiled.textProperty(), ServerModel.getInstance().emoStateIntervalProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(frequencyTextFiled.textProperty(), ServerUIModel.getInstance().emoStateIntervalProperty(), new NumberStringConverter());
 
         TextField upperfaceTextField = (TextField) scene.lookup("#upperfaceTextField");
-        Bindings.bindBidirectional(upperfaceTextField.textProperty(), ServerModel.getInstance().upperfaceDataValueProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(upperfaceTextField.textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), new NumberStringConverter());
 
         TextField lowerfaceTextField = (TextField) scene.lookup("#lowerfaceTextField");
-        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), ServerModel.getInstance().lowerfaceDataValueProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), new NumberStringConverter());
 
         CheckBox autoresetCheckbox = (CheckBox) scene.lookup("#autoresetCheckbox");
-        Bindings.bindBidirectional(ServerModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
+        Bindings.bindBidirectional(ServerUIModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
 
 
         //Set window non-resizable
