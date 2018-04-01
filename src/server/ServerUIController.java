@@ -1,10 +1,6 @@
 package server;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,15 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
-import model.EmotionalStatesData;
-import model.EyeData;
-import model.LowerFaceData;
-import model.UpperFaceData;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import java.io.*;
 import java.net.URL;
 import java.text.DateFormat;
@@ -94,8 +82,8 @@ public class ServerUIController implements Initializable{
      */
     @FXML private void powerControl(ActionEvent event){
         if( networkThread.isRunning() ) {
-            if (ServerModel.getInstance().isSendingData()) {
-                ServerModel.getInstance().setSendingData(false);
+            if (ServerUIModel.getInstance().isSendingData()) {
+                ServerUIModel.getInstance().setSendingData(false);
                 showStartButton();
                 System.out.println("Stop sending data.");
             } else if (autoRepeatCheckbox.isSelected()) {
@@ -103,7 +91,7 @@ public class ServerUIController implements Initializable{
                 if(isDouble(frequencyTextField.getText())) {
                     double freq = Double.parseDouble(frequencyTextField.getText());
                     if (freq >= 0.0) {
-                        ServerModel.getInstance().setSendingData(true);
+                        ServerUIModel.getInstance().setSendingData(true);
                         ServerController.getInstance()
                                 .getFreqModel().setFrequency(freq);
                         showStopButton();
@@ -114,16 +102,16 @@ public class ServerUIController implements Initializable{
                 } else {
                     System.out.println("Frequency must be a number");
                 }
-            } else if (!ServerModel.getInstance().isSendingData()) {
+            } else if (!ServerUIModel.getInstance().isSendingData()) {
                 // If auto-repeat is not checked, then we want to send data one time
                 // on a button click
-                ServerModel.getInstance().setSendOnce(true);
+                ServerUIModel.getInstance().setSendOnce(true);
             }
         } else {
             System.out.println("Network problem detected");
             showStartButton();
-            ServerModel.getInstance().setSendingData(false);
-            ServerModel.getInstance().setSendOnce(false);
+            ServerUIModel.getInstance().setSendingData(false);
+            ServerUIModel.getInstance().setSendOnce(false);
         }
     }
 

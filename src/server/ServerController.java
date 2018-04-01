@@ -76,7 +76,7 @@ public class ServerController {
      * Format JSON message for sending to the clients
      * @return Json payload as a string for sending
      */
-    protected String formatMessage() {
+    protected String getJsonMessage() {
         JsonObject jsonToSend;
         // Affective
         JsonObjectBuilder emoJson = Json.createObjectBuilder()
