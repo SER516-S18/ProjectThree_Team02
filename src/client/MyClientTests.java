@@ -10,7 +10,6 @@ public class MyClientTests {
     @Test
     public void testDecodeMessage() {
         try {
-
             ClientController clientController = new ClientController();
             String payload = "{" +
                     "\"Expressive\":{\"Blink\":false,\"Wink Left\":false," +
