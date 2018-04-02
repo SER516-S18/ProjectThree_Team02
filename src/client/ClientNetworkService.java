@@ -52,6 +52,7 @@ public class ClientNetworkService<T> extends Service<T> {
             @Override
             public void handle(WorkerStateEvent event) {
                 System.out.print("Websocket Started: " + SERVER);
+
             }
         });
 

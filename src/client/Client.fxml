@@ -15,14 +15,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
 
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Application">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeApplication" text="Close" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Connect">
@@ -56,11 +56,12 @@
                                         <Label layoutX="553.0" layoutY="30.0" text="Profile:" />
                                         <ChoiceBox fx:id="headSet" layoutX="437.0" layoutY="53.0" prefHeight="27.0" prefWidth="78.0" />
                                         <ChoiceBox fx:id="profile" layoutX="545.0" layoutY="53.0" prefHeight="27.0" prefWidth="78.0" />
-                                        <Button layoutX="437.0" layoutY="104.0" mnemonicParsing="false" text="Add " />
+                                        <Button layoutX="437.0" layoutY="104.0" mnemonicParsing="false" onAction="#addName" text="Add " />
                                         <Button layoutX="496.0" layoutY="104.0" mnemonicParsing="false" text="Remove " />
-                                        <Button layoutX="575.0" layoutY="104.0" mnemonicParsing="false" text="Save " />
+                                        <Button fx:id="SaveName" layoutX="575.0" layoutY="104.0" mnemonicParsing="false" onAction="#saveName" text="Save " />
                                         <TextField fx:id="systemStatus" editable="false" layoutX="136.0" layoutY="25.0" prefHeight="27.0" prefWidth="115.0" />
                                         <TextField fx:id="systemUpTime" editable="false" layoutX="136.0" layoutY="61.0" prefHeight="27.0" prefWidth="115.0" />
+                              <TextField fx:id="inputName" layoutX="444.0" layoutY="131.0" visible="false" />
                                     </children></AnchorPane>
                             </items>
                         </SplitPane>
@@ -81,7 +82,7 @@
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Affective Suite">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="About" />
+                                        <MenuItem fx:id="loadSecondB" mnemonicParsing="false" onAction="#changeToAffectiveScene" text="Click Here" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Cognitive Suite">
