@@ -66,13 +66,14 @@ public class ClientController {
     }
 
     protected void decodeMessage(String jstr) {
+        System.out.println("HELLO"+jstr);
         JsonReader reader = Json.createReader(new StringReader(jstr));
         JsonObject jobj = reader.readObject();
         reader.close();
         setFromJsonObject(jobj);
     }
 
-    private ClientController(){
+    public ClientController(){
         // Create models
         emoStates = new EmotionalStatesData();
         eyeData = new EyeData();
