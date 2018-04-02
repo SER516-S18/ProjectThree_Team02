@@ -70,26 +70,14 @@
                     <children>
                         <MenuBar prefHeight="394.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-172.0" AnchorPane.topAnchor="0.0">
                             <menus>
-                                <Menu mnemonicParsing="false" text="Headset Setup">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Close" />
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Expressive Suite">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Delete" />
-                                    </items>
-                                </Menu>
+                                <Menu mnemonicParsing="false" text="Headset Setup" />
+                                <Menu mnemonicParsing="false" text="Expressive Suite" />
                                 <Menu mnemonicParsing="false" text="Affective Suite">
                                     <items>
                                         <MenuItem fx:id="loadSecondB" mnemonicParsing="false" onAction="#changeToAffectiveScene" text="Click Here" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Cognitive Suite">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    </items>
-                                </Menu>
+                                <Menu mnemonicParsing="false" text="Cognitive Suite" />
                             </menus>
                         </MenuBar>
                         <SplitPane dividerPositions="0.67" layoutY="29.0" prefHeight="366.0" prefWidth="770.0">
