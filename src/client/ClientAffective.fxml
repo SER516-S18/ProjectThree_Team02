@@ -104,11 +104,11 @@
                                                 </AnchorPane>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="382.0">
                                                     <children>
-                                                        <TableView layoutX="7.0" layoutY="7.0" prefHeight="342.0" prefWidth="295.0">
+                                                        <TableView layoutX="7.0" layoutY="7.0" prefHeight="278.0" prefWidth="295.0">
                                                             <columns>
                                                                 <TableColumn prefWidth="75.0" text="Show" />
-                                                                <TableColumn prefWidth="75.0" text="Color" />
-                                                                <TableColumn prefWidth="144.0" text="Detection Name" />
+                                                                <TableColumn prefWidth="84.0" text="Color" />
+                                                                <TableColumn prefWidth="135.0" text="Detection Name" />
                                                             </columns>
                                                         </TableView>
                                                     </children>

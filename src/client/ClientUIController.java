@@ -96,6 +96,7 @@ public class ClientUIController implements Initializable {
        inputName.setText("");
        inputName.setVisible(false);
    }
+   //Handling Sliders
    @FXML private void BlinkBSelected(ActionEvent event)
    {
        boolean isSelected = BlinkB.isSelected();
