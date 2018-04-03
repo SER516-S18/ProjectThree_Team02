@@ -3,6 +3,7 @@ package client;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -32,20 +33,22 @@ public class ClientFace extends Application {
     int mouthPositionY = headPositionY/3 *4;
 
    // public static void main(String[] args) {
-      //  launch(args);
+     //  launch(args);
     //}
-    
-    public ClientFace(Stage primaryStage) {
-    	this.start(primaryStage);
-    }
 
     @Override
     public void start(Stage primaryStage) {
-
-        Scene headScene = new Scene(setHead(), WINDOW_HEIGHT, WINDOW_WIDTH);
+    	
+    	
+        Scene headScene = new Scene(setFace(), WINDOW_HEIGHT, WINDOW_WIDTH);
 
         primaryStage.setScene(headScene);
         primaryStage.show();
+    }
+    
+    AnchorPane setFace() {
+    	AnchorPane pane = new AnchorPane(setHead());
+    	return pane;
     }
 
     Group setHead() {
