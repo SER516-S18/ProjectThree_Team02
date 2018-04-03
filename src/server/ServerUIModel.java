@@ -1,8 +1,6 @@
 package server;
 
-import model.EyeData;
-import model.LowerFaceData;
-import model.UpperFaceData;
+import model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -16,30 +14,30 @@ public class ServerUIModel {
     private volatile boolean isSendingData = false;
     private volatile boolean sendOnce = false;
     private SimpleDoubleProperty emoStateInterval;
-    //private SimpleDoubleProperty timeElapsed;
+    private SimpleDoubleProperty timeElapsed;
     private SimpleBooleanProperty autoRest;
     private SimpleStringProperty eyeDataType;
     private SimpleStringProperty lowerfaceDataType;
     private SimpleStringProperty upperfaceDataType;
-    //private SimpleStringProperty emotionalStatesDataType;
+    private SimpleStringProperty emotionalStatesDataType;
 
-    //private SimpleDoubleProperty eyeDataValue;
+    private SimpleBooleanProperty eyeDataValue;
     private SimpleDoubleProperty lowerfaceDataValue;
     private SimpleDoubleProperty upperfaceDataValue;
-    //private SimpleDoubleProperty emotionalStatesDataValue;
+    private SimpleDoubleProperty emotionalStatesDataValue;
 
     private ServerUIModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);
         autoRest = new SimpleBooleanProperty(false);
-        //timeElapsed = new SimpleDoubleProperty((double)0);
+        timeElapsed = new SimpleDoubleProperty(0);
         eyeDataType = new SimpleStringProperty(EyeData.BLINK);
         lowerfaceDataType = new SimpleStringProperty(LowerFaceData.SMILE);
         upperfaceDataType = new SimpleStringProperty(UpperFaceData.RAISE_BROW);
-        //emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
-        //eyeDataValue = new SimpleDoubleProperty((double)0);
-        lowerfaceDataValue = new SimpleDoubleProperty((double)0);
-        upperfaceDataValue = new SimpleDoubleProperty((double)0);
-        //emotionalStatesDataValue = new SimpleDoubleProperty((double)0);
+        emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
+        eyeDataValue = new SimpleBooleanProperty(false);
+        lowerfaceDataValue = new SimpleDoubleProperty(0);
+        upperfaceDataValue = new SimpleDoubleProperty(0);
+        emotionalStatesDataValue = new SimpleDoubleProperty(0);
     }
 
     /**
@@ -81,19 +79,17 @@ public class ServerUIModel {
         this.emoStateInterval.set(emoStateInterval);
     }
 
-    /*
     public double getTimeElapsed() {
         return timeElapsed.get();
-    }*/
+    }
 
-    /*
     public SimpleDoubleProperty timeElapsedProperty() {
         return timeElapsed;
     }
 
     public void setTimeElapsed(double timeElapsed) {
         this.timeElapsed.set(timeElapsed);
-    }*/
+    }
 
     public String getEyeDataType() {
         return eyeDataType.get();
@@ -131,7 +127,6 @@ public class ServerUIModel {
         this.upperfaceDataType.set(upperfaceDataType);
     }
 
-    /*
     public String getEmotionalStatesDataType() {
         return emotionalStatesDataType.get();
     }
@@ -144,17 +139,17 @@ public class ServerUIModel {
         this.emotionalStatesDataType.set(emotionalStatesDataType);
     }
 
-    public double getEyeDataValue() {
+    public boolean getEyeDataValue() {
         return eyeDataValue.get();
     }
 
-    public SimpleDoubleProperty eyeDataValueProperty() {
+    public SimpleBooleanProperty eyeDataValueProperty() {
         return eyeDataValue;
     }
 
-    public void setEyeDataValue(double eyeDataValue) {
+    public void setEyeDataValue(boolean eyeDataValue) {
         this.eyeDataValue.set(eyeDataValue);
-    }*/
+    }
 
     public double getLowerfaceDataValue() {
         return lowerfaceDataValue.get();
@@ -180,7 +175,6 @@ public class ServerUIModel {
         this.upperfaceDataValue.set(upperfaceDataValue);
     }
 
-    /*
     public double getEmotionalStatesDataValue() {
         return emotionalStatesDataValue.get();
     }
@@ -191,7 +185,7 @@ public class ServerUIModel {
 
     public void setEmotionalStatesDataValue(double emotionalStatesDataValue) {
         this.emotionalStatesDataValue.set(emotionalStatesDataValue);
-    }*/
+    }
 
     public boolean isAutoRest() {
         return autoRest.get();

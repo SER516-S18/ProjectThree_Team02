@@ -20,6 +20,10 @@ public class EyeData {
     private boolean lookRight;
 
     public EyeData() {
+        reset();
+    }
+
+    public void reset() {
         blink = false;
         winkLeft = false;
         winkRight = false;

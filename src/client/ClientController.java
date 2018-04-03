@@ -18,7 +18,6 @@ public class ClientController {
     private EyeData eyeData;
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
-    private Frequency freq;
 
     /**
      * @return Singleton instance of ServerController
@@ -28,13 +27,6 @@ public class ClientController {
             instance = new ClientController();
         }
         return instance;
-    }
-
-    /**
-     * @return Frequency model
-     */
-    public Frequency getFreqModel() {
-        return freq;
     }
 
     /**
@@ -78,7 +70,6 @@ public class ClientController {
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
-        freq = new Frequency();
     }
 
     private void setFromJsonObject(JsonObject jobj) {
@@ -108,9 +99,6 @@ public class ClientController {
 
         upperFaceData.setRaiseBrow(faceJson.getJsonNumber(UpperFaceData.RAISE_BROW).doubleValue());
         upperFaceData.setFurrowBrow(faceJson.getJsonNumber(UpperFaceData.FURROW_BROW).doubleValue());
-
-        // Frequency
-        freq.setFrequency(jobj.getJsonNumber(Frequency.FREQUENCY_KEY).doubleValue());
     }
 }
 
