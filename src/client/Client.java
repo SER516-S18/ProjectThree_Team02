@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 import org.glassfish.tyrus.client.ClientManager;
 
@@ -22,6 +23,8 @@ public class Client extends Application {
         primaryStage.setTitle("Client");
         primaryStage.setScene(new Scene(root, 770, 600));
         primaryStage.show();
+        primaryStage.setResizable(false);
+
     }
 
     public static void main(String[] args) throws Exception {

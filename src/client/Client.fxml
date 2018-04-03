@@ -9,13 +9,15 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="770.0" style="-fx-background-color: olivedrab;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
 
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -37,21 +39,21 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.3" layoutY="28.0" orientation="VERTICAL" prefHeight="572.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+        <SplitPane dividerPositions="0.3" layoutX="10.0" layoutY="51.0" orientation="VERTICAL" prefHeight="546.0" prefWidth="751.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="51.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="655.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="756.0">
                     <children>
                         <SplitPane dividerPositions="0.16275167785234898" prefHeight="167.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="165.0" prefWidth="144.0" />
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="165.0" prefWidth="643.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="165.0" prefWidth="144.0" style="-fx-background-color: olivedrab;" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="165.0" prefWidth="643.0" style="-fx-background-color: olive;">
                                     <children>
-                                        <Label layoutX="14.0" layoutY="6.0" text="ENGINE STATUS" />
-                                        <Label layoutX="437.0" layoutY="5.0" text="USER STATUS" />
+                                        <Label layoutX="14.0" layoutY="6.0" text="ENGINE STATUS" textFill="WHITE" />
+                                        <Label layoutX="437.0" layoutY="5.0" text="USER STATUS" textFill="WHITE" />
                                         <Label layoutX="14.0" layoutY="30.0" text="System:" />
                                         <Label layoutX="14.0" layoutY="66.0" text="System Up Time:" />
                                         <Label layoutX="15.0" layoutY="100.0" text="Wireless Signal:" />
-                                        <Label layoutX="14.0" layoutY="127.0" text="Battery Power:" />
+                                        <Label layoutX="14.0" layoutY="136.0" text="Battery Power:" />
                                         <Label layoutX="437.0" layoutY="30.0" prefHeight="17.0" prefWidth="63.0" text="Headset:" />
                                         <Label layoutX="553.0" layoutY="30.0" text="Profile:" />
                                         <ChoiceBox fx:id="headSet" layoutX="437.0" layoutY="53.0" prefHeight="27.0" prefWidth="78.0" />
@@ -62,13 +64,23 @@
                                         <TextField fx:id="systemStatus" editable="false" layoutX="136.0" layoutY="25.0" prefHeight="27.0" prefWidth="115.0" />
                                         <TextField fx:id="systemUpTime" editable="false" layoutX="136.0" layoutY="61.0" prefHeight="27.0" prefWidth="115.0" />
                               <TextField fx:id="inputName" layoutX="444.0" layoutY="131.0" visible="false" />
+                              <TextField fx:id="WirelessSignal" layoutX="136.0" layoutY="95.0" prefHeight="27.0" prefWidth="52.0" text="Good" />
+                              <TextField fx:id="BatteryPower" layoutX="136.0" layoutY="131.0" prefHeight="27.0" prefWidth="52.0" text="High" />
+                              <Circle fill="#1fff2f" layoutX="200.0" layoutY="109.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="225.0" layoutY="109.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="251.0" layoutY="109.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="275.0" layoutY="109.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="200.0" layoutY="145.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="225.0" layoutY="145.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="251.0" layoutY="145.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fill="#1fff2f" layoutX="275.0" layoutY="145.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
                                     </children></AnchorPane>
                             </items>
                         </SplitPane>
                     </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="394.0" prefWidth="721.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="771.0" style="-fx-background-color: olivedrab;">
                     <children>
-                        <MenuBar prefHeight="394.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-172.0" AnchorPane.topAnchor="0.0">
+                        <MenuBar layoutY="14.0" prefHeight="27.0" prefWidth="486.0" AnchorPane.bottomAnchor="328.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="263.0" AnchorPane.topAnchor="14.0">
                             <menus>
                                 <Menu mnemonicParsing="false" text="Headset Setup" />
                                 <Menu mnemonicParsing="false" text="Expressive Suite" />
@@ -80,9 +92,9 @@
                                 <Menu mnemonicParsing="false" text="Cognitive Suite" />
                             </menus>
                         </MenuBar>
-                        <SplitPane dividerPositions="0.67" layoutY="29.0" prefHeight="366.0" prefWidth="770.0">
+                        <SplitPane dividerPositions="0.67" layoutY="39.0" prefHeight="361.0" prefWidth="770.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="488.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="511.0">
                                     <children>
                                         <SplitPane dividerPositions="0.5" prefHeight="364.0" prefWidth="511.0">
                                             <items>
@@ -108,7 +120,7 @@
                                             </items>
                                         </SplitPane>
                                     </children></AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="225.0" prefWidth="202.0">
                                     <children>
                                         <MenuBar>
                                             <menus>
@@ -124,28 +136,39 @@
                                                 </Menu>
                                             </menus>
                                         </MenuBar>
-                                        <Label layoutX="12.0" layoutY="42.0" text="Blink" />
-                                        <Label layoutX="12.0" layoutY="70.0" text="RIght Wink" />
-                                        <Label layoutX="12.0" layoutY="98.0" text="Left Wink" />
-                                        <Label layoutX="12.0" layoutY="126.0" text="Look Left/Right" />
-                                        <Label layoutX="12.0" layoutY="154.0" text="Raise Brow" />
-                                        <Label layoutX="12.0" layoutY="182.0" text="Furrow Brow" />
-                                        <Label layoutX="12.0" layoutY="210.0" text="Smile" />
-                                        <Label layoutX="12.0" layoutY="238.0" text="Clench" />
-                                        <Label layoutX="12.0" layoutY="266.0" text="Right Smirk" />
-                                        <Label layoutX="12.0" layoutY="294.0" text="Left Smirk" />
-                                        <Label layoutX="12.0" layoutY="322.0" text="Laugh" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="38.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="66.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="94.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="122.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="150.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="178.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="206.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="234.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="262.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="290.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
-                                        <Slider blockIncrement="1.0" layoutX="107.0" layoutY="318.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" />
+                                        <Label layoutX="14.0" layoutY="34.0" text="Blink" />
+                                        <Label layoutX="13.0" layoutY="62.0" text="RIght Wink" />
+                                        <Label layoutX="14.0" layoutY="90.0" text="Left Wink" />
+                                        <Label layoutX="8.0" layoutY="118.0" text="Look Left/Right" />
+                                        <Label layoutX="12.0" layoutY="146.0" text="Raise Brow" />
+                                        <Label layoutX="11.0" layoutY="172.0" text="Furrow Brow" />
+                                        <Label layoutX="14.0" layoutY="199.0" text="Smile" />
+                                        <Label layoutX="10.0" layoutY="230.0" text="Clench" />
+                                        <Label layoutX="8.0" layoutY="259.0" text="Right Smirk" />
+                                        <Label layoutX="12.0" layoutY="286.0" text="Left Smirk" />
+                                        <Label layoutX="12.0" layoutY="314.0" text="Laugh" />
+                                        <Slider fx:id="Blink" blockIncrement="1.0" layoutX="107.0" layoutY="30.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="RightWink" blockIncrement="1.0" layoutX="107.0" layoutY="58.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="LeftWink" blockIncrement="1.0" layoutX="107.0" layoutY="86.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="Look" blockIncrement="1.0" layoutX="107.0" layoutY="114.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="Raise" blockIncrement="1.0" layoutX="107.0" layoutY="142.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="Furrow" blockIncrement="1.0" layoutX="107.0" layoutY="168.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="Smile" blockIncrement="1.0" layoutX="107.0" layoutY="195.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="Clench" blockIncrement="1.0" layoutX="107.0" layoutY="226.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="RightSmirk" blockIncrement="1.0" layoutX="107.0" layoutY="254.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="LeftSmirk" blockIncrement="1.0" layoutX="107.0" layoutY="282.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                                        <Slider fx:id="Laugh" blockIncrement="1.0" layoutX="107.0" layoutY="309.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="26.0" prefWidth="95.0" showTickMarks="true" value="5.0" visible="false" />
+                              <RadioButton fx:id="BlinkB" layoutX="202.0" layoutY="33.0" mnemonicParsing="false" onAction="#BlinkBSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="RightWinkB" layoutX="202.0" layoutY="61.0" mnemonicParsing="false" onAction="#RightWinkBSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="LeftWinkB" layoutX="202.0" layoutY="89.0" mnemonicParsing="false" onAction="#LeftWinkSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="RaiseB" layoutX="202.0" layoutY="145.0" mnemonicParsing="false" onAction="#RaiseSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="LookB" layoutX="202.0" layoutY="117.0" mnemonicParsing="false" onAction="#LookSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="FurrowB" layoutX="202.0" layoutY="171.0" mnemonicParsing="false" onAction="#FurrowSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="SmileB" layoutX="202.0" layoutY="198.0" mnemonicParsing="false" onAction="#SmileSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="ClenchB" layoutX="202.0" layoutY="229.0" mnemonicParsing="false" onAction="#ClenchSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="RightSmirkB" layoutX="202.0" layoutY="257.0" mnemonicParsing="false" onAction="#RightSmirkSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="LeftSmirkB" layoutX="202.0" layoutY="285.0" mnemonicParsing="false" onAction="#LeftSmirkSelected" prefHeight="12.0" prefWidth="24.0" />
+                              <RadioButton fx:id="LaughB" layoutX="202.0" layoutY="309.0" mnemonicParsing="false" onAction="#LaughSelected" prefHeight="26.0" prefWidth="24.0" />
                                     </children></AnchorPane>
                             </items>
                         </SplitPane>

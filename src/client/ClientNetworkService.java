@@ -4,6 +4,8 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import org.glassfish.tyrus.client.ClientManager;
 import javax.websocket.Session;
 
@@ -50,8 +52,10 @@ public class ClientNetworkService<T> extends Service<T> {
     private void addEventHandler(){
         setOnRunning(new EventHandler<WorkerStateEvent>() {
             @Override
-            public void handle(WorkerStateEvent event) {
+             public void handle(WorkerStateEvent event) {
                 System.out.print("Websocket Started: " + SERVER);
+
+
 
             }
         });
