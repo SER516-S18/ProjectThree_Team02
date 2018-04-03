@@ -22,6 +22,10 @@ public class EmotionalStatesData {
     private double Focus;
 
     public EmotionalStatesData() {
+        reset();
+    }
+
+    public void reset() {
         Interest = 0;
         Engagement = 0;
         Stress = 0;

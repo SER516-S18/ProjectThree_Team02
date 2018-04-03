@@ -20,6 +20,10 @@ public class LowerFaceData {
     private double laugh;
 
     public LowerFaceData() {
+        reset();
+    }
+
+    public void reset() {
         smile = 0;
         clench = 0;
         smirkLeft = 0;
