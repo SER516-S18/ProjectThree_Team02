@@ -21,7 +21,7 @@ public class Client extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Client.fxml"));
         primaryStage.setTitle("Client");
-        primaryStage.setScene(new Scene(root, 770, 600));
+        primaryStage.setScene(new Scene(root, 770, 634));
         primaryStage.show();
         primaryStage.setResizable(false);
 
