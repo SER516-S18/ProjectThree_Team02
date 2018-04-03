@@ -87,20 +87,13 @@ public class ServerUIController implements Initializable{
                 showStartButton();
                 System.out.println("Stop sending data.");
             } else if (autoRepeatCheckbox.isSelected()) {
-                // If we are not already sending data and the auto-repeat box is checked
-                if(isDouble(frequencyTextField.getText())) {
-                    double freq = Double.parseDouble(frequencyTextField.getText());
-                    if (freq >= 0.0) {
-                        ServerUIModel.getInstance().setSendingData(true);
-                        ServerController.getInstance()
-                                .getFreqModel().setFrequency(freq);
-                        showStopButton();
-                        System.out.println("Sending Data, Auto repeat: open.");
-                    } else {
-                        System.out.println("Invalid frequency value");
-                    }
+                double freq = ServerUIModel.getInstance().getEmoStateInterval();
+                if (freq >= 0.0) {
+                    ServerUIModel.getInstance().setSendingData(true);
+                    showStopButton();
+                    System.out.println("Sending Data, Auto repeat: open.");
                 } else {
-                    System.out.println("Frequency must be a number");
+                    System.out.println("Invalid frequency value");
                 }
             } else if (!ServerUIModel.getInstance().isSendingData()) {
                 // If auto-repeat is not checked, then we want to send data one time

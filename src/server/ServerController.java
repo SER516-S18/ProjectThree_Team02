@@ -15,8 +15,6 @@ public class ServerController {
     private EyeData eyeData;
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
-    private Frequency freq;
-
 
     /**
      * @return Singleton instance of ServerController
@@ -26,13 +24,6 @@ public class ServerController {
             instance = new ServerController();
         }
         return instance;
-    }
-
-    /**
-     * @return Frequency model
-     */
-    public Frequency getFreqModel() {
-        return freq;
     }
 
     /**
@@ -69,7 +60,6 @@ public class ServerController {
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
-        freq = new Frequency();
     }
 
     /**
@@ -103,7 +93,7 @@ public class ServerController {
         return Json.createObjectBuilder()
                 .add(JSON_FACE_KEY, faceJson)
                 .add(JSON_EMO_KEY, emoJson)
-                .add(Frequency.FREQUENCY_KEY, freq.getFrequency())
+            //    .add(Frequency.FREQUENCY_KEY, freq.getFrequency()) we need to send time but not frequency
                 .build().toString();
     }
 }
