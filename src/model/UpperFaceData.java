@@ -14,6 +14,10 @@ public class UpperFaceData {
     private double furrowBrow;
 
     public UpperFaceData() {
+        reset();
+    }
+
+    public void reset() {
         raiseBrow = 0;
         furrowBrow = 0;
     }

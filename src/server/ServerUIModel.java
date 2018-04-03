@@ -21,7 +21,7 @@ public class ServerUIModel {
     private SimpleStringProperty upperfaceDataType;
     private SimpleStringProperty emotionalStatesDataType;
 
-    private SimpleDoubleProperty eyeDataValue;
+    private SimpleBooleanProperty eyeDataValue;
     private SimpleDoubleProperty lowerfaceDataValue;
     private SimpleDoubleProperty upperfaceDataValue;
     private SimpleDoubleProperty emotionalStatesDataValue;
@@ -29,15 +29,15 @@ public class ServerUIModel {
     private ServerUIModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);
         autoRest = new SimpleBooleanProperty(false);
-        timeElapsed = new SimpleDoubleProperty((double)0);
+        timeElapsed = new SimpleDoubleProperty(0);
         eyeDataType = new SimpleStringProperty(EyeData.BLINK);
         lowerfaceDataType = new SimpleStringProperty(LowerFaceData.SMILE);
         upperfaceDataType = new SimpleStringProperty(UpperFaceData.RAISE_BROW);
         emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
-        eyeDataValue = new SimpleDoubleProperty((double)0);
-        lowerfaceDataValue = new SimpleDoubleProperty((double)0);
-        upperfaceDataValue = new SimpleDoubleProperty((double)0);
-        emotionalStatesDataValue = new SimpleDoubleProperty((double)0);
+        eyeDataValue = new SimpleBooleanProperty(false);
+        lowerfaceDataValue = new SimpleDoubleProperty(0);
+        upperfaceDataValue = new SimpleDoubleProperty(0);
+        emotionalStatesDataValue = new SimpleDoubleProperty(0);
     }
 
     /**
@@ -139,15 +139,15 @@ public class ServerUIModel {
         this.emotionalStatesDataType.set(emotionalStatesDataType);
     }
 
-    public double getEyeDataValue() {
+    public boolean getEyeDataValue() {
         return eyeDataValue.get();
     }
 
-    public SimpleDoubleProperty eyeDataValueProperty() {
+    public SimpleBooleanProperty eyeDataValueProperty() {
         return eyeDataValue;
     }
 
-    public void setEyeDataValue(double eyeDataValue) {
+    public void setEyeDataValue(boolean eyeDataValue) {
         this.eyeDataValue.set(eyeDataValue);
     }
 
