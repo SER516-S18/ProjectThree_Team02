@@ -72,7 +72,7 @@ public class ClientController {
         setFromJsonObject(jobj);
     }
 
-    private ClientController(){
+    public ClientController(){
         // Create models
         emoStates = new EmotionalStatesData();
         eyeData = new EyeData();
