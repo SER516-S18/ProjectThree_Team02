@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="500.0" maxWidth="420.0" minHeight="500.0" minWidth="420.0" prefHeight="500.0" prefWidth="420.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerUIController">
+<AnchorPane fx:id="anchorPane" maxHeight="535.0" maxWidth="420.0" minHeight="535.0" minWidth="420.0" prefHeight="535.0" prefWidth="420.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerUIController">
    <children>
       <HBox prefHeight="25.0" prefWidth="420.0">
          <children>
@@ -36,7 +36,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="105.0" minHeight="105.0" prefHeight="105.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="195.0" minHeight="195.0" prefHeight="195.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -157,6 +157,9 @@
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                      <GridPane.margin>
@@ -184,6 +187,7 @@
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -225,6 +229,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <ChoiceBox fx:id="choiceboxUpperface" prefWidth="150.0" />
+                        <ChoiceBox prefWidth="150.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -273,6 +278,25 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Emotional">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <ChoiceBox fx:id="emotionalStateChoiceBox" prefWidth="150.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <GridPane GridPane.rowIndex="4">

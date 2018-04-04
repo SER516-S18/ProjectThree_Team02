@@ -34,6 +34,7 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox choiceboxUpperface;
     @FXML private ChoiceBox choiceboxLowerface;
     @FXML private ChoiceBox choiceboxEye;
+    @FXML private ChoiceBox emotionalStateChoiceBox;
     @FXML private CheckBox autoRepeatCheckbox;
     @FXML private TextField frequencyTextField;
 
@@ -67,6 +68,8 @@ public class ServerUIController implements Initializable{
         choiceboxLowerface.getSelectionModel().selectFirst();
         choiceboxEye.setItems(FXCollections.observableArrayList("Blink", "Wink Left", "Wink Right", "Look Left", "Look Right"));
         choiceboxEye.getSelectionModel().selectFirst();
+        emotionalStateChoiceBox.setItems(FXCollections.observableArrayList("Interest", "Engagement", "Stress", "Relaxation", "Excitement", "Focus"));
+        emotionalStateChoiceBox.getSelectionModel().selectFirst();
 
         //Setting auto-repeat default checked
         autoRepeatCheckbox.setSelected(true);

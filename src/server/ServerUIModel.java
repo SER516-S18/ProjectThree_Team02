@@ -66,7 +66,6 @@ public class ServerUIModel {
         isSendingData = sendingData;
     }
 
-
     public double getEmoStateInterval() {
         return emoStateInterval.get();
     }
