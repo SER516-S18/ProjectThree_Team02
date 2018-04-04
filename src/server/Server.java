@@ -38,7 +38,7 @@ public class Server extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("serverUI.fxml"));
         primaryStage.setTitle("SER516 Team02 Server");
 
-        scene = new Scene(root, 420, 500);
+        scene = new Scene(root, 420, 535);
 
         primaryStage.setScene(scene);
 
