@@ -49,8 +49,7 @@ public class ServerNetworkService<T> extends Service<T>{
                         if( ServerUIModel.getInstance().isSendingData() ){
 
                             sendPayloadToAllClients();
-                            Thread.sleep((long)(ServerController.getInstance()
-                                    .getFreqModel().getFrequency() * 1000 ));
+                            Thread.sleep((long)(ServerUIModel.getInstance().getEmoStateInterval() * 1000 ));
                         }
 
                         // Send data once
