@@ -1,8 +1,6 @@
 package client;
 
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -13,9 +11,8 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
-public class ClientFace extends Application {
+public class ClientFace extends AnchorPane {
     int WINDOW_HEIGHT = 400;
     int WINDOW_WIDTH = 400;
 
@@ -32,25 +29,14 @@ public class ClientFace extends Application {
     int mouthPositionX = headPositionX;
     int mouthPositionY = headPositionY/3 *4;
 
-   // public static void main(String[] args) {
-     //  launch(args);
-    //}
-
-    @Override
-    public void start(Stage primaryStage) {
+    public ClientFace() {
+    	Group headGroup = setHead();
     	
-    	
-        Scene headScene = new Scene(setFace(), WINDOW_HEIGHT, WINDOW_WIDTH);
-
-        primaryStage.setScene(headScene);
-        primaryStage.show();
+		AnchorPane.setTopAnchor(headGroup, 1.0);
+		AnchorPane.setBottomAnchor(headGroup, 1.0);
+		this.getChildren().add(headGroup);
     }
     
-    AnchorPane setFace() {
-    	AnchorPane pane = new AnchorPane(setHead());
-    	return pane;
-    }
-
     Group setHead() {
 
         Group headGroup = new Group();
@@ -84,7 +70,7 @@ public class ClientFace extends Application {
         headGroup.getChildren().addAll(head, leftEye,  rightEye, clenchedMouth);
         
         /**
-         * Uncomment these to test different parts
+         * Uncomment these to test different parts - Will connect with server data later
          */
         //headGroup.getChildren().addAll(head, leftEye,  rightEye, mouth);
         //headGroup.getChildren().addAll(head, leftEye,  rightEye, smile);
