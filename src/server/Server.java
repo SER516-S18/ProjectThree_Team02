@@ -42,21 +42,6 @@ public class Server extends Application {
 
         primaryStage.setScene(scene);
 
-        //Binding data values with model
-        MyNumberStringConverter converter = new MyNumberStringConverter();
-        TextField frequencyTextFiled = (TextField) scene.lookup("#frequencyTextField");
-        Bindings.bindBidirectional(frequencyTextFiled.textProperty(), ServerUIModel.getInstance().emoStateIntervalProperty(), converter);
-
-        TextField upperfaceTextField = (TextField) scene.lookup("#upperfaceTextField");
-        Bindings.bindBidirectional(upperfaceTextField.textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), converter);
-
-        TextField lowerfaceTextField = (TextField) scene.lookup("#lowerfaceTextField");
-        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), converter);
-
-        CheckBox autoresetCheckbox = (CheckBox) scene.lookup("#autoresetCheckbox");
-        Bindings.bindBidirectional(ServerUIModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
-
-
         //Set window non-resizable
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
