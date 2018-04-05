@@ -1,6 +1,9 @@
 package server;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.EmotionalStatesData;
+import model.EyeData;
+import model.LowerFaceData;
+import model.UpperFaceData;
+import util.MyNumberStringConverter;
 
 import java.io.*;
 import java.net.URL;
@@ -37,6 +45,9 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox emotionalStateChoiceBox;
     @FXML private CheckBox autoRepeatCheckbox;
     @FXML private TextField frequencyTextField;
+    @FXML private TextField upperfaceTextField;
+    @FXML private TextField lowerfaceTextField;
+    @FXML private CheckBox autoresetCheckbox;
 
     /**
      * All works after create controller
@@ -61,20 +72,67 @@ public class ServerUIController implements Initializable{
         };
         System.setOut(new PrintStream(out, true));
 
+        //Binding data values with model
+        bindModelWithUI();
+
+        //Inital work done
+    }
+
+
+    private void bindModelWithUI() {
+        MyNumberStringConverter converter = new MyNumberStringConverter();
+        Bindings.bindBidirectional(frequencyTextField.textProperty(), ServerUIModel.getInstance().emoStateIntervalProperty(), converter);
+        Bindings.bindBidirectional(upperfaceTextField.textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), converter);
+
+        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), converter);
+        Bindings.bindBidirectional(ServerUIModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
+
         //Setting choice boxes
-        choiceboxUpperface.setItems(FXCollections.observableArrayList("Raise Brow", "Furrow Brow"));
+        choiceboxUpperface.setItems(FXCollections.observableArrayList(UpperFaceData.RAISE_BROW, UpperFaceData.FURROW_BROW));
+        choiceboxUpperface.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue observable, String oldValue, String newValue) {
+                ServerUIModel.getInstance().setUpperfaceDataType(newValue);
+            }
+        });
         choiceboxUpperface.getSelectionModel().selectFirst();
-        choiceboxLowerface.setItems(FXCollections.observableArrayList("Smile", "Clench", "smirkLeft", "smirkRight", "laugh"));
+
+
+        choiceboxLowerface.setItems(FXCollections.observableArrayList(LowerFaceData.SMILE, LowerFaceData.CLENCH,
+                LowerFaceData.LAUGH, LowerFaceData.SMILE, LowerFaceData.SMIRK_LEFT, LowerFaceData.SMIRK_RIGHT));
+        choiceboxLowerface.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue observable, String oldValue, String newValue) {
+                ServerUIModel.getInstance().setLowerfaceDataType(newValue);
+            }
+        });
         choiceboxLowerface.getSelectionModel().selectFirst();
-        choiceboxEye.setItems(FXCollections.observableArrayList("Blink", "Wink Left", "Wink Right", "Look Left", "Look Right"));
+
+
+        choiceboxEye.setItems(FXCollections.observableArrayList(EyeData.BLINK, EyeData.LOOK_LEFT, EyeData.LOOK_RIGHT,
+                EyeData.WINK_LEFT, EyeData.WINK_RIGHT));
+        choiceboxEye.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue observable, String oldValue, String newValue) {
+                ServerUIModel.getInstance().setEyeDataType(newValue);
+            }
+        });
         choiceboxEye.getSelectionModel().selectFirst();
-        emotionalStateChoiceBox.setItems(FXCollections.observableArrayList("Interest", "Engagement", "Stress", "Relaxation", "Excitement", "Focus"));
+
+
+        emotionalStateChoiceBox.setItems(FXCollections.observableArrayList(EmotionalStatesData.INTEREST,
+                EmotionalStatesData.ENGAGEMENT, EmotionalStatesData.EXCITEMENT, EmotionalStatesData.FOCUS,
+                EmotionalStatesData.RELAXATION, EmotionalStatesData.STRESS));
+        emotionalStateChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue observable, String oldValue, String newValue) {
+                ServerUIModel.getInstance().setEmotionalStatesDataType(newValue);
+            }
+        });
         emotionalStateChoiceBox.getSelectionModel().selectFirst();
 
         //Setting auto-repeat default checked
         autoRepeatCheckbox.setSelected(true);
-
-        //Inital work done
     }
 
     /**
