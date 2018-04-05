@@ -4,11 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.SubScene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.*;
 import javafx.application.Application;
@@ -23,9 +29,11 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,9 +47,12 @@ public class ClientUIController implements Initializable {
     @FXML Menu ConnectToServer;
     @FXML AnchorPane rootPane;
     @FXML MenuItem PerformanceItem;
-    @FXML Pane Face;
+    @FXML MenuItem Connect;
     @FXML Pane Graph1;
     @FXML Pane Graph2;
+    @FXML Label Time;
+    @FXML Button SelectIp;
+    @FXML Button SelectPort;
     @FXML Group headGroup;
     @FXML Ellipse head;
     @FXML Ellipse headOval;
@@ -72,6 +83,7 @@ public class ClientUIController implements Initializable {
         rootPane.getChildren().add(headGroup);
 
 
+
     }
     @FXML private void changeToPerformanceScene(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("ClientPerformance.fxml"));
@@ -79,6 +91,7 @@ public class ClientUIController implements Initializable {
 
 
     }
+
     Group setHead() {
 
         Group headGroup = new Group();

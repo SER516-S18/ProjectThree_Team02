@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.stage.Stage;
 
-
+/* This is the main Client class with should be Run*/
 public class Client extends Application {
 
 
@@ -18,11 +18,7 @@ public class Client extends Application {
         primaryStage.setScene(new Scene(root, 770, 509));
         primaryStage.show();
         primaryStage.setResizable(false);
-
-
-
-
-    }
+        }
 
     public static void main(String[] args) throws Exception {
         launch(args);

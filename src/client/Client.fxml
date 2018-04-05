@@ -3,10 +3,10 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,6 +25,7 @@
             <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Connect To Server">
               <items>
                 <MenuItem mnemonicParsing="false" text="Connect" />
+                  <MenuItem mnemonicParsing="false" text="Add Port" />
               </items>
             </Menu>
             <Menu fx:id="clock" mnemonicParsing="false" text="Time">
@@ -38,13 +39,12 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="Elapsed">
                      <graphic>
-                        <TextField />
+                        <Label text="428.12" />
                      </graphic>
                   </MenuItem>
                </items></Menu>
         </menus>
       </MenuBar>
-      <Pane fx:id="Face" layoutY="29.0" prefHeight="400.0" prefWidth="400.0" />
       <Pane fx:id="Graph1" layoutX="385.0" layoutY="29.0" prefHeight="240.0" prefWidth="385.0">
          <children>
             <LineChart prefHeight="240.0" prefWidth="385.0">
