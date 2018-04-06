@@ -1,24 +1,40 @@
 package client;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import server.ServerUIModel;
 
 public class ClientUIModel {
 
-    private SimpleDoubleProperty timeElapsed;
+    
+    private static ClientUIModel instance;
+    
+    
+    private double timeElapsed;
+    
+    /**
+     * @return Singleton instance of ServerUIModel
+     */
+    protected static ClientUIModel getInstance(){
+        if( instance == null ){
+            instance = new ClientUIModel();
+        }
+        return instance;
+    }
 
+    
     public ClientUIModel() {
-        timeElapsed.set(0);
+       
     }
 
-    public double getTimeElapsed() {
-        return timeElapsed.get();
-    }
 
-    public SimpleDoubleProperty timeElapsedProperty() {
-        return timeElapsed;
-    }
+	public double getTimeElapsed() {
+		return timeElapsed;
+	}
 
-    public void setTimeElapsed(double timeElapsed) {
-        this.timeElapsed.set(timeElapsed);
-    }
+
+	public void setTimeElapsed(double timeElapsed) {
+		this.timeElapsed = timeElapsed;
+	}
+
+
 }

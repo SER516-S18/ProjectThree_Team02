@@ -2,6 +2,7 @@ package client;
 
 import model.*;
 import server.ServerNetworkService;
+import server.ServerUIModel;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -11,13 +12,15 @@ import java.io.StringReader;
 public class ClientController {
     public static final String JSON_FACE_KEY = "Expressive";
     public static final String JSON_EMO_KEY = "Affective";
-
+    public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
+    
     private static ClientController instance;
 
     private EmotionalStatesData emoStates;
     private EyeData eyeData;
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
+    private EmoStateIntervalData emoStateIntervalData;
 
     /**
      * @return Singleton instance of ServerController
@@ -62,6 +65,7 @@ public class ClientController {
         JsonObject jobj = reader.readObject();
         reader.close();
         setFromJsonObject(jobj);
+        updateReceivedData();
     }
 
     public ClientController(){
@@ -70,6 +74,16 @@ public class ClientController {
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
+        emoStateIntervalData = new EmoStateIntervalData();
+    }
+    
+    public void updateReceivedData() {
+    	
+    	ClientUIModel model = ClientUIModel.getInstance();
+    	
+    	double interval = emoStateIntervalData.getInterval();
+    	model.setTimeElapsed(model.getTimeElapsed()+interval);
+    	//System.out.println(model.getTimeElapsed());
     }
 
     private void setFromJsonObject(JsonObject jobj) {
@@ -99,6 +113,9 @@ public class ClientController {
 
         upperFaceData.setRaiseBrow(faceJson.getJsonNumber(UpperFaceData.RAISE_BROW).doubleValue());
         upperFaceData.setFurrowBrow(faceJson.getJsonNumber(UpperFaceData.FURROW_BROW).doubleValue());
+        
+        JsonObject emoStateIntervalJson = jobj.getJsonObject(JSON_INTERVAL_KEY);
+        emoStateIntervalData.setInterval(emoStateIntervalJson.getJsonNumber(EmoStateIntervalData.INTERVAL).doubleValue());
     }
 }
 
