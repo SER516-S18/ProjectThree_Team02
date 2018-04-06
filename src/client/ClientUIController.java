@@ -16,7 +16,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -28,6 +27,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -60,7 +60,7 @@ public class ClientUIController implements Initializable {
     int WINDOW_HEIGHT = 400;
     int WINDOW_WIDTH = 400;
 
-    int FACE_WIDTH = 180;
+    int FACE_WIDTH = 160;
     int FACE_HEIGHT = 200;
 
     int headPositionX = WINDOW_WIDTH/2;
@@ -72,6 +72,13 @@ public class ClientUIController implements Initializable {
 
     int mouthPositionX = headPositionX;
     int mouthPositionY = headPositionY/3 *4;
+
+    double startX = FACE_WIDTH/2 * 2.5;
+    double startY = FACE_HEIGHT/3*2.5;
+    double leftX = startX-30;
+    double rightX = startX+30;
+    double leftY =startY+40;
+    double rightY = leftY;
 
 
     @Override
@@ -98,8 +105,12 @@ public class ClientUIController implements Initializable {
 
         Ellipse head = drawHead();
 
-        Circle leftEye = drawEyeBall(leftEyePositionX,eyesPositionY);
-        Circle rightEye = drawEyeBall(rightEyePositionX,eyesPositionY);
+        Ellipse leftEye = drawEye(leftEyePositionX,eyesPositionY);
+        Ellipse rightEye = drawEye(rightEyePositionX,eyesPositionY);
+
+        Arc leftEyeBrow = drawEyeBrow(leftEyePositionX, eyesPositionY-30);
+        Arc rightEyeBrow = drawEyeBrow(rightEyePositionX, eyesPositionY-30);
+
 
         Arc mouth = setMouthNeutral();
 
@@ -115,6 +126,8 @@ public class ClientUIController implements Initializable {
         // Change value in increments of 0, 0.1, 0.2, ... 1 to test
         Arc rightSmirk = setRightSmirk(1, mouthPositionX, mouthPositionY);
 
+        Polygon nose = setNose(startX, startY, leftX, leftY, rightX, rightY);
+
         Group clenchedMouth = new Group();
 
         // Change value in increments of 0, 0.1, 0.2, ... 1 to test
@@ -122,7 +135,7 @@ public class ClientUIController implements Initializable {
         Rectangle clenchInside = insideClenchRectangle(mouthPositionX - 75, mouthPositionY + 10);
         clenchedMouth.getChildren().addAll(clench, clenchInside);
 
-        headGroup.getChildren().addAll(head, leftEye,  rightEye, clenchedMouth);
+        headGroup.getChildren().addAll(head, leftEye,  rightEye, leftSmirk, leftEyeBrow, rightEyeBrow, nose);
 
         /**
          * Uncomment these to test different parts - Will connect with server data later
@@ -159,9 +172,24 @@ public class ClientUIController implements Initializable {
      * @param Y		Position of eyeball vertically on head
      * @return		Eye drawing
      */
-    Circle drawEyeBall(int X, int Y) {
-        Circle circle = new Circle(X, Y, 10.0f);
-        return circle;
+    Ellipse drawEye(int X, int Y) {
+        Ellipse ellipse = new Ellipse(X, Y, 12.0f, 18.0f);
+        return ellipse;
+    }
+    Arc drawEyeBrow(int X, int Y) {
+        Arc arc = new Arc(X, Y, 35.0f,  5.0f, 0, 180.0f);
+        arc.setType(ArcType.ROUND);
+        arc.setStroke(Color.BLACK);
+        arc.setFill(Color.BLACK);
+        arc.setStrokeWidth(5);
+        return arc;
+    }
+    javafx.scene.shape.Polygon setNose(double X1, double Y1, double X2, double Y2, double X3, double Y3) {
+        javafx.scene.shape.Polygon nose = new Polygon();
+        nose.getPoints().addAll(new Double[]{ X1, Y1, X2, Y2, X3, Y3});
+        Color nose_COLOR = Color.rgb(232, 169, 85);
+        nose.setFill(nose_COLOR);
+        return nose;
     }
 
     /**
