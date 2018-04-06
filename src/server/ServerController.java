@@ -82,6 +82,7 @@ public class ServerController {
         eyeData.reset();
         lowerFaceData.reset();
         upperFaceData.reset();
+        emoStateIntervalData.reset();
 
         ServerUIModel model = ServerUIModel.getInstance();
 
