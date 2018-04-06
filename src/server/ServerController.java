@@ -10,11 +10,13 @@ public class ServerController {
 
     public static final String JSON_FACE_KEY = "Expressive";
     public static final String JSON_EMO_KEY = "Affective";
+    public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
     private static ServerController instance;
     private EmotionalStatesData emoStates;
     private EyeData eyeData;
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
+    private EmoStateIntervalData emoStateIntervalData;
 
     /**
      * @return Singleton instance of ServerController
@@ -31,6 +33,7 @@ public class ServerController {
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
+        emoStateIntervalData = new EmoStateIntervalData();
     }
 
     /**
@@ -61,9 +64,15 @@ public class ServerController {
                 .add(LowerFaceData.LAUGH, lowerFaceData.getLaugh())
                 .add(UpperFaceData.RAISE_BROW, upperFaceData.getRaiseBrow())
                 .add(UpperFaceData.FURROW_BROW, upperFaceData.getFurrowBrow());
+        
+        //EmoStateInterval
+        JsonObjectBuilder emoStateIntervalJson = Json.createObjectBuilder()
+        		.add(EmoStateIntervalData.INTERVAL, emoStateIntervalData.getInterval());
+        
         return Json.createObjectBuilder()
                 .add(JSON_FACE_KEY, faceJson)
                 .add(JSON_EMO_KEY, emoJson)
+                .add(JSON_INTERVAL_KEY, emoStateIntervalJson)
             //    .add(Frequency.FREQUENCY_KEY, freq.getFrequency()) we need to send time but not frequency
                 .build().toString();
     }
@@ -109,5 +118,9 @@ public class ServerController {
             case UpperFaceData.RAISE_BROW: upperFaceData.setRaiseBrow(upperfaceValue); break;
             case UpperFaceData.FURROW_BROW: upperFaceData.setFurrowBrow(upperfaceValue); break;
         }
+        
+        double interval = model.getEmoStateInterval();
+        emoStateIntervalData.setInterval(interval);
+        
     }
 }
