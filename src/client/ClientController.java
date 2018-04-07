@@ -1,18 +1,24 @@
 package client;
 
 import model.*;
+import server.Server;
 import server.ServerNetworkService;
 import server.ServerUIModel;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 
 public class ClientController {
     public static final String JSON_FACE_KEY = "Expressive";
     public static final String JSON_EMO_KEY = "Affective";
     public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
+    public static final String SERVER_LOC =
+            ".." + File.pathSeparator + "server" +
+            File.pathSeparator + "Server.java";
     
     private static ClientController instance;
     private ClientUIController clientUIController;
@@ -95,6 +101,30 @@ public class ClientController {
         }
         networkThread = new ClientNetworkService<>( ip, port );
         networkThread.restart();
+    }
+
+    /**
+     * Launch a new server instance
+     */
+    protected void launchServer(){
+
+
+        System.out.println("Starting server...");
+
+        ProcessBuilder pBuilder = new ProcessBuilder(
+                System.getProperty("java.home") + "/bin/java",
+                "-cp",
+                "client.jar",
+                "client.Client"
+        );
+
+        try {
+            pBuilder.start();
+            System.out.println("Server started");
+        } catch( IOException e ){
+            System.out.println("Error starting server");
+            e.printStackTrace();
+        }
     }
 
     private void setFromJsonObject(JsonObject jobj) {

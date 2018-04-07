@@ -122,6 +122,15 @@ public class ClientUIController extends ClientController implements Initializabl
         primaryStage.setResizable(false);
     }
 
+    /**
+     * Handling for a launch new server menu option event
+     *
+     * @param event Launch server event
+     */
+    @FXML private void launchServer( ActionEvent event ){
+        ClientController.getInstance().launchServer();
+    }
+
     Group setHead() {
 
         Group headGroup = new Group();

@@ -11,7 +11,7 @@
       <TextField fx:id="ipAddress" layoutX="118.0" layoutY="20.0" prefHeight="27.0" prefWidth="152.0" text="127.0.0.1" />
       <Spinner fx:id="addPortNumbers" editable="true" layoutX="118.0" layoutY="80.0" prefHeight="27.0" prefWidth="152.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="80.0">
            <valueFactory>
-               <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="3000" max="65535" min="0" />
+               <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1726" max="65535" min="0" />
            </valueFactory>
       </Spinner>
    </children>
