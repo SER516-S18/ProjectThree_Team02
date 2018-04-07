@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -38,7 +39,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientUIController implements Initializable {
+public class ClientUIController extends ClientNetworkService implements Initializable  {
 
     private ClientNetworkService<Void> networkThread;
     @FXML MenuBar initalMenu;
@@ -91,12 +92,22 @@ public class ClientUIController implements Initializable {
 
 
 
+
     }
     @FXML private void changeToPerformanceScene(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("ClientPerformance.fxml"));
         rootPane.getChildren().setAll(pane);
 
 
+    }
+    @FXML private  void  PopUPMenuItem(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("ConnectPopUp.fxml"));
+        Stage primaryStage = new Stage();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Connect");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setResizable(false);
     }
 
     Group setHead() {

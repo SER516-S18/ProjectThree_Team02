@@ -23,10 +23,9 @@
             </items>
           </Menu>
             <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Connect To Server">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Connect" />
-                  <MenuItem mnemonicParsing="false" text="Add Port" />
-              </items>
+               <items>
+                  <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect" />
+               </items>
             </Menu>
             <Menu fx:id="clock" mnemonicParsing="false" text="Time">
                <graphic>
