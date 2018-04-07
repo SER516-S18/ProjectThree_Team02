@@ -77,12 +77,14 @@ public class ClientController {
         emoStateIntervalData = new EmoStateIntervalData();
     }
     
-    public void updateReceivedData() {
+    public Double updateReceivedData() {
     	
     	ClientUIModel model = ClientUIModel.getInstance();
     	
     	double interval = emoStateIntervalData.getInterval();
     	model.setTimeElapsed(model.getTimeElapsed()+interval);
+    	Double time = model.getTimeElapsed()+interval;
+        return time;
     	//System.out.println(model.getTimeElapsed());
     }
 

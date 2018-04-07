@@ -27,7 +27,7 @@
                   <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect" />
                </items>
             </Menu>
-            <Menu fx:id="clock" mnemonicParsing="false" text="Time">
+            <Menu fx:id="clock" mnemonicParsing="false" text="Time Elapsed">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,9 +36,9 @@
                   </ImageView>
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Elapsed">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
-                        <Label text="428.12" />
+                        <Label fx:id="Time" style="-: ;" textFill="#eb0707" />
                      </graphic>
                   </MenuItem>
                </items></Menu>

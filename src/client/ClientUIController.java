@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientUIController extends ClientNetworkService implements Initializable  {
+public class ClientUIController extends ClientController implements Initializable  {
 
     private ClientNetworkService<Void> networkThread;
     @FXML MenuBar initalMenu;
@@ -84,11 +84,17 @@ public class ClientUIController extends ClientNetworkService implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        long startTime = System.currentTimeMillis();
         networkThread = new ClientNetworkService<>();
         networkThread.restart();
+        ClientController cc = new ClientController();
+        double timeelapsed = cc.updateReceivedData();
         Group headGroup = setHead();
         rootPane.setBottomAnchor(headGroup, 30.00);
         rootPane.getChildren().add(headGroup);
+        Time.setText(String.valueOf(timeelapsed));
+        System.out.println(timeelapsed);
+
 
 
 
