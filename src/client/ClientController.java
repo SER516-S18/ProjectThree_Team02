@@ -16,6 +16,7 @@ public class ClientController {
     
     private static ClientController instance;
     private ClientUIController clientUIController;
+    private ClientNetworkService<Void> networkThread;
 
     private EmotionalStatesData emoStates;
     private EyeData eyeData;
@@ -86,6 +87,14 @@ public class ClientController {
     	model.setTimeElapsed(model.getTimeElapsed()+interval);
     	clientUIController.updateTimeElapsed();
     	
+    }
+
+    protected void connectToServer(String ip, String port){
+        if( networkThread != null ){
+            networkThread.cancel();
+        }
+        networkThread = new ClientNetworkService<>( ip, port );
+        networkThread.restart();
     }
 
     private void setFromJsonObject(JsonObject jobj) {

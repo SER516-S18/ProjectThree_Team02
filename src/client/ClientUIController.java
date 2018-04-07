@@ -42,7 +42,6 @@ import java.util.ResourceBundle;
 
 public class ClientUIController extends ClientController implements Initializable  {
 
-    private ClientNetworkService<Void> networkThread;
     private ClientUIModel clientUIModel;
     @FXML MenuBar initalMenu;
     @FXML Menu clock;
@@ -87,8 +86,6 @@ public class ClientUIController extends ClientController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         long startTime = System.currentTimeMillis();
-        networkThread = new ClientNetworkService<>();
-        networkThread.restart();
         ClientController cc = new ClientController();
         //ClientUIModel clientUIModel = new ClientUIModel();
         Group headGroup = setHead();

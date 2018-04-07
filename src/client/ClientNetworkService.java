@@ -13,11 +13,14 @@ import java.net.URI;
 import java.util.logging.LogManager;
 
 public class ClientNetworkService<T> extends Service<T> {
-    public static final String PORT = "3000";
     public static final String SERVER_ENDPOINT = "face";
-    public static final String SERVER =
-            "ws://localhost:" + PORT + "/" + SERVER_ENDPOINT;
-    private static final long POLLING_SLEEP_TIME = 10; // ms
+    public static final String PROTOCOL = "ws://";
+    private String url;
+    private Session session;
+
+    ClientNetworkService( String ip, String port ){
+        url = PROTOCOL + ip + ":" + port + "/" + SERVER_ENDPOINT;
+    }
 
     /**
      * Create network Service
@@ -32,9 +35,10 @@ public class ClientNetworkService<T> extends Service<T> {
             @Override
             protected Void call() throws Exception {
                 ClientManager client = ClientManager.createClient();
-                Session session = client.connectToServer(
+                session = client.connectToServer(
                         ClientEndpoint.class,
-                        new URI( SERVER ) );
+                        new URI( url ) );
+
                 //Disable default websocket client logger
                 LogManager.getLogManager().reset();
 
@@ -53,10 +57,7 @@ public class ClientNetworkService<T> extends Service<T> {
         setOnRunning(new EventHandler<WorkerStateEvent>() {
             @Override
              public void handle(WorkerStateEvent event) {
-                System.out.print("Websocket Started: " + SERVER);
-
-
-
+                System.out.println("Connecting to " + url);
             }
         });
 
