@@ -27,7 +27,7 @@
                   <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect" />
                </items>
             </Menu>
-            <Menu fx:id="clock" mnemonicParsing="false" text="Time Elapsed">
+            <Menu fx:id="clock" mnemonicParsing="false" onHidden="#updateTimeElapsed" text="Time Elapsed">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>

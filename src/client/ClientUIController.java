@@ -1,5 +1,6 @@
 package client;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,6 +94,7 @@ public class ClientUIController extends ClientController implements Initializabl
         Group headGroup = setHead();
         rootPane.setBottomAnchor(headGroup, 30.00);
         rootPane.getChildren().add(headGroup);
+        Platform.runLater(()->updateTimeElapsed());
         
 
 
