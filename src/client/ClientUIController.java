@@ -42,6 +42,7 @@ import java.util.ResourceBundle;
 public class ClientUIController extends ClientController implements Initializable  {
 
     private ClientNetworkService<Void> networkThread;
+    private ClientUIModel clientUIModel;
     @FXML MenuBar initalMenu;
     @FXML Menu clock;
     @FXML Menu Detections;
@@ -88,18 +89,24 @@ public class ClientUIController extends ClientController implements Initializabl
         networkThread = new ClientNetworkService<>();
         networkThread.restart();
         ClientController cc = new ClientController();
-        double timeelapsed = cc.updateReceivedData();
+        //ClientUIModel clientUIModel = new ClientUIModel();
         Group headGroup = setHead();
         rootPane.setBottomAnchor(headGroup, 30.00);
         rootPane.getChildren().add(headGroup);
-        Time.setText(String.valueOf(timeelapsed));
-        System.out.println(timeelapsed);
+        
 
 
 
 
 
     }
+    
+    public void updateTimeElapsed() {
+    	clientUIModel = ClientUIModel.getInstance();
+        System.out.println("updateTimeElapsed "+clientUIModel.getTimeElapsed());
+        Time.setText(String.valueOf(clientUIModel.getTimeElapsed()));
+    }
+    
     @FXML private void changeToPerformanceScene(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("ClientPerformance.fxml"));
         rootPane.getChildren().setAll(pane);

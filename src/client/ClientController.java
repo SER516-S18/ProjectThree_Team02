@@ -15,6 +15,7 @@ public class ClientController {
     public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
     
     private static ClientController instance;
+    private ClientUIController clientUIController;
 
     private EmotionalStatesData emoStates;
     private EyeData eyeData;
@@ -77,15 +78,14 @@ public class ClientController {
         emoStateIntervalData = new EmoStateIntervalData();
     }
     
-    public Double updateReceivedData() {
+    public void updateReceivedData() {
     	
     	ClientUIModel model = ClientUIModel.getInstance();
-    	
+    	clientUIController = new ClientUIController();
     	double interval = emoStateIntervalData.getInterval();
     	model.setTimeElapsed(model.getTimeElapsed()+interval);
-    	Double time = model.getTimeElapsed()+interval;
-        return time;
-    	//System.out.println(model.getTimeElapsed());
+    	clientUIController.updateTimeElapsed();
+    	
     }
 
     private void setFromJsonObject(JsonObject jobj) {
