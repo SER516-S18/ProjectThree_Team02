@@ -226,6 +226,18 @@ public class ServerUIController implements Initializable{
     }
 
     /**
+     * Event listener for the activate button
+     * This handles single face actions, like blinking and looking left.
+     * @param event Event that was triggered
+     */
+    @FXML private void activateEyeAction(ActionEvent event) {
+        ServerUIModel modelUI = ServerUIModel.getInstance();
+        modelUI.setEyeDataValue(true);
+        modelUI.setSendOnce(true);
+        System.out.println("Sending eye action: " + modelUI.getEyeDataType());
+    }
+
+    /**
      * Event Listener for Button saveLogButton
      * When button be clicked will produce an event
      * Button fx:id: saveLogButton

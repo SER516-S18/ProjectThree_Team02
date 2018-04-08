@@ -58,7 +58,10 @@ public class ServerNetworkService<T> extends Service<T>{
                         // Send data once
                         if( ServerUIModel.getInstance().isSendOnce() ){
                             sendPayloadToAllClients();
-                            ServerUIModel.getInstance().setSendOnce(false);
+                            ServerUIModel modelUI = ServerUIModel.getInstance();
+                            modelUI.setSendOnce(false);
+                            // Reset any single eye actions immediately
+                            modelUI.setEyeDataValue(false);
                         }
 
                         Thread.sleep( POLLING_SLEEP_TIME );
