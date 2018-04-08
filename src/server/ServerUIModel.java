@@ -1,9 +1,8 @@
 package server;
 
+import javafx.beans.property.*;
+import javafx.scene.control.SpinnerValueFactory;
 import model.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 
 public class ServerUIModel {
 
@@ -36,7 +35,7 @@ public class ServerUIModel {
         emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
         eyeDataValue = new SimpleBooleanProperty(false);
         lowerfaceDataValue = new SimpleDoubleProperty(0);
-        upperfaceDataValue = new SimpleDoubleProperty(0);
+        upperfaceDataValue = new SimpleDoubleProperty();
         emotionalStatesDataValue = new SimpleDoubleProperty(0);
     }
 
@@ -105,7 +104,6 @@ public class ServerUIModel {
     public String getLowerfaceDataType() {
         return lowerfaceDataType.get();
     }
-
     public SimpleStringProperty lowerfaceDataTypeProperty() {
         return lowerfaceDataType;
     }
@@ -163,7 +161,7 @@ public class ServerUIModel {
     }
 
     public double getUpperfaceDataValue() {
-        return upperfaceDataValue.get();
+        return upperfaceDataValue.getValue();
     }
 
     public SimpleDoubleProperty upperfaceDataValueProperty() {

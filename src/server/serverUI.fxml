@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="535.0" maxWidth="420.0" minHeight="535.0" minWidth="420.0" prefHeight="535.0" prefWidth="420.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerUIController">
+<AnchorPane fx:id="anchorPane" maxHeight="535.0" maxWidth="420.0" minHeight="535.0" minWidth="420.0" prefHeight="535.0" prefWidth="420.0" stylesheets="@ServerTheme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerUIController">
    <children>
       <HBox prefHeight="25.0" prefWidth="420.0">
          <children>
@@ -66,8 +68,12 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="frequencyTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" sec">
+                               <Spinner fx:id="frequencyTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
+                                   <valueFactory>
+                                       <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1000" min="0" />
+                                   </valueFactory>
+                               </Spinner>
+                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" sec">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -119,7 +125,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Exatement ">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Excitement ">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -143,7 +149,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="exatementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
+                        <TextField fx:id="excitementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -229,7 +235,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <ChoiceBox fx:id="choiceboxUpperface" prefWidth="150.0" />
-                        <ChoiceBox prefWidth="150.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -244,7 +249,11 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <TextField fx:id="upperfaceTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
+                         <Spinner fx:id="upperfaceTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
+                             <valueFactory>
+                                 <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                             </valueFactory>
+                         </Spinner>
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -252,7 +261,11 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="lowerfaceTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
+                         <Spinner fx:id="lowerfaceTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
+                             <valueFactory>
+                                 <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                             </valueFactory>
+                         </Spinner>
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -260,7 +273,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="50.0" styleClass="serverButton" text="Active" />
+                        <Button mnemonicParsing="false" onAction="#activateEyeAction" prefWidth="80.0" styleClass="serverButton" text="Activate" />
                      </children>
                      <GridPane.margin>
                         <Insets left="10.0" />
