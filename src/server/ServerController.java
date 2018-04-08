@@ -73,7 +73,6 @@ public class ServerController {
                 .add(JSON_FACE_KEY, faceJson)
                 .add(JSON_EMO_KEY, emoJson)
                 .add(JSON_INTERVAL_KEY, emoStateIntervalJson)
-            //    .add(Frequency.FREQUENCY_KEY, freq.getFrequency()) we need to send time but not frequency
                 .build().toString();
     }
 

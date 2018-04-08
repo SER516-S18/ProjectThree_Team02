@@ -19,16 +19,10 @@ public class ClientController {
     public static final String SERVER_LOC =
             ".." + File.pathSeparator + "server" +
             File.pathSeparator + "Server.java";
-    
+
     private static ClientController instance;
     private ClientUIController clientUIController;
     private ClientNetworkService<Void> networkThread;
-
-    private EmotionalStatesData emoStates;
-    private EyeData eyeData;
-    private LowerFaceData lowerFaceData;
-    private UpperFaceData upperFaceData;
-    private EmoStateIntervalData emoStateIntervalData;
 
     /**
      * @return Singleton instance of ServerController
@@ -40,59 +34,11 @@ public class ClientController {
         return instance;
     }
 
-    /**
-     * @return Server emotional state model
-     */
-    public EmotionalStatesData getEmoStates() {
-        return emoStates;
-    }
-
-    /**
-     * @return Server eye data model
-     */
-    public EyeData getEyeData() {
-        return eyeData;
-    }
-
-    /**
-     * @return Server lower face data model
-     */
-    public LowerFaceData getLowerFaceData() {
-        return lowerFaceData;
-    }
-
-    /**
-     * @return Server upper face data model
-     */
-    public UpperFaceData getUpperFaceData() {
-        return upperFaceData;
-    }
-
     protected void decodeMessage(String jstr) {
         JsonReader reader = Json.createReader(new StringReader(jstr));
         JsonObject jobj = reader.readObject();
         reader.close();
-        setFromJsonObject(jobj);
-        updateReceivedData();
-    }
-
-    public ClientController(){
-        // Create models
-        emoStates = new EmotionalStatesData();
-        eyeData = new EyeData();
-        lowerFaceData = new LowerFaceData();
-        upperFaceData = new UpperFaceData();
-        emoStateIntervalData = new EmoStateIntervalData();
-    }
-    
-    public void updateReceivedData() {
-    	
-    	ClientUIModel model = ClientUIModel.getInstance();
-    	clientUIController = new ClientUIController();
-    	double interval = emoStateIntervalData.getInterval();
-    	model.setTimeElapsed(model.getTimeElapsed()+interval);
-    	clientUIController.updateTimeElapsed();
-    	
+        updateClientModel(jobj);
     }
 
     protected void connectToServer(String ip, String port){
@@ -139,7 +85,14 @@ public class ClientController {
         }
     }
 
-    private void setFromJsonObject(JsonObject jobj) {
+    private void updateClientModel(JsonObject jobj) {
+
+        // Create models
+        EmotionalStatesData emoStates = new EmotionalStatesData();
+        EyeData eyeData = new EyeData();
+        LowerFaceData lowerFaceData = new LowerFaceData();
+        UpperFaceData upperFaceData = new UpperFaceData();
+        EmoStateIntervalData emoStateIntervalData = new EmoStateIntervalData();
 
         // Affective
         JsonObject emoJson = jobj.getJsonObject(JSON_EMO_KEY);
@@ -169,6 +122,11 @@ public class ClientController {
         
         JsonObject emoStateIntervalJson = jobj.getJsonObject(JSON_INTERVAL_KEY);
         emoStateIntervalData.setInterval(emoStateIntervalJson.getJsonNumber(EmoStateIntervalData.INTERVAL).doubleValue());
+
+        double currTime = ClientUIModel.getInstance().getTimeElapsed();
+        currTime += emoStateIntervalData.getInterval();
+        ClientUIModel.getInstance().setTimeElapsed(currTime);
+        ClientUIModel.getInstance().onReceiveData(emoStates, eyeData, lowerFaceData, upperFaceData, emoStateIntervalData);
     }
 }
 
