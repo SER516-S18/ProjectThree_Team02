@@ -83,20 +83,17 @@ public class ServerController {
         upperFaceData.reset();
         emoStateIntervalData.reset();
 
-        ServerUIModel model = ServerUIModel.getInstance();
+        ServerUIModel modelUI = ServerUIModel.getInstance();
 
-        double emoStateValue = model.getEmotionalStatesDataValue();
-        switch (model.getEmotionalStatesDataType()) {
-            case EmotionalStatesData.INTEREST: emoStates.setInterest(emoStateValue); break;
-            case EmotionalStatesData.ENGAGEMENT: emoStates.setEngagement(emoStateValue); break;
-            case EmotionalStatesData.EXCITEMENT: emoStates.setExcitement(emoStateValue); break;
-            case EmotionalStatesData.FOCUS: emoStates.setFocus(emoStateValue); break;
-            case EmotionalStatesData.RELAXATION: emoStates.setRelaxation(emoStateValue); break;
-            case EmotionalStatesData.STRESS: emoStates.setStress(emoStateValue); break;
-        }
+        emoStates.setInterest(modelUI.getInterest());
+        emoStates.setEngagement(modelUI.getEngagement());
+        emoStates.setExcitement(modelUI.getExcitement());
+        emoStates.setFocus(modelUI.getFocus());
+        emoStates.setRelaxation(modelUI.getRelaxation());
+        emoStates.setStress(modelUI.getStress());
 
-        boolean eyeValue = model.getEyeDataValue();
-        switch (model.getEyeDataType()) {
+        boolean eyeValue = modelUI.getEyeDataValue();
+        switch (modelUI.getEyeDataType()) {
             case EyeData.BLINK: eyeData.setBlink(eyeValue); break;
             case EyeData.LOOK_LEFT: eyeData.setLookLeft(eyeValue); break;
             case EyeData.LOOK_RIGHT: eyeData.setLookRight(eyeValue); break;
@@ -104,8 +101,8 @@ public class ServerController {
             case EyeData.WINK_RIGHT: eyeData.setWinkRight(eyeValue); break;
         }
 
-        double lowfaceValue = model.getLowerfaceDataValue();
-        switch (model.getLowerfaceDataType()) {
+        double lowfaceValue = modelUI.getLowerfaceDataValue();
+        switch (modelUI.getLowerfaceDataType()) {
             case LowerFaceData.SMILE: lowerFaceData.setSmile(lowfaceValue); break;
             case LowerFaceData.CLENCH: lowerFaceData.setClench(lowfaceValue); break;
             case LowerFaceData.LAUGH: lowerFaceData.setLaugh(lowfaceValue); break;
@@ -113,13 +110,13 @@ public class ServerController {
             case LowerFaceData.SMIRK_RIGHT: lowerFaceData.setSmirkRight(lowfaceValue); break;
         }
 
-        double upperfaceValue = model.getUpperfaceDataValue();
-        switch (model.getUpperfaceDataType()) {
+        double upperfaceValue = modelUI.getUpperfaceDataValue();
+        switch (modelUI.getUpperfaceDataType()) {
             case UpperFaceData.RAISE_BROW: upperFaceData.setRaiseBrow(upperfaceValue); break;
             case UpperFaceData.FURROW_BROW: upperFaceData.setFurrowBrow(upperfaceValue); break;
         }
         
-        double interval = model.getEmoStateInterval();
+        double interval = modelUI.getEmoStateInterval();
         emoStateIntervalData.setInterval(interval);
         
     }

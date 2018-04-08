@@ -3,7 +3,7 @@ package model;
 public class EmoStateIntervalData {
 
     private double interval;
-    public static final String INTERVAL = "INTERVAL";
+    public static final String INTERVAL = "Interval";
     
     public EmoStateIntervalData() {
         reset();

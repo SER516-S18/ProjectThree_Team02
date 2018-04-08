@@ -18,12 +18,17 @@ public class ServerUIModel {
     private SimpleStringProperty eyeDataType;
     private SimpleStringProperty lowerfaceDataType;
     private SimpleStringProperty upperfaceDataType;
-    private SimpleStringProperty emotionalStatesDataType;
+
+    private SimpleDoubleProperty interest;
+    private SimpleDoubleProperty engagement;
+    private SimpleDoubleProperty stress;
+    private SimpleDoubleProperty relaxation;
+    private SimpleDoubleProperty excitement;
+    private SimpleDoubleProperty focus;
 
     private SimpleBooleanProperty eyeDataValue;
     private SimpleDoubleProperty lowerfaceDataValue;
     private SimpleDoubleProperty upperfaceDataValue;
-    private SimpleDoubleProperty emotionalStatesDataValue;
 
     private ServerUIModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);
@@ -32,11 +37,15 @@ public class ServerUIModel {
         eyeDataType = new SimpleStringProperty(EyeData.BLINK);
         lowerfaceDataType = new SimpleStringProperty(LowerFaceData.SMILE);
         upperfaceDataType = new SimpleStringProperty(UpperFaceData.RAISE_BROW);
-        emotionalStatesDataType = new SimpleStringProperty(EmotionalStatesData.INTEREST);
         eyeDataValue = new SimpleBooleanProperty(false);
         lowerfaceDataValue = new SimpleDoubleProperty(0);
-        upperfaceDataValue = new SimpleDoubleProperty();
-        emotionalStatesDataValue = new SimpleDoubleProperty(0);
+        upperfaceDataValue = new SimpleDoubleProperty(0);
+        interest = new SimpleDoubleProperty(0);
+        engagement = new SimpleDoubleProperty(0);
+        stress = new SimpleDoubleProperty(0);
+        relaxation = new SimpleDoubleProperty(0);
+        excitement = new SimpleDoubleProperty(0);
+        focus = new SimpleDoubleProperty(0);
     }
 
     /**
@@ -124,18 +133,6 @@ public class ServerUIModel {
         this.upperfaceDataType.set(upperfaceDataType);
     }
 
-    public String getEmotionalStatesDataType() {
-        return emotionalStatesDataType.get();
-    }
-
-    public SimpleStringProperty emotionalStatesDataTypeProperty() {
-        return emotionalStatesDataType;
-    }
-
-    public void setEmotionalStatesDataType(String emotionalStatesDataType) {
-        this.emotionalStatesDataType.set(emotionalStatesDataType);
-    }
-
     public boolean getEyeDataValue() {
         return eyeDataValue.get();
     }
@@ -172,18 +169,6 @@ public class ServerUIModel {
         this.upperfaceDataValue.set(upperfaceDataValue);
     }
 
-    public double getEmotionalStatesDataValue() {
-        return emotionalStatesDataValue.get();
-    }
-
-    public SimpleDoubleProperty emotionalStatesDataValueProperty() {
-        return emotionalStatesDataValue;
-    }
-
-    public void setEmotionalStatesDataValue(double emotionalStatesDataValue) {
-        this.emotionalStatesDataValue.set(emotionalStatesDataValue);
-    }
-
     public boolean isAutoRest() {
         return autoRest.get();
     }
@@ -194,5 +179,77 @@ public class ServerUIModel {
 
     public void setAutoRest(boolean autoRest) {
         this.autoRest.set(autoRest);
+    }
+
+    public double getInterest() {
+        return interest.get();
+    }
+
+    public SimpleDoubleProperty interestProperty() {
+        return interest;
+    }
+
+    public void setInterest(double interest) {
+        this.interest.set(interest);
+    }
+
+    public double getEngagement() {
+        return engagement.get();
+    }
+
+    public SimpleDoubleProperty engagementProperty() {
+        return engagement;
+    }
+
+    public void setEngagement(double engagement) {
+        this.engagement.set(engagement);
+    }
+
+    public double getStress() {
+        return stress.get();
+    }
+
+    public SimpleDoubleProperty stressProperty() {
+        return stress;
+    }
+
+    public void setStress(double stress) {
+        this.stress.set(stress);
+    }
+
+    public double getRelaxation() {
+        return relaxation.get();
+    }
+
+    public SimpleDoubleProperty relaxationProperty() {
+        return relaxation;
+    }
+
+    public void setRelaxation(double relaxation) {
+        this.relaxation.set(relaxation);
+    }
+
+    public double getExcitement() {
+        return excitement.get();
+    }
+
+    public SimpleDoubleProperty excitementProperty() {
+        return excitement;
+    }
+
+    public void setExcitement(double excitement) {
+        this.excitement.set(excitement);
+    }
+
+    public double getFocus() {
+        return focus.get();
+    }
+
+    public SimpleDoubleProperty focusProperty() {
+        return focus;
+    }
+
+    public void setFocus(double focus) {
+        this.focus.set(focus);
     }
 }
