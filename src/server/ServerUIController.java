@@ -2,10 +2,6 @@ package server;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.EmotionalStatesData;
 import model.EyeData;
 import model.LowerFaceData;
 import model.UpperFaceData;
@@ -41,9 +36,9 @@ public class ServerUIController implements Initializable{
     @FXML private AnchorPane anchorPane;
     @FXML private Button powerButton;
     @FXML private TextArea logTextArea;
-    @FXML private ChoiceBox choiceboxUpperface;
-    @FXML private ChoiceBox choiceboxLowerface;
-    @FXML private ChoiceBox choiceboxEye;
+    @FXML private ChoiceBox<String> choiceboxUpperface;
+    @FXML private ChoiceBox<String> choiceboxLowerface;
+    @FXML private ChoiceBox<String> choiceboxEye;
     @FXML private CheckBox autoRepeatCheckbox;
     @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
             frequencyTextField;
@@ -63,7 +58,6 @@ public class ServerUIController implements Initializable{
             stressTextField;
     @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
             focusTextField;
-    @FXML private CheckBox autoresetCheckbox;
 
     /**
      * All works after create controller
@@ -83,7 +77,8 @@ public class ServerUIController implements Initializable{
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
-                Platform.runLater(() -> logTextArea.appendText(String.valueOf((char) b)));
+                Platform.runLater(() ->
+                        logTextArea.appendText(String.valueOf((char) b)));
             }
         };
         System.setOut(new PrintStream(out, true));
@@ -94,56 +89,80 @@ public class ServerUIController implements Initializable{
         //Inital work done
     }
 
-
     private void bindModelWithUI() {
         MyNumberStringConverter converter = new MyNumberStringConverter();
-        Bindings.bindBidirectional(frequencyTextField.getEditor().textProperty(), ServerUIModel.getInstance().emoStateIntervalProperty(), converter);
-
-        Bindings.bindBidirectional(upperfaceTextField.getEditor().textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), converter);
-        Bindings.bindBidirectional(lowerfaceTextField.getEditor().textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), converter);
-        Bindings.bindBidirectional(excitementTextField.getEditor().textProperty(), ServerUIModel.getInstance().excitementProperty(), converter);
-        Bindings.bindBidirectional(engagementTextField.getEditor().textProperty(), ServerUIModel.getInstance().engagementProperty(), converter);
-        Bindings.bindBidirectional(relaxationTextField.getEditor().textProperty(), ServerUIModel.getInstance().relaxationProperty(), converter);
-        Bindings.bindBidirectional(interestTextField.getEditor().textProperty(), ServerUIModel.getInstance().interestProperty(), converter);
-        Bindings.bindBidirectional(stressTextField.getEditor().textProperty(), ServerUIModel.getInstance().stressProperty(), converter);
-        Bindings.bindBidirectional(focusTextField.getEditor().textProperty(), ServerUIModel.getInstance().focusProperty(), converter);
-
-        Bindings.bindBidirectional(ServerUIModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
+        Bindings.bindBidirectional(
+                frequencyTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().emoStateIntervalProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                upperfaceTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().upperfaceDataValueProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                lowerfaceTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().lowerfaceDataValueProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                excitementTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().excitementProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                engagementTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().engagementProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                relaxationTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().relaxationProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                interestTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().interestProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                stressTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().stressProperty(),
+                converter);
+        Bindings.bindBidirectional(
+                focusTextField.getEditor().textProperty(),
+                ServerUIModel.getInstance().focusProperty(),
+                converter);
 
         //Setting choice boxes
-        choiceboxUpperface.setItems(FXCollections.observableArrayList(UpperFaceData.RAISE_BROW, UpperFaceData.FURROW_BROW));
-        choiceboxUpperface.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue observable, String oldValue, String newValue) {
-                ServerUIModel.getInstance().setUpperfaceDataType(newValue);
-            }
-        });
+        choiceboxUpperface.setItems(FXCollections.observableArrayList(
+                UpperFaceData.RAISE_BROW,
+                UpperFaceData.FURROW_BROW));
+        choiceboxUpperface.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) ->
+                        ServerUIModel.getInstance()
+                        .setUpperfaceDataType(newValue));
         choiceboxUpperface.getSelectionModel().selectFirst();
 
-
-        choiceboxLowerface.setItems(FXCollections.observableArrayList(LowerFaceData.SMILE, LowerFaceData.CLENCH,
-                LowerFaceData.LAUGH, LowerFaceData.SMILE, LowerFaceData.SMIRK_LEFT, LowerFaceData.SMIRK_RIGHT));
-        choiceboxLowerface.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue observable, String oldValue, String newValue) {
-                ServerUIModel.getInstance().setLowerfaceDataType(newValue);
-            }
-        });
+        choiceboxLowerface.setItems(FXCollections.observableArrayList(
+                LowerFaceData.SMILE,
+                LowerFaceData.CLENCH,
+                LowerFaceData.LAUGH,
+                LowerFaceData.SMILE,
+                LowerFaceData.SMIRK_LEFT,
+                LowerFaceData.SMIRK_RIGHT));
+        choiceboxLowerface.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) ->
+                        ServerUIModel.getInstance()
+                        .setLowerfaceDataType(newValue));
         choiceboxLowerface.getSelectionModel().selectFirst();
 
 
-        choiceboxEye.setItems(FXCollections.observableArrayList(EyeData.BLINK, EyeData.LOOK_LEFT, EyeData.LOOK_RIGHT,
-                EyeData.WINK_LEFT, EyeData.WINK_RIGHT));
-        choiceboxEye.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue observable, String oldValue, String newValue) {
-                ServerUIModel.getInstance().setEyeDataType(newValue);
-            }
-        });
+        choiceboxEye.setItems(FXCollections.observableArrayList(
+                EyeData.BLINK,
+                EyeData.LOOK_LEFT,
+                EyeData.LOOK_RIGHT,
+                EyeData.WINK_LEFT,
+                EyeData.WINK_RIGHT));
+        choiceboxEye.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) ->
+                        ServerUIModel.getInstance().setEyeDataType(newValue));
         choiceboxEye.getSelectionModel().selectFirst();
 
-        //Setting auto-repeat default checked
-        autoRepeatCheckbox.setSelected(true);
     }
 
     /**
@@ -168,8 +187,8 @@ public class ServerUIController implements Initializable{
                     System.out.println("Invalid frequency value");
                 }
             } else if (!ServerUIModel.getInstance().isSendingData()) {
-                // If auto-repeat is not checked, then we want to send data one time
-                // on a button click
+                // If auto-repeat is not checked,
+                // then we want to send data one time on a button click
                 ServerUIModel.getInstance().setSendOnce(true);
             }
         } else {
@@ -209,7 +228,8 @@ public class ServerUIController implements Initializable{
         fileChooser.setInitialDirectory(userDir);
 
         //Setting initial file type
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
+                "Text doc(*.txt)", "*.txt" ));
 
         //Setting default file name
         //Default file name is xxxx.log, xxx -> current time
@@ -225,11 +245,15 @@ public class ServerUIController implements Initializable{
             String logContent = logTextArea.getText();
             try{
                 //Save log file to local storage
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest.toString()), "utf-8"));
+                Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(dest.toString()), "utf-8"));
                 //TODO: that maybe block Main UI thread, should find a way to optimize it
                 writer.write(logContent);
                 writer.close();
-                System.out.println("Log file has been saved to: " + dest.toString() + curTime + ".txt");
+                System.out.println(
+                        "Log file has been saved to: " +
+                        dest.toString() +
+                        curTime + ".txt");
             } catch (Exception e){
                 System.out.println("Cannot Save File " + dest.toString());
             }

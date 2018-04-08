@@ -150,7 +150,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                         <Spinner fx:id="excitementTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                         <Spinner fx:id="excitementTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
                              <valueFactory>
                                  <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
                              </valueFactory>
@@ -159,7 +159,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                         <Spinner fx:id="engagementTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                         <Spinner fx:id="engagementTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
                              <valueFactory>
                                  <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
                              </valueFactory>
@@ -183,7 +183,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
                      <children>
-                         <Spinner fx:id="interestTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                         <Spinner fx:id="interestTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
                              <valueFactory>
                                  <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
                              </valueFactory>
@@ -210,7 +210,7 @@
                    </HBox>
                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                        <children>
-                           <Spinner fx:id="stressTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                           <Spinner fx:id="stressTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
                                <valueFactory>
                                    <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
                                </valueFactory>
@@ -237,7 +237,7 @@
                    </HBox>
                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                        <children>
-                           <Spinner fx:id="relaxationTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                           <Spinner fx:id="relaxationTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
                                <valueFactory>
                                    <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
                                </valueFactory>
@@ -264,7 +264,7 @@
                    </HBox>
                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                        <children>
-                           <Spinner fx:id="focusTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                           <Spinner fx:id="focusTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField">
                                <valueFactory>
                                    <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
                                </valueFactory>
@@ -373,18 +373,10 @@
                      </GridPane.margin>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                     <children>
-                        <CheckBox fx:id="autoresetCheckbox" mnemonicParsing="false" styleClass="serverCheckBox" text="Auto Reset">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </CheckBox>
-                     </children>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <GridPane GridPane.rowIndex="4">
