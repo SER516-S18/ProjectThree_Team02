@@ -22,9 +22,9 @@
                   <MenuItem fx:id="PerformanceItem" mnemonicParsing="false" onAction="#changeToPerformanceScene" text="Performance" />
             </items>
           </Menu>
-            <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Server" onAction="#launchServer">
+            <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Server">
                <items>
-                  <MenuItem id="launchServer" mnemonicParsing="false" text="Launch New" />
+                  <MenuItem id="launchServer" mnemonicParsing="false" text="Launch New" onAction="#launchServer"/>
                   <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect To Existing" />
                </items>
             </Menu>

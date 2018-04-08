@@ -1,6 +1,8 @@
 package client;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -20,22 +22,29 @@ import static com.sun.javafx.application.PlatformImpl.exit;
 
 public class PopUpController implements Initializable {
     @FXML TextField ipAddress;
-    @FXML Spinner addPortNumbers;
-    @FXML Button Done;
+    @FXML Spinner<SpinnerValueFactory.IntegerSpinnerValueFactory>
+            addPortNumbers;
+    @FXML Button connect;
     Scene scene;
     Stage Window;
     @FXML private AnchorPane parent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
+        // This binding is needed for the free-edit portion of the port spinner
+        // Ensures we always get the up-to-date value
+        TextFormatter<SpinnerValueFactory.IntegerSpinnerValueFactory>
+                formatter = new TextFormatter<>(
+                    addPortNumbers.getValueFactory().getConverter(),
+                    addPortNumbers.getValueFactory().getValue() );
+        addPortNumbers.getEditor().setTextFormatter(formatter);
+        addPortNumbers.getValueFactory().valueProperty()
+                .bindBidirectional(formatter.valueProperty());
     }
-    @FXML private  void buttonClick(Event e)
+    @FXML private void buttonClick(Event e)
     {
         String ip = ipAddress.getText();
-        String port = String.valueOf(
-                (int) addPortNumbers.getValueFactory().getValue() );
+        String port = addPortNumbers.getEditor().getText();
         System.out.println( "Attempting to connect to " + ip + ":" + port );
         ClientController.getInstance().connectToServer( ip, port );
         ((Stage)(((Button)e.getSource()).getScene().getWindow())).close();

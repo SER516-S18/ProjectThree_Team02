@@ -16,6 +16,7 @@ public class ClientNetworkService<T> extends Service<T> {
     public static final String SERVER_ENDPOINT = "face";
     public static final String PROTOCOL = "ws://";
     private String url;
+    private static final long POLLING_SLEEP_TIME = 10; // ms
     private Session session;
 
     ClientNetworkService( String ip, String port ){
@@ -42,7 +43,9 @@ public class ClientNetworkService<T> extends Service<T> {
                 //Disable default websocket client logger
                 LogManager.getLogManager().reset();
 
-                while(!isCancelled()){}
+                while(!isCancelled()){
+                    Thread.sleep( POLLING_SLEEP_TIME );
+                }
 
                 return null;
             }

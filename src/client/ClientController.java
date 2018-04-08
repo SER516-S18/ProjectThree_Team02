@@ -108,22 +108,34 @@ public class ClientController {
      */
     protected void launchServer(){
 
+        // Get the file in which this program is running
+        // Default will be "client.jar"
+        String filename = new java.io.File(
+                ClientController.class.getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .getPath()).getName();
 
-        System.out.println("Starting server...");
-
-        ProcessBuilder pBuilder = new ProcessBuilder(
-                System.getProperty("java.home") + "/bin/java",
-                "-cp",
-                "client.jar",
-                "client.Client"
-        );
-
-        try {
-            pBuilder.start();
-            System.out.println("Server started");
-        } catch( IOException e ){
-            System.out.println("Error starting server");
-            e.printStackTrace();
+        File jar = new File(filename);
+        // If the file doesn't exist than our process won't be
+        // spawned successfully
+        if( !jar.exists() ){
+            System.out.println("Error: Cannot find server file! " +
+                    "Are you running this from the jar file?");
+        } else {
+            System.out.println("Starting server from " + filename);
+            ProcessBuilder pBuilder = new ProcessBuilder(
+                    System.getProperty("java.home") + "/bin/java",
+                    "-cp",
+                    filename,
+                    "server.Server"
+            );
+            try {
+                pBuilder.start();
+            } catch (IOException e) {
+                System.out.println("Error starting server");
+                e.printStackTrace();
+            }
         }
     }
 
