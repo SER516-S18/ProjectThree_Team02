@@ -2,6 +2,8 @@ package server;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,9 +46,12 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox choiceboxEye;
     @FXML private ChoiceBox emotionalStateChoiceBox;
     @FXML private CheckBox autoRepeatCheckbox;
-    @FXML private TextField frequencyTextField;
-    @FXML private TextField upperfaceTextField;
-    @FXML private TextField lowerfaceTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            frequencyTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            upperfaceTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            lowerfaceTextField;
     @FXML private CheckBox autoresetCheckbox;
 
     /**
@@ -81,10 +86,11 @@ public class ServerUIController implements Initializable{
 
     private void bindModelWithUI() {
         MyNumberStringConverter converter = new MyNumberStringConverter();
-        Bindings.bindBidirectional(frequencyTextField.textProperty(), ServerUIModel.getInstance().emoStateIntervalProperty(), converter);
-        Bindings.bindBidirectional(upperfaceTextField.textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), converter);
+        Bindings.bindBidirectional(frequencyTextField.getEditor().textProperty(), ServerUIModel.getInstance().emoStateIntervalProperty(), converter);
 
-        Bindings.bindBidirectional(lowerfaceTextField.textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), converter);
+        Bindings.bindBidirectional(upperfaceTextField.getEditor().textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), converter);
+        Bindings.bindBidirectional(lowerfaceTextField.getEditor().textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), converter);
+
         Bindings.bindBidirectional(ServerUIModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
 
         //Setting choice boxes
