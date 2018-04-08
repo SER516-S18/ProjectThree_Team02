@@ -44,7 +44,6 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox choiceboxUpperface;
     @FXML private ChoiceBox choiceboxLowerface;
     @FXML private ChoiceBox choiceboxEye;
-    @FXML private ChoiceBox emotionalStateChoiceBox;
     @FXML private CheckBox autoRepeatCheckbox;
     @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
             frequencyTextField;
@@ -52,6 +51,18 @@ public class ServerUIController implements Initializable{
             upperfaceTextField;
     @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
             lowerfaceTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            excitementTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            engagementTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            relaxationTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            interestTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            stressTextField;
+    @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
+            focusTextField;
     @FXML private CheckBox autoresetCheckbox;
 
     /**
@@ -68,7 +79,7 @@ public class ServerUIController implements Initializable{
         networkThread.restart();
 
         //Redirect stdout to text area
-        //Using Platform.runLater() to aboid blocking main UI thread
+        //Using Platform.runLater() to avoid blocking main UI thread
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
@@ -90,6 +101,12 @@ public class ServerUIController implements Initializable{
 
         Bindings.bindBidirectional(upperfaceTextField.getEditor().textProperty(), ServerUIModel.getInstance().upperfaceDataValueProperty(), converter);
         Bindings.bindBidirectional(lowerfaceTextField.getEditor().textProperty(), ServerUIModel.getInstance().lowerfaceDataValueProperty(), converter);
+        Bindings.bindBidirectional(excitementTextField.getEditor().textProperty(), ServerUIModel.getInstance().excitementProperty(), converter);
+        Bindings.bindBidirectional(engagementTextField.getEditor().textProperty(), ServerUIModel.getInstance().engagementProperty(), converter);
+        Bindings.bindBidirectional(relaxationTextField.getEditor().textProperty(), ServerUIModel.getInstance().relaxationProperty(), converter);
+        Bindings.bindBidirectional(interestTextField.getEditor().textProperty(), ServerUIModel.getInstance().interestProperty(), converter);
+        Bindings.bindBidirectional(stressTextField.getEditor().textProperty(), ServerUIModel.getInstance().stressProperty(), converter);
+        Bindings.bindBidirectional(focusTextField.getEditor().textProperty(), ServerUIModel.getInstance().focusProperty(), converter);
 
         Bindings.bindBidirectional(ServerUIModel.getInstance().autoRestProperty(), autoresetCheckbox.selectedProperty());
 
@@ -124,18 +141,6 @@ public class ServerUIController implements Initializable{
             }
         });
         choiceboxEye.getSelectionModel().selectFirst();
-
-
-        emotionalStateChoiceBox.setItems(FXCollections.observableArrayList(EmotionalStatesData.INTEREST,
-                EmotionalStatesData.ENGAGEMENT, EmotionalStatesData.EXCITEMENT, EmotionalStatesData.FOCUS,
-                EmotionalStatesData.RELAXATION, EmotionalStatesData.STRESS));
-        emotionalStateChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue observable, String oldValue, String newValue) {
-                ServerUIModel.getInstance().setEmotionalStatesDataType(newValue);
-            }
-        });
-        emotionalStateChoiceBox.getSelectionModel().selectFirst();
 
         //Setting auto-repeat default checked
         autoRepeatCheckbox.setSelected(true);

@@ -37,8 +37,8 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="195.0" minHeight="195.0" prefHeight="195.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -121,6 +121,7 @@
               <rowConstraints>
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints />
               </rowConstraints>
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -140,7 +141,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Engagement/Boredom">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Engagement">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -149,17 +150,25 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="excitementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
+                         <Spinner fx:id="excitementTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                             <valueFactory>
+                                 <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                             </valueFactory>
+                         </Spinner>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="engagementTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
+                         <Spinner fx:id="engagementTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                             <valueFactory>
+                                 <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                             </valueFactory>
+                         </Spinner>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Term">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -172,14 +181,99 @@
                         <Insets left="9.0" />
                      </GridPane.margin>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
                      <children>
-                        <TextField fx:id="longtermTextField" alignment="CENTER" prefHeight="20.0" prefWidth="35.0" styleClass="serverTextField" />
+                         <Spinner fx:id="interestTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                             <valueFactory>
+                                 <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                             </valueFactory>
+                         </Spinner>
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
+                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stress">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                               <HBox.margin>
+                                   <Insets left="2.0" />
+                               </HBox.margin>
+                           </Text>
+                       </children>
+                       <GridPane.margin>
+                           <Insets left="9.0" />
+                       </GridPane.margin>
+                   </HBox>
+                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                       <children>
+                           <Spinner fx:id="stressTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                               <valueFactory>
+                                   <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                               </valueFactory>
+                           </Spinner>
+                       </children>
+                       <GridPane.margin>
+                           <Insets right="10.0" />
+                       </GridPane.margin>
+                   </HBox>
+                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Relaxation">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                               <HBox.margin>
+                                   <Insets left="2.0" />
+                               </HBox.margin>
+                           </Text>
+                       </children>
+                       <GridPane.margin>
+                           <Insets left="9.0" />
+                       </GridPane.margin>
+                   </HBox>
+                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                       <children>
+                           <Spinner fx:id="relaxationTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                               <valueFactory>
+                                   <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                               </valueFactory>
+                           </Spinner>
+                       </children>
+                       <GridPane.margin>
+                           <Insets />
+                       </GridPane.margin>
+                   </HBox>
+                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Focus">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                               <HBox.margin>
+                                   <Insets left="2.0" />
+                               </HBox.margin>
+                           </Text>
+                       </children>
+                       <GridPane.margin>
+                           <Insets left="9.0" />
+                       </GridPane.margin>
+                   </HBox>
+                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                       <children>
+                           <Spinner fx:id="focusTextField" editable="true" prefHeight="20.0" prefWidth="80.0" styleClass="serverTextField" >
+                               <valueFactory>
+                                   <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="0" max="1" min="0" />
+                               </valueFactory>
+                           </Spinner>
+                       </children>
+                       <GridPane.margin>
+                           <Insets right="10.0" />
+                       </GridPane.margin>
+                   </HBox>
                </children>
             </GridPane>
             <GridPane GridPane.rowIndex="2">
@@ -193,7 +287,6 @@
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -291,25 +384,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Emotional">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <ChoiceBox fx:id="emotionalStateChoiceBox" prefWidth="150.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <GridPane GridPane.rowIndex="4">

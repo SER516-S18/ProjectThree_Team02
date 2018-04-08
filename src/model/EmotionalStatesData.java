@@ -1,10 +1,5 @@
 package model;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.StringReader;
-
 public class EmotionalStatesData {
 
     public static final String INTEREST = "Interest";
@@ -14,71 +9,71 @@ public class EmotionalStatesData {
     public static final String EXCITEMENT = "Excitement";
     public static final String FOCUS = "Focus";
 
-    private double Interest;
-    private double Engagement;
-    private double Stress;
-    private double Relaxation;
-    private double Excitement;
-    private double Focus;
+    private double interest;
+    private double engagement;
+    private double stress;
+    private double relaxation;
+    private double excitement;
+    private double focus;
 
     public EmotionalStatesData() {
         reset();
     }
 
     public void reset() {
-        Interest = 0;
-        Engagement = 0;
-        Stress = 0;
-        Relaxation = 0;
-        Excitement = 0;
-        Focus = 0;
+        interest = 0;
+        engagement = 0;
+        stress = 0;
+        relaxation = 0;
+        excitement = 0;
+        focus = 0;
     }
 
     public double getInterest() {
-        return Interest;
+        return interest;
     }
 
     public void setInterest(double interest) {
-        this.Interest = interest;
+        this.interest = interest;
     }
 
     public double getEngagement() {
-        return Engagement;
+        return engagement;
     }
 
     public void setEngagement(double engagement) {
-        this.Engagement = engagement;
+        this.engagement = engagement;
     }
 
     public double getStress() {
-        return Stress;
+        return stress;
     }
 
     public void setStress(double stress) {
-        this.Stress = stress;
+        this.stress = stress;
     }
 
     public double getRelaxation() {
-        return Relaxation;
+        return relaxation;
     }
 
     public void setRelaxation(double relaxation) {
-        this.Relaxation = relaxation;
+        this.relaxation = relaxation;
     }
 
     public double getExcitement() {
-        return Excitement;
+        return excitement;
     }
 
     public void setExcitement(double excitement) {
-        this.Excitement = excitement;
+        this.excitement = excitement;
     }
 
     public double getFocus() {
-        return Focus;
+        return focus;
     }
 
     public void setFocus(double focus) {
-        this.Focus = focus;
+        this.focus = focus;
     }
 }
