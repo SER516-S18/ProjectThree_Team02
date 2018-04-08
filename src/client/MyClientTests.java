@@ -20,8 +20,8 @@ public class MyClientTests {
                     "\":0.0,\"Relaxation\":0.0,\"Excitement\":0.0,\"Focus\":0.0}," +
                     "\"Frequency\":3.0}\n";
             clientController.decodeMessage(payload);
-            EmotionalStatesData emotionalStatesData = clientController.getEmoStates();
-            EyeData eyeData = clientController.getEyeData();
+            EmotionalStatesData emotionalStatesData = ClientUIModel.getInstance().getEmoStates();
+            EyeData eyeData = ClientUIModel.getInstance().getEyeData();
 
 
             assertEquals(emotionalStatesData.getEngagement(), 0.0, 0.0);

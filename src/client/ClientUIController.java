@@ -1,6 +1,7 @@
 package client;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,12 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.EmotionalStatesData;
+import model.EyeData;
+import model.LowerFaceData;
+import model.UpperFaceData;
+import server.ServerUIModel;
+import util.MyNumberStringConverter;
 
 
 import java.awt.*;
@@ -40,47 +47,62 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientUIController extends ClientController implements Initializable  {
+public class ClientUIController extends ClientController implements Initializable {
 
     private ClientNetworkService<Void> networkThread;
-    private ClientUIModel clientUIModel;
-    @FXML MenuBar initalMenu;
-    @FXML Menu clock;
-    @FXML Menu Detections;
-    @FXML Menu ConnectToServer;
-    @FXML AnchorPane rootPane;
-    @FXML MenuItem PerformanceItem;
-    @FXML MenuItem Connect;
-    @FXML Pane Graph1;
-    @FXML Pane Graph2;
-    @FXML Label Time;
-    @FXML Button SelectIp;
-    @FXML Button SelectPort;
-    @FXML Group headGroup;
-    @FXML Ellipse head;
-    @FXML Ellipse headOval;
-    @FXML SubScene headScene;
+    @FXML
+    MenuBar initalMenu;
+    @FXML
+    Menu clock;
+    @FXML
+    Menu Detections;
+    @FXML
+    Menu ConnectToServer;
+    @FXML
+    AnchorPane rootPane;
+    @FXML
+    MenuItem PerformanceItem;
+    @FXML
+    MenuItem Connect;
+    @FXML
+    Pane Graph1;
+    @FXML
+    Pane Graph2;
+    @FXML
+    Label Time;
+    @FXML
+    Button SelectIp;
+    @FXML
+    Button SelectPort;
+    @FXML
+    Group headGroup;
+    @FXML
+    Ellipse head;
+    @FXML
+    Ellipse headOval;
+    @FXML
+    SubScene headScene;
     int WINDOW_HEIGHT = 400;
     int WINDOW_WIDTH = 400;
 
     int FACE_WIDTH = 160;
     int FACE_HEIGHT = 200;
 
-    int headPositionX = WINDOW_WIDTH/2;
-    int headPositionY = WINDOW_HEIGHT/2;
+    int headPositionX = WINDOW_WIDTH / 2;
+    int headPositionY = WINDOW_HEIGHT / 2;
 
-    int eyesPositionY = headPositionY/3 *2;
-    int leftEyePositionX =  headPositionX/3 *2;
-    int rightEyePositionX = 2*leftEyePositionX;
+    int eyesPositionY = headPositionY / 3 * 2;
+    int leftEyePositionX = headPositionX / 3 * 2;
+    int rightEyePositionX = 2 * leftEyePositionX;
 
     int mouthPositionX = headPositionX;
-    int mouthPositionY = headPositionY/3 *4;
+    int mouthPositionY = headPositionY / 3 * 4;
 
-    double startX = FACE_WIDTH/2 * 2.5;
-    double startY = FACE_HEIGHT/3*2.5;
-    double leftX = startX-30;
-    double rightX = startX+30;
-    double leftY =startY+40;
+    double startX = FACE_WIDTH / 2 * 2.5;
+    double startY = FACE_HEIGHT / 3 * 2.5;
+    double leftX = startX - 30;
+    double rightX = startX + 30;
+    double leftY = startY + 40;
     double rightY = leftY;
 
 
@@ -94,28 +116,37 @@ public class ClientUIController extends ClientController implements Initializabl
         Group headGroup = setHead();
         rootPane.setBottomAnchor(headGroup, 30.00);
         rootPane.getChildren().add(headGroup);
-        Platform.runLater(()->updateTimeElapsed());
-        
 
+        //   MyNumberStringConverter converter = new MyNumberStringConverter();
+        //  Bindings.bindBidirectional(Time.textProperty(), ClientUIModel.getInstance().timeElapsedProperty(), converter);
+        addReceiveDataListner();
+    }
 
-
-
+    public void addReceiveDataListner() {
+        ClientUIModel.getInstance().addReceviveDataListner(new ClientUIModel.ReceviveDataListner() {
+            @Override
+            public void onReceiveData(EmotionalStatesData emoStates,
+                                      EyeData eyeData,
+                                      LowerFaceData lowerFaceData,
+                                      UpperFaceData upperFaceData) {
+                updateTimeElapsed();
+            }
+        });
 
     }
-    
+
     public void updateTimeElapsed() {
-    	clientUIModel = ClientUIModel.getInstance();
-        System.out.println("updateTimeElapsed "+clientUIModel.getTimeElapsed());
-        Time.setText(String.valueOf(clientUIModel.getTimeElapsed()));
+        Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
     }
-    
-    @FXML private void changeToPerformanceScene(ActionEvent event) throws IOException {
+
+    @FXML
+    private void changeToPerformanceScene(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("ClientPerformance.fxml"));
         rootPane.getChildren().setAll(pane);
-
-
     }
-    @FXML private  void  PopUPMenuItem(ActionEvent event) throws IOException {
+
+    @FXML
+    private void PopUPMenuItem(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ConnectPopUp.fxml"));
         Stage primaryStage = new Stage();
         Scene scene = new Scene(root);
@@ -131,11 +162,11 @@ public class ClientUIController extends ClientController implements Initializabl
 
         Ellipse head = drawHead();
 
-        Ellipse leftEye = drawEye(leftEyePositionX,eyesPositionY);
-        Ellipse rightEye = drawEye(rightEyePositionX,eyesPositionY);
+        Ellipse leftEye = drawEye(leftEyePositionX, eyesPositionY);
+        Ellipse rightEye = drawEye(rightEyePositionX, eyesPositionY);
 
-        Arc leftEyeBrow = drawEyeBrow(leftEyePositionX, eyesPositionY-30);
-        Arc rightEyeBrow = drawEyeBrow(rightEyePositionX, eyesPositionY-30);
+        Arc leftEyeBrow = drawEyeBrow(leftEyePositionX, eyesPositionY - 30);
+        Arc rightEyeBrow = drawEyeBrow(rightEyePositionX, eyesPositionY - 30);
 
 
         Arc mouth = setMouthNeutral();
@@ -161,7 +192,7 @@ public class ClientUIController extends ClientController implements Initializabl
         Rectangle clenchInside = insideClenchRectangle(mouthPositionX - 75, mouthPositionY + 10);
         clenchedMouth.getChildren().addAll(clench, clenchInside);
 
-        headGroup.getChildren().addAll(head, leftEye,  rightEye, leftSmirk, leftEyeBrow, rightEyeBrow, nose);
+        headGroup.getChildren().addAll(head, leftEye, rightEye, leftSmirk, leftEyeBrow, rightEyeBrow, nose);
 
         /**
          * Uncomment these to test different parts - Will connect with server data later
@@ -193,26 +224,27 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     *
-     * @param X		Position of eyeball horizontally on head
-     * @param Y		Position of eyeball vertically on head
-     * @return		Eye drawing
+     * @param X Position of eyeball horizontally on head
+     * @param Y Position of eyeball vertically on head
+     * @return Eye drawing
      */
     Ellipse drawEye(int X, int Y) {
         Ellipse ellipse = new Ellipse(X, Y, 12.0f, 18.0f);
         return ellipse;
     }
+
     Arc drawEyeBrow(int X, int Y) {
-        Arc arc = new Arc(X, Y, 35.0f,  5.0f, 0, 180.0f);
+        Arc arc = new Arc(X, Y, 35.0f, 5.0f, 0, 180.0f);
         arc.setType(ArcType.ROUND);
         arc.setStroke(Color.BLACK);
         arc.setFill(Color.BLACK);
         arc.setStrokeWidth(5);
         return arc;
     }
+
     javafx.scene.shape.Polygon setNose(double X1, double Y1, double X2, double Y2, double X3, double Y3) {
         javafx.scene.shape.Polygon nose = new Polygon();
-        nose.getPoints().addAll(new Double[]{ X1, Y1, X2, Y2, X3, Y3});
+        nose.getPoints().addAll(new Double[]{X1, Y1, X2, Y2, X3, Y3});
         Color nose_COLOR = Color.rgb(232, 169, 85);
         nose.setFill(nose_COLOR);
         return nose;
@@ -220,21 +252,21 @@ public class ClientUIController extends ClientController implements Initializabl
 
     /**
      * Initializes mouth to a neutral position
-     * @return	Mouth in neutral position
+     *
+     * @return Mouth in neutral position
      */
     Arc setMouthNeutral() {
         return setSmileAmount(0, mouthPositionX, mouthPositionY);
     }
 
     /**
-     *
-     * @param smileValue	Value received from Server, controls size of the smile
-     * @param X			Position of the smile horizontally on the head
-     * @param Y			Position of the smile vertically on the head
-     * @return			Smile with updated size
+     * @param smileValue Value received from Server, controls size of the smile
+     * @param X          Position of the smile horizontally on the head
+     * @param Y          Position of the smile vertically on the head
+     * @return Smile with updated size
      */
     Arc setSmileAmount(double smileValue, int X, int Y) {
-        double smileHeight =  smileValue * 100;
+        double smileHeight = smileValue * 100;
         Arc arc = new Arc(X, Y, 50.0f, smileHeight, 180.0f, 180.0f);
         arc.setType(ArcType.OPEN);
         arc.setStroke(Color.BLACK);
@@ -244,11 +276,10 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     *
-     * @param smirkLeftValue	Value received from Server, controls size of the smirk
-     * @param X					Position of the smirk horizontally on the head
-     * @param Y					Position of the smirk vertically on the head
-     * @return					Left smirk with updated size
+     * @param smirkLeftValue Value received from Server, controls size of the smirk
+     * @param X              Position of the smirk horizontally on the head
+     * @param Y              Position of the smirk vertically on the head
+     * @return Left smirk with updated size
      */
     Arc setLeftSmirk(double smirkLeftValue, int X, int Y) {
         double smirkLeftAmount = smirkLeftValue * 10 * 3;
@@ -263,11 +294,10 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     *
-     * @param smirkRightValue	Value received from Server, controls size of the smirk
-     * @param X					Position of the smirk horizontally on the head
-     * @param Y					Position of the smirk vertically on the head
-     * @return					Right smirk with updated size
+     * @param smirkRightValue Value received from Server, controls size of the smirk
+     * @param X               Position of the smirk horizontally on the head
+     * @param Y               Position of the smirk vertically on the head
+     * @return Right smirk with updated size
      */
     Arc setRightSmirk(double smirkRightValue, int X, int Y) {
         double smirkRightAmount = -(smirkRightValue * 10 * 3);
@@ -282,14 +312,13 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     *
-     * @param laughValue	Value received from Server, controls amount of the laugh expression
-     * @param X				Position of the laugh expression horizontally on the head
-     * @param Y				Position of the laugh expression vertically on the head
-     * @return				Laugh expression with updated size
+     * @param laughValue Value received from Server, controls amount of the laugh expression
+     * @param X          Position of the laugh expression horizontally on the head
+     * @param Y          Position of the laugh expression vertically on the head
+     * @return Laugh expression with updated size
      */
     Arc setLaughAmount(double laughValue, int X, int Y) {
-        double laughHeight =  laughValue * 100;
+        double laughHeight = laughValue * 100;
         Arc arc = new Arc(X, Y, 50.0f, laughHeight, 180.0f, 180.0f);
         arc.setType(ArcType.OPEN);
         arc.setStroke(Color.BLACK);
@@ -299,11 +328,10 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     *
-     * @param clenchValue	Value received from Server, controls amount of the clench expression
-     * @param X				Position of the clench expression horizontally on the head
-     * @param Y				Position of the clench expression vertically on the head
-     * @return				Clench expression with updated size
+     * @param clenchValue Value received from Server, controls amount of the clench expression
+     * @param X           Position of the clench expression horizontally on the head
+     * @param Y           Position of the clench expression vertically on the head
+     * @return Clench expression with updated size
      */
     Rectangle setClenchAmount(double clenchValue, int X, int Y) {
         double clenchAmount = clenchValue * 10 * 6;
@@ -315,10 +343,9 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     *
-     * @param X				Position of the clench expression horizontally on the head
-     * @param Y				Position of the clench expression vertically on the head
-     * @return				Clench expression with updated size to go inside the mouth expression
+     * @param X Position of the clench expression horizontally on the head
+     * @param Y Position of the clench expression vertically on the head
+     * @return Clench expression with updated size to go inside the mouth expression
      */
     Rectangle insideClenchRectangle(int X, int Y) {
         Rectangle clench = new Rectangle(X, Y, 150, 10);
