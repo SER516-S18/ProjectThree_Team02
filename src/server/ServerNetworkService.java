@@ -11,7 +11,7 @@ import java.util.logging.LogManager;
 
 public class ServerNetworkService<T> extends Service<T>{
 
-    public static final int PORT = 3000;
+    public static final int PORT = 1726;
     public static final String HOST_NAME = "localhost";
     public static final String ROOT_PATH = "/";
     public static final String FACE_ENDPOINT = "face";
@@ -44,7 +44,6 @@ public class ServerNetworkService<T> extends Service<T>{
                     //will become true.
                     while(!isCancelled()){
 
-                        // TODO - do this without polling
                         // Send data with auto-repeat
                         if( ServerUIModel.getInstance().isSendingData() ){
 

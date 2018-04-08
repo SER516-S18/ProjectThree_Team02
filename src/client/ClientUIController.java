@@ -49,39 +49,25 @@ import java.util.ResourceBundle;
 
 public class ClientUIController extends ClientController implements Initializable {
 
-    private ClientNetworkService<Void> networkThread;
-    @FXML
-    MenuBar initalMenu;
-    @FXML
-    Menu clock;
-    @FXML
-    Menu Detections;
-    @FXML
-    Menu ConnectToServer;
-    @FXML
-    AnchorPane rootPane;
-    @FXML
-    MenuItem PerformanceItem;
-    @FXML
-    MenuItem Connect;
-    @FXML
-    Pane Graph1;
-    @FXML
-    Pane Graph2;
-    @FXML
-    Label Time;
-    @FXML
-    Button SelectIp;
-    @FXML
-    Button SelectPort;
-    @FXML
-    Group headGroup;
-    @FXML
-    Ellipse head;
-    @FXML
-    Ellipse headOval;
-    @FXML
-    SubScene headScene;
+
+    private ClientUIModel clientUIModel;
+    @FXML MenuBar initalMenu;
+    @FXML Menu clock;
+    @FXML Menu Detections;
+    @FXML Menu ConnectToServer;
+    @FXML AnchorPane rootPane;
+    @FXML MenuItem PerformanceItem;
+    @FXML MenuItem Connect;
+    @FXML Pane Graph1;
+    @FXML Pane Graph2;
+    @FXML Label Time;
+    @FXML Button SelectIp;
+    @FXML Button SelectPort;
+    @FXML Group headGroup;
+    @FXML Ellipse head;
+    @FXML Ellipse headOval;
+    @FXML SubScene headScene;
+
     int WINDOW_HEIGHT = 400;
     int WINDOW_WIDTH = 400;
 
@@ -109,8 +95,6 @@ public class ClientUIController extends ClientController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         long startTime = System.currentTimeMillis();
-        networkThread = new ClientNetworkService<>();
-        networkThread.restart();
         ClientController cc = new ClientController();
         //ClientUIModel clientUIModel = new ClientUIModel();
         Group headGroup = setHead();
@@ -154,6 +138,15 @@ public class ClientUIController extends ClientController implements Initializabl
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
+    }
+
+    /**
+     * Handling for a launch new server menu option event
+     *
+     * @param event Launch server event
+     */
+    @FXML private void launchServer( ActionEvent event ){
+        ClientController.getInstance().launchServer();
     }
 
     Group setHead() {
