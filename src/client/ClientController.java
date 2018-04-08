@@ -1,21 +1,28 @@
 package client;
 
 import model.*;
+import server.Server;
 import server.ServerNetworkService;
 import server.ServerUIModel;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 
 public class ClientController {
     public static final String JSON_FACE_KEY = "Expressive";
     public static final String JSON_EMO_KEY = "Affective";
     public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
+    public static final String SERVER_LOC =
+            ".." + File.pathSeparator + "server" +
+            File.pathSeparator + "Server.java";
     
     private static ClientController instance;
     private ClientUIController clientUIController;
+    private ClientNetworkService<Void> networkThread;
 
     private EmotionalStatesData emoStates;
     private EyeData eyeData;
@@ -86,6 +93,50 @@ public class ClientController {
     	model.setTimeElapsed(model.getTimeElapsed()+interval);
     	clientUIController.updateTimeElapsed();
     	
+    }
+
+    protected void connectToServer(String ip, String port){
+        if( networkThread != null ){
+            networkThread.cancel();
+        }
+        networkThread = new ClientNetworkService<>( ip, port );
+        networkThread.restart();
+    }
+
+    /**
+     * Launch a new server instance
+     */
+    protected void launchServer(){
+
+        // Get the file in which this program is running
+        // Default will be "client.jar"
+        String filename = new java.io.File(
+                ClientController.class.getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .getPath()).getName();
+
+        File jar = new File(filename);
+        // If the file doesn't exist than our process won't be
+        // spawned successfully
+        if( !jar.exists() ){
+            System.out.println("Error: Cannot find server file! " +
+                    "Are you running this from the jar file?");
+        } else {
+            System.out.println("Starting server from " + filename);
+            ProcessBuilder pBuilder = new ProcessBuilder(
+                    System.getProperty("java.home") + "/bin/java",
+                    "-cp",
+                    filename,
+                    "server.Server"
+            );
+            try {
+                pBuilder.start();
+            } catch (IOException e) {
+                System.out.println("Error starting server");
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setFromJsonObject(JsonObject jobj) {
