@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.sun.javafx.application.PlatformImpl.exit;
+//import static com.sun.javafx.application.PlatformImpl.exit;
 
 public class PopUpController implements Initializable {
     @FXML TextField ipAddress;
@@ -31,16 +31,8 @@ public class PopUpController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // This binding is needed for the free-edit portion of the port spinner
-        // Ensures we always get the up-to-date value
-        TextFormatter<SpinnerValueFactory.IntegerSpinnerValueFactory>
-                formatter = new TextFormatter<>(
-                    addPortNumbers.getValueFactory().getConverter(),
-                    addPortNumbers.getValueFactory().getValue() );
-        addPortNumbers.getEditor().setTextFormatter(formatter);
-        addPortNumbers.getValueFactory().valueProperty()
-                .bindBidirectional(formatter.valueProperty());
     }
+    
     @FXML private void buttonClick(Event e)
     {
         String ip = ipAddress.getText();

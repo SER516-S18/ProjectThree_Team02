@@ -97,6 +97,8 @@ public class ClientUIController extends ClientController implements Initializabl
     private Arc mouth;
     private Arc leftEyebrow;
     private Arc rightEyebrow;
+    private Rectangle clench;
+    private Rectangle clenchedTeeth;
     private Group clenchedMouth;
 
     @Override
@@ -131,13 +133,81 @@ public class ClientUIController extends ClientController implements Initializabl
             public void onReceiveData(EmotionalStatesData emoStates, EyeData eyeData, LowerFaceData lowerFaceData,
                     UpperFaceData upperFaceData) {
                 updateTimeElapsed();
+                updateFaceExpressions();
             }
         });
-
     }
+    
 
     public void updateTimeElapsed() {
         Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
+    }
+    
+    public void updateFaceExpressions() {
+        double eyebrowFurrowData = ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow();
+        double eyebrowRaiseData = ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow();
+        double smileData = ClientUIModel.getInstance().getLowerFaceData().getSmile();
+        double laughData = ClientUIModel.getInstance().getLowerFaceData().getLaugh();
+        double clenchData = ClientUIModel.getInstance().getLowerFaceData().getClench();
+        double smirkLeftData = ClientUIModel.getInstance().getLowerFaceData().getSmirkLeft();
+        double smirkRightData = ClientUIModel.getInstance().getLowerFaceData().getSmirkRight();
+        boolean lookLeftData = ClientUIModel.getInstance().getEyeData().getLookLeft();
+        boolean lookRightData = ClientUIModel.getInstance().getEyeData().getLookRight();
+        boolean blinkData = ClientUIModel.getInstance().getEyeData().getBlink();
+        boolean winkRightData = ClientUIModel.getInstance().getEyeData().getWinkRight();
+        boolean winkLeftData = ClientUIModel.getInstance().getEyeData().getWinkLeft();
+
+        if (eyebrowRaiseData != 0) {
+            this.raiseBothEyebrows(eyebrowRaiseData);
+        }
+        
+        if (eyebrowFurrowData != 0) {
+            this.furrowBothEyebrows(eyebrowFurrowData);
+        }
+        
+        if (smileData != 0) {
+            this.setSmileAmount(smileData);
+        }
+        
+        if (laughData != 0) {
+            this.setLaughAmount(laughData);
+        }
+        
+        if (clenchData != 0) {
+            this.setClenchedAmount(clenchData);
+        }
+        
+        if (smirkLeftData != 0) {
+            this.setLeftSmirk(smirkLeftData);
+        }
+        
+        if (smirkRightData != 0) {
+            this.setRightSmirk(smirkRightData);
+        }
+        
+        if (lookLeftData) {
+            this.lookLeft();
+        }
+        
+        if (lookRightData) {
+            this.lookRight();
+        }
+        
+        while (winkRightData) {
+            this.closeEye(rightEye);
+            this.openEye(rightEye);
+        }
+        
+        while (winkLeftData) {
+            this.closeEye(leftEye);
+            this.openEye(leftEye);
+        }
+        
+        while (blinkData) {
+            this.blinkEyes();
+            this.lookStraight();
+        }
+        
     }
 
     /**
@@ -238,11 +308,11 @@ public class ClientUIController extends ClientController implements Initializabl
         this.drawBothEyes();
         this.drawBothNeutralEyebrows();
         this.setMouthNeutral();
-        this.setClenchedMouth(0);
+        this.drawClenchedMouth(0);
 
         mouth.setVisible(true);
         clenchedMouth.setVisible(false);
-
+        
         headGroup.getChildren().addAll(head, leftEye, rightEye, mouth, leftEyebrow, rightEyebrow, nose, clenchedMouth);
 
         return headGroup;
@@ -441,6 +511,7 @@ public class ClientUIController extends ClientController implements Initializabl
         // Reset after other mouth expressions
         mouth.setRotate(0);
         mouth.setVisible(true);
+        clenchedMouth.setVisible(false);
 
         smileValue = smileValue * 100;
         mouth.setRadiusY(smileValue);
@@ -454,6 +525,7 @@ public class ClientUIController extends ClientController implements Initializabl
     public void setLeftSmirk(double smirkLeftAmount) {
         // Reset after other mouth expressions
         mouth.setVisible(true);
+        clenchedMouth.setVisible(false);
 
         smirkLeftAmount = smirkLeftAmount * 10 * 3;
         mouth.setRadiusY(10.0f);
@@ -468,6 +540,7 @@ public class ClientUIController extends ClientController implements Initializabl
     public void setRightSmirk(double smirkRightAmount) {
         // Reset after other mouth expressions
         mouth.setVisible(true);
+        clenchedMouth.setVisible(false);
 
         smirkRightAmount = -(smirkRightAmount * 10 * 3);
         mouth.setRadiusY(10.0f);
@@ -483,6 +556,7 @@ public class ClientUIController extends ClientController implements Initializabl
         // Reset after other mouth expressions
         mouth.setRotate(0);
         mouth.setVisible(true);
+        clenchedMouth.setVisible(false);
 
         laughValue = laughValue * 100;
         mouth.setFill(Color.BLACK);
@@ -490,24 +564,37 @@ public class ClientUIController extends ClientController implements Initializabl
     }
 
     /**
-     * Sets mouth to new clenched amount
+     * Creates mouth with clenched amount
      *
      * @param clenchValue	controls amount of clench expression, received from server
      */
-    public void setClenchedMouth(double clenchValue) {
-        double clenchAmount = clenchValue * 10 * 6;
-        Rectangle clench = new Rectangle(MOUTH_POSITION_X - 75, MOUTH_POSITION_Y, 150, clenchAmount);
+    public void drawClenchedMouth(double clenchAmount) {
+        clenchAmount = clenchAmount * 10 * 6;
+        clench = new Rectangle(MOUTH_POSITION_X - 75, MOUTH_POSITION_Y, 150, clenchAmount);
         clench.setStroke(Color.BLACK);
         clench.setFill(null);
         clench.setStrokeWidth(3);
 
-        Rectangle clenchedTeeth = new Rectangle(MOUTH_POSITION_X - 75, MOUTH_POSITION_Y + 10, 150, 10);
+        clenchedTeeth = new Rectangle(MOUTH_POSITION_X - 75, MOUTH_POSITION_Y + 10, 150, 10);
         clenchedTeeth.setStroke(Color.BLACK);
         clenchedTeeth.setFill(null);
         clenchedTeeth.setStrokeWidth(3);
 
         clenchedMouth = new Group();
         clenchedMouth.getChildren().addAll(clench, clenchedTeeth);
+        mouth.setVisible(false);
+        clenchedMouth.setVisible(true);
+    }
+    
+    /**
+     * Updates mouth with clenched amount
+     *
+     * @param clenchValue   controls amount of clench expression, received from server
+     */
+    public void setClenchedAmount(double clenchAmount) {
+        clenchAmount = clenchAmount * 10 * 6;
+        clench.setHeight(clenchAmount);
+        
         mouth.setVisible(false);
         clenchedMouth.setVisible(true);
     }
