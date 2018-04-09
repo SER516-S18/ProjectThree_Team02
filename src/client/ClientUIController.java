@@ -194,24 +194,18 @@ public class ClientUIController extends ClientController implements Initializabl
         if (lookRightData) {
             this.lookRight();
         }
-        
-        while (winkRightData) {
-            this.lookStraight();
-            this.closeEye(rightEye);
+        if(winkLeftData){
+            this.closeEye(leftEye);
             this.openEye(rightEye);
         }
-        
-        while (winkLeftData) {
-            this.lookStraight();
-            this.closeEye(leftEye);
+        if(winkRightData){
+            this.closeEye(rightEye);
             this.openEye(leftEye);
         }
-        
-        while (blinkData) {
-            this.lookStraight();
-            this.blinkEyes();
+        if(blinkData){
+            this.closeEye(leftEye);
+            this.closeEye(rightEye);
         }
-        
     }
 
     /**
@@ -367,8 +361,10 @@ public class ClientUIController extends ClientController implements Initializabl
     public void lookLeft() {
         leftEye.setCenterX(LEFT_EYE_POSITION - 20);
         leftEye.setRadiusX(6);
+        leftEye.setRadiusY(18);
         rightEye.setCenterX(RIGHT_EYE_POSITION - 20);
         rightEye.setRadiusX(6);
+        rightEye.setRadiusY(18);
     }
 
     /**
@@ -377,8 +373,10 @@ public class ClientUIController extends ClientController implements Initializabl
     public void lookRight() {
         leftEye.setCenterX(LEFT_EYE_POSITION + 20);
         leftEye.setRadiusX(6);
+        leftEye.setRadiusY(18);
         rightEye.setCenterX(RIGHT_EYE_POSITION + 20);
         rightEye.setRadiusX(6);
+        rightEye.setRadiusY(18);
     }
 
     /**
@@ -390,6 +388,7 @@ public class ClientUIController extends ClientController implements Initializabl
         eyeName.setRadiusY(1);
     }
 
+
     /**
      * Draws one eye appearing as if opened
      *
@@ -397,18 +396,6 @@ public class ClientUIController extends ClientController implements Initializabl
      */
     public void openEye(Ellipse eyeName) {
         eyeName.setRadiusY(18);
-    }
-
-    /**
-     * Closes both eyes simultaneously
-     */
-    public void blinkEyes() {
-        this.closeEye(leftEye);
-        this.closeEye(rightEye);
-        for(int i = 0; i <500; i++);
-        this.openEye(leftEye);
-        this.openEye(rightEye);
-         //???? In a loop? Or a thread?
     }
 
     /**
