@@ -405,7 +405,7 @@ public class ClientUIController extends ClientController implements Initializabl
     public void blinkEyes() {
         this.closeEye(leftEye);
         this.closeEye(rightEye);
-        for(int i = 0; i <100; i++);
+        for(int i = 0; i <500; i++);
         this.openEye(leftEye);
         this.openEye(rightEye);
          //???? In a loop? Or a thread?
