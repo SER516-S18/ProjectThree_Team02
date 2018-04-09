@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.lang.Thread.sleep;
+
 public class ClientUIController extends ClientController implements Initializable {
 
     // Connection status'
@@ -194,18 +196,20 @@ public class ClientUIController extends ClientController implements Initializabl
         }
         
         while (winkRightData) {
+            this.lookStraight();
             this.closeEye(rightEye);
             this.openEye(rightEye);
         }
         
         while (winkLeftData) {
+            this.lookStraight();
             this.closeEye(leftEye);
             this.openEye(leftEye);
         }
         
         while (blinkData) {
-            this.blinkEyes();
             this.lookStraight();
+            this.blinkEyes();
         }
         
     }
@@ -343,24 +347,8 @@ public class ClientUIController extends ClientController implements Initializabl
      * Draws both eyes facing forward
      */
     public void drawBothEyes() {
-        this.drawLeftEye();
-        this.drawRightEye();
-    }
-
-    /**
-     * Draws right eye facing forward
-     */
-    public void drawRightEye() {
-        Ellipse ellipse = new Ellipse(RIGHT_EYE_POSITION, EYES_POSITION_X, 12.0f, 18.0f);
-        rightEye = ellipse;
-    }
-
-    /**
-     * Draws left eye facing forward
-     */
-    public void drawLeftEye() {
-        Ellipse ellipse = new Ellipse(LEFT_EYE_POSITION, EYES_POSITION_X, 12.0f, 18.0f);
-        leftEye = ellipse;
+        rightEye = new Ellipse(RIGHT_EYE_POSITION, EYES_POSITION_X, 12.0f, 18.0f);
+        leftEye = new Ellipse(LEFT_EYE_POSITION, EYES_POSITION_X, 12.0f, 18.0f);
     }
 
     /**
@@ -399,7 +387,6 @@ public class ClientUIController extends ClientController implements Initializabl
      * @param eyeName	Eye that is currently closing
      */
     public void closeEye(Ellipse eyeName) {
-        this.lookStraight();
         eyeName.setRadiusY(1);
     }
 
@@ -409,7 +396,7 @@ public class ClientUIController extends ClientController implements Initializabl
      * @param eyeName	Eye that is currently opening
      */
     public void openEye(Ellipse eyeName) {
-        this.lookStraight();
+        eyeName.setRadiusY(18);
     }
 
     /**
@@ -418,7 +405,10 @@ public class ClientUIController extends ClientController implements Initializabl
     public void blinkEyes() {
         this.closeEye(leftEye);
         this.closeEye(rightEye);
-        this.lookStraight(); //???? In a loop? Or a thread?
+        for(int i = 0; i <100; i++);
+        this.openEye(leftEye);
+        this.openEye(rightEye);
+         //???? In a loop? Or a thread?
     }
 
     /**
