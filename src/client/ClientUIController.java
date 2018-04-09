@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -54,7 +55,6 @@ public class ClientUIController extends ClientController implements Initializabl
     public static final int STATUS_ICON_PADDNG = 10;
 
     @FXML MenuBar initalMenu;
-    @FXML Menu clock;
     @FXML Menu Detections;
     @FXML Menu ConnectToServer;
     @FXML AnchorPane rootPane;
@@ -64,9 +64,9 @@ public class ClientUIController extends ClientController implements Initializabl
     @FXML Pane Graph2;
     @FXML Label Time;
     @FXML HBox connectionStatusPanel;
+    @FXML VBox facePane;
     @FXML Button SelectIp;
     @FXML Button SelectPort;
-    @FXML Group headGroup;
     @FXML Ellipse head;
     @FXML Ellipse headOval;
     @FXML SubScene headScene;
@@ -109,8 +109,7 @@ public class ClientUIController extends ClientController implements Initializabl
         ClientController cc = new ClientController();
         // ClientUIModel clientUIModel = new ClientUIModel();
         Group headGroup = initializeHead();
-        rootPane.setBottomAnchor(headGroup, 30.00);
-        rootPane.getChildren().add(headGroup);
+        facePane.getChildren().add(headGroup);
 
         ClientUIModel.getInstance().connectionStatusProperty().addListener(
                 (observableValue, number, t1) -> {
@@ -125,6 +124,7 @@ public class ClientUIController extends ClientController implements Initializabl
                 }
         );
 
+        updateTimeElapsed();
         setConnectionStatus(DISCONNECTED);
         addReceiveDataListner();
     }

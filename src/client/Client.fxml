@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -7,65 +8,111 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="rootPane" prefHeight="509.0" prefWidth="770.0" style="fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
    <children>
-      <HBox prefHeight="37.0" prefWidth="770.0">
+      <VBox prefHeight="518.0" prefWidth="774.0">
          <children>
-            <MenuBar fx:id="initalMenu" prefHeight="35.0" prefWidth="453.0" style="-fx-background-color: white;">
-              <menus>
-                <Menu fx:id="Detections" mnemonicParsing="false" text="Detections">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Facial Expression" />
-                        <MenuItem fx:id="PerformanceItem" mnemonicParsing="false" onAction="#changeToPerformanceScene" text="Performance" />
-                  </items>
-                     <graphic>
-                        <Label text="Label" />
-                     </graphic>
-                </Menu>
-                  <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Server">
-                     <items>
-                        <MenuItem id="launchServer" mnemonicParsing="false" onAction="#launchServer" text="Launch New" />
-                        <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect To Existing" />
-                     </items>
-                  </Menu>
-                  <Menu fx:id="clock" mnemonicParsing="false" onHidden="#updateTimeElapsed" text="Time Elapsed">
-                     <graphic>
-                        <ImageView fitHeight="19.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/client/Clock.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <items>
-                        <MenuItem mnemonicParsing="false">
+            <HBox prefHeight="37.0" prefWidth="770.0">
+               <children>
+                  <MenuBar fx:id="initalMenu" prefHeight="42.0" prefWidth="453.0">
+                    <menus>
+                      <Menu fx:id="Detections" mnemonicParsing="false" text="Detections">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Facial Expression" />
+                              <MenuItem fx:id="PerformanceItem" mnemonicParsing="false" onAction="#changeToPerformanceScene" text="Performance" />
+                        </items>
                            <graphic>
-                              <Label fx:id="Time" style="-: ;" textFill="#eb0707" />
+                              <Label text="Label" />
                            </graphic>
-                        </MenuItem>
+                      </Menu>
+                        <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Server">
+                           <items>
+                              <MenuItem id="launchServer" mnemonicParsing="false" onAction="#launchServer" text="Launch New" />
+                              <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect To Existing" />
+                           </items>
+                        </Menu>
+                    </menus>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </MenuBar>
+                  <ToolBar prefHeight="22.0" prefWidth="322.0">
+                     <items>
+                        <HBox alignment="CENTER" prefHeight="29.0" prefWidth="114.0">
+                           <children>
+                              <ImageView fitHeight="19.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/client/Clock.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="Time" style="-: ;" textFill="#eb0707" />
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                           <opaqueInsets>
+                              <Insets right="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <HBox fx:id="connectionStatusPanel" alignment="CENTER" prefHeight="29.0" prefWidth="155.0" />
                      </items>
-                  </Menu>
-              </menus>
-            </MenuBar>
-            <HBox fx:id="connectionStatusPanel" alignment="CENTER" prefHeight="37.0" prefWidth="135.0" style="fx-background-color: white;" />
+                  </ToolBar>
+               </children>
+            </HBox>
+            <TabPane prefHeight="532.0" prefWidth="774.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Facial Expressions">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="445.0" prefWidth="774.0">
+                                 <children>
+                                    <VBox fx:id="facePane" alignment="CENTER" prefHeight="481.0" prefWidth="410.0" />
+                                    <VBox prefHeight="475.0" prefWidth="372.0">
+                                       <children>
+                                           <Pane fx:id="Graph1" layoutX="385.0" layoutY="29.0" prefHeight="479.0" prefWidth="385.0">
+                                               <children>
+                                                   <LineChart prefHeight="444.0" prefWidth="385.0">
+                                                       <xAxis>
+                                                           <CategoryAxis side="BOTTOM" />
+                                                       </xAxis>
+                                                       <yAxis>
+                                                           <NumberAxis side="LEFT" />
+                                                       </yAxis>
+                                                   </LineChart>
+                                               </children>
+                                           </Pane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Affective">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children>
-      </HBox>
-      <Pane fx:id="Graph1" layoutX="385.0" layoutY="29.0" prefHeight="479.0" prefWidth="385.0">
-         <children>
-            <LineChart prefHeight="478.0" prefWidth="385.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>
