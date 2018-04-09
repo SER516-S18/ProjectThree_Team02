@@ -1,6 +1,7 @@
 package client;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import model.*;
 import server.ServerUIModel;
 
@@ -22,7 +23,13 @@ public class ClientUIModel {
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
     private EmoStateIntervalData emoStateIntervalData;
+    private SimpleIntegerProperty connectionStatus;
     private ArrayList<ReceviveDataListner> dataListners = new ArrayList<ReceviveDataListner>();
+
+    private ClientUIModel(){
+        connectionStatus = new SimpleIntegerProperty(
+                ClientUIController.DISCONNECTED);
+    }
 
     /**
      * @return Singleton instance of ServerUIModel
@@ -44,6 +51,19 @@ public class ClientUIModel {
         if (dataListners.contains(listner)) {
             dataListners.remove(listner);
         }
+    }
+
+
+    public int getConnectionStatus() {
+        return connectionStatus.get();
+    }
+
+    public SimpleIntegerProperty connectionStatusProperty() {
+        return connectionStatus;
+    }
+
+    public void setConnectionStatus(int connectionStatus) {
+        this.connectionStatus.set(connectionStatus);
     }
 
     public EmotionalStatesData getEmoStates() {

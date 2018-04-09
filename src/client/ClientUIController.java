@@ -1,12 +1,12 @@
 package client;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.control.*;
@@ -15,12 +15,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -33,21 +31,25 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.EmotionalStatesData;
 import model.EyeData;
 import model.LowerFaceData;
 import model.UpperFaceData;
-import server.ServerUIModel;
-import util.MyNumberStringConverter;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClientUIController extends ClientController implements Initializable {
+
+    // Connection status'
+    public static final int DISCONNECTED = 0;
+    public static final int CONNECTING = 1;
+    public static final int CONNECTED = 2;
+
+    public static final int STATUS_ICON_SIZE = 10;
+    public static final int STATUS_ICON_PADDNG = 10;
 
     @FXML MenuBar initalMenu;
     @FXML Menu clock;
@@ -59,6 +61,7 @@ public class ClientUIController extends ClientController implements Initializabl
     @FXML Pane Graph1;
     @FXML Pane Graph2;
     @FXML Label Time;
+    @FXML HBox connectionStatusPanel;
     @FXML Button SelectIp;
     @FXML Button SelectPort;
     @FXML Group headGroup;
@@ -105,9 +108,20 @@ public class ClientUIController extends ClientController implements Initializabl
         rootPane.setBottomAnchor(headGroup, 30.00);
         rootPane.getChildren().add(headGroup);
 
-        // MyNumberStringConverter converter = new MyNumberStringConverter();
-        // Bindings.bindBidirectional(Time.textProperty(),
-        // ClientUIModel.getInstance().timeElapsedProperty(), converter);
+        ClientUIModel.getInstance().connectionStatusProperty().addListener(
+                (observableValue, number, t1) -> {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            int connStatus =
+                                    ClientUIModel.getInstance().getConnectionStatus();
+                            setConnectionStatus(connStatus);
+                        }
+                    });
+                }
+        );
+
+        setConnectionStatus(DISCONNECTED);
         addReceiveDataListner();
     }
 
@@ -122,6 +136,10 @@ public class ClientUIController extends ClientController implements Initializabl
 
     }
 
+    public void updateTimeElapsed() {
+        Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
+    }
+
     /**
      * Display an error dialog to the user and wait for acknowledgment
      * @param msg Message to be displayed on the dialog
@@ -134,9 +152,50 @@ public class ClientUIController extends ClientController implements Initializabl
         alert.showAndWait();
     }
 
+    /**
+     * Set the connection status in the UI
+     * @param conn Current connection status
+     */
+    private void setConnectionStatus( int conn ){
+        connectionStatusPanel.getChildren().clear();
+        Text text;
+        switch(conn){
+            case DISCONNECTED:
+                text = new Text("Disconnected");
+                connectionStatusPanel.getChildren().add(
+                        getStatusIconPanel(Color.RED));
+                connectionStatusPanel.getChildren().add(text);
+                break;
+            case CONNECTED:
+                text = new Text("Connected");
+                connectionStatusPanel.getChildren().add(
+                        getStatusIconPanel(Color.GREEN));
+                connectionStatusPanel.getChildren().add(text);
+                break;
+            case CONNECTING:
+                text = new Text("Connecting...");
+                ProgressIndicator prog = new ProgressIndicator();
+                prog.setMaxHeight(STATUS_ICON_SIZE * 2);
+                prog.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+                connectionStatusPanel.getChildren().add(prog);
+                connectionStatusPanel.getChildren().add(text);
+                break;
+        }
+    }
 
-    public void updateTimeElapsed() {
-        Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
+    /**
+     * Helper to get a new panel containing a status icon
+     * @param color Color of the status icon
+     * @return HBox containing the status icon
+     */
+    private HBox getStatusIconPanel( Color color ){
+        Circle disCircle = new Circle(STATUS_ICON_SIZE);
+        disCircle.setFill(color);
+        HBox cirPane = new HBox(disCircle);
+        // Set padding on the right
+        cirPane.setPadding(new Insets(0, STATUS_ICON_PADDNG,0,0));
+        cirPane.setAlignment(Pos.CENTER);
+        return cirPane;
     }
 
     @FXML
@@ -390,7 +449,7 @@ public class ClientUIController extends ClientController implements Initializabl
     /**
      * Sets mouth to new left smirk amount
      *
-     * @param smirkLeftValue	controls size of left smirk, received from server
+     * @param smirkLeftAmount	controls size of left smirk, received from server
      */
     public void setLeftSmirk(double smirkLeftAmount) {
         // Reset after other mouth expressions
@@ -404,7 +463,7 @@ public class ClientUIController extends ClientController implements Initializabl
     /**
      * Sets mouth to new right smirk amount
      *
-     * @param smirkRightValue	controls size of right smirk, received from server
+     * @param smirkRightAmount	controls size of right smirk, received from server
      */
     public void setRightSmirk(double smirkRightAmount) {
         // Reset after other mouth expressions
