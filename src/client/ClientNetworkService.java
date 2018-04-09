@@ -67,7 +67,10 @@ public class ClientNetworkService<T> extends Service<T> {
         setOnFailed(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.print("Error Occurred\n");
+                System.out.println("Error! Cannot connect to server: " +
+                        event.getSource());
+                ClientUIController.showErrorDialog(
+                        "Failed to connect to the server");
             }
         });
 

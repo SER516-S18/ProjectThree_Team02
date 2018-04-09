@@ -85,8 +85,6 @@ public class ServerUIController implements Initializable{
 
         //Binding data values with model
         bindModelWithUI();
-
-        //Inital work done
     }
 
     private void bindModelWithUI() {
