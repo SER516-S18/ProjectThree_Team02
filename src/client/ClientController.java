@@ -21,7 +21,6 @@ public class ClientController {
             File.pathSeparator + "Server.java";
 
     private static ClientController instance;
-    private ClientUIController clientUIController;
     private ClientNetworkService<Void> networkThread;
 
     /**

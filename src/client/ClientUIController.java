@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -48,23 +49,22 @@ import java.util.ResourceBundle;
 
 public class ClientUIController extends ClientController implements Initializable {
 
-    private ClientUIModel clientUIModel;
-    @FXML	MenuBar initalMenu;
-    @FXML	Menu clock;
-    @FXML	Menu Detections;
-    @FXML	Menu ConnectToServer;
-    @FXML	AnchorPane rootPane;
-    @FXML	MenuItem PerformanceItem;
-    @FXML	MenuItem Connect;
-    @FXML	Pane Graph1;
-    @FXML	Pane Graph2;
-    @FXML	Label Time;
-    @FXML	Button SelectIp;
-    @FXML	Button SelectPort;
-    @FXML	Group headGroup;
-    @FXML	Ellipse head;
-    @FXML	Ellipse headOval;
-    @FXML	SubScene headScene;
+    @FXML MenuBar initalMenu;
+    @FXML Menu clock;
+    @FXML Menu Detections;
+    @FXML Menu ConnectToServer;
+    @FXML AnchorPane rootPane;
+    @FXML MenuItem PerformanceItem;
+    @FXML MenuItem Connect;
+    @FXML Pane Graph1;
+    @FXML Pane Graph2;
+    @FXML Label Time;
+    @FXML Button SelectIp;
+    @FXML Button SelectPort;
+    @FXML Group headGroup;
+    @FXML Ellipse head;
+    @FXML Ellipse headOval;
+    @FXML SubScene headScene;
 
     private int FACE_PANE_HEIGHT = 400;
     private int FACE_PANE_WIDTH = 400;
@@ -121,6 +121,19 @@ public class ClientUIController extends ClientController implements Initializabl
         });
 
     }
+
+    /**
+     * Display an error dialog to the user and wait for acknowledgment
+     * @param msg Message to be displayed on the dialog
+     */
+    protected static void showErrorDialog( String msg ){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        TextArea textArea = new TextArea(msg);
+        textArea.setEditable(false);
+        alert.getDialogPane().setContent(textArea);
+        alert.showAndWait();
+    }
+
 
     public void updateTimeElapsed() {
         Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
