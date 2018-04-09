@@ -36,9 +36,16 @@ public class ClientNetworkService<T> extends Service<T> {
             @Override
             protected Void call() throws Exception {
                 ClientManager client = ClientManager.createClient();
+                ClientUIModel.getInstance().setConnectionStatus(
+                        ClientUIController.CONNECTING );
                 session = client.connectToServer(
                         ClientEndpoint.class,
                         new URI( url ) );
+                if( session.isOpen() ){
+                    System.out.println("Connected to: " + url);
+                    ClientUIModel.getInstance().setConnectionStatus(
+                            ClientUIController.CONNECTED );
+                }
 
                 //Disable default websocket client logger
                 LogManager.getLogManager().reset();
@@ -67,16 +74,21 @@ public class ClientNetworkService<T> extends Service<T> {
         setOnFailed(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.print("Error Occurred\n");
+                System.out.println("Error! Cannot connect to server: " +
+                        event.getSource());
+                ClientUIController.showErrorDialog(
+                        "Failed to connect to the server");
+                ClientUIModel.getInstance().setConnectionStatus(
+                        ClientUIController.DISCONNECTED );
             }
         });
 
         setOnCancelled(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                System.out.print("Websocket Stopped\n");
-                System.out.println();
-            }
+                System.out.println("Websocket Stopped\n");
+                ClientUIModel.getInstance().setConnectionStatus(
+                        ClientUIController.DISCONNECTED );            }
         });
     }
 }

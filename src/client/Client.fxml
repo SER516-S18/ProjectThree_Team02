@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -10,41 +11,51 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="rootPane" prefHeight="509.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
+<AnchorPane fx:id="rootPane" prefHeight="509.0" prefWidth="770.0" style="fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientUIController">
    <children>
-      <MenuBar fx:id="initalMenu" prefHeight="634.0" prefWidth="770.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu fx:id="Detections" mnemonicParsing="false" text="Detections">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Facial Expression" />
-                  <MenuItem fx:id="PerformanceItem" mnemonicParsing="false" onAction="#changeToPerformanceScene" text="Performance" />
-            </items>
-          </Menu>
-            <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Server">
-               <items>
-                  <MenuItem id="launchServer" mnemonicParsing="false" text="Launch New" onAction="#launchServer"/>
-                  <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect To Existing" />
-               </items>
-            </Menu>
-            <Menu fx:id="clock" mnemonicParsing="false" onHidden="#updateTimeElapsed" text="Time Elapsed">
-               <graphic>
-                  <ImageView fitHeight="19.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/client/Clock.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <items>
-                  <MenuItem mnemonicParsing="false">
+      <HBox prefHeight="37.0" prefWidth="770.0">
+         <children>
+            <MenuBar fx:id="initalMenu" prefHeight="35.0" prefWidth="453.0" style="-fx-background-color: white;">
+              <menus>
+                <Menu fx:id="Detections" mnemonicParsing="false" text="Detections">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Facial Expression" />
+                        <MenuItem fx:id="PerformanceItem" mnemonicParsing="false" onAction="#changeToPerformanceScene" text="Performance" />
+                  </items>
                      <graphic>
-                        <Label fx:id="Time" style="-: ;" textFill="#eb0707" />
+                        <Label text="Label" />
                      </graphic>
-                  </MenuItem>
-               </items></Menu>
-        </menus>
-      </MenuBar>
+                </Menu>
+                  <Menu fx:id="ConnectToServer" mnemonicParsing="false" text="Server">
+                     <items>
+                        <MenuItem id="launchServer" mnemonicParsing="false" onAction="#launchServer" text="Launch New" />
+                        <MenuItem fx:id="Connect" mnemonicParsing="false" onAction="#PopUPMenuItem" text="Connect To Existing" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="clock" mnemonicParsing="false" onHidden="#updateTimeElapsed" text="Time Elapsed">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/client/Clock.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <items>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Label fx:id="Time" style="-: ;" textFill="#eb0707" />
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <HBox fx:id="connectionStatusPanel" alignment="CENTER" prefHeight="37.0" prefWidth="135.0" style="fx-background-color: white;"/>
+         </children>
+      </HBox>
       <Pane fx:id="Graph1" layoutX="385.0" layoutY="29.0" prefHeight="240.0" prefWidth="385.0">
          <children>
             <LineChart prefHeight="240.0" prefWidth="385.0">
