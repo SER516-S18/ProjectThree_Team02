@@ -60,8 +60,6 @@ public class ServerNetworkService<T> extends Service<T>{
                             sendPayloadToAllClients();
                             ServerUIModel modelUI = ServerUIModel.getInstance();
                             modelUI.setSendOnce(false);
-                            // Reset any single eye actions immediately
-                            modelUI.setEyeDataValue(false);
                         }
 
                         Thread.sleep( POLLING_SLEEP_TIME );
