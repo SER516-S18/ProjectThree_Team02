@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -53,30 +52,18 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <HBox fx:id="connectionStatusPanel" alignment="CENTER" prefHeight="37.0" prefWidth="135.0" style="fx-background-color: white;"/>
+            <HBox fx:id="connectionStatusPanel" alignment="CENTER" prefHeight="37.0" prefWidth="135.0" style="fx-background-color: white;" />
          </children>
       </HBox>
-      <Pane fx:id="Graph1" layoutX="385.0" layoutY="29.0" prefHeight="240.0" prefWidth="385.0">
+      <Pane fx:id="Graph1" layoutX="385.0" layoutY="29.0" prefHeight="479.0" prefWidth="385.0">
          <children>
-            <LineChart prefHeight="240.0" prefWidth="385.0">
+            <LineChart prefHeight="478.0" prefWidth="385.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis side="LEFT" />
               </yAxis>
-            </LineChart>
-         </children>
-      </Pane>
-      <Pane fx:id="Graph2" layoutX="385.0" layoutY="269.0" prefHeight="240.0" prefWidth="385.0">
-         <children>
-            <LineChart layoutY="10.0" prefHeight="240.0" prefWidth="385.0">
-               <xAxis>
-                  <CategoryAxis side="BOTTOM" />
-               </xAxis>
-               <yAxis>
-                  <NumberAxis side="LEFT" />
-               </yAxis>
             </LineChart>
          </children>
       </Pane>
