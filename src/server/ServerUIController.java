@@ -40,6 +40,7 @@ public class ServerUIController implements Initializable{
     @FXML private ChoiceBox<String> choiceboxLowerface;
     @FXML private ChoiceBox<String> choiceboxEye;
     @FXML private CheckBox autoRepeatCheckbox;
+    @FXML private RadioButton eyeRadioButton;
     @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
             frequencyTextField;
     @FXML private Spinner<SpinnerValueFactory.DoubleSpinnerValueFactory>
@@ -260,14 +261,12 @@ public class ServerUIController implements Initializable{
 
     /**
      * Event listener for the activate button
-     * This handles single face actions, like blinking and looking left.
+     * This will set the bool value of the eyedata.
      * @param event Event that was triggered
      */
-    @FXML private void activateEyeAction(ActionEvent event) {
+    @FXML private void onAvtivateButtonClicked(ActionEvent event) {
         ServerUIModel modelUI = ServerUIModel.getInstance();
-        modelUI.setEyeDataValue(true);
-        modelUI.setSendOnce(true);
-        System.out.println("Sending eye action: " + modelUI.getEyeDataType());
+        modelUI.setEyeDataValue(eyeRadioButton.isSelected());
     }
 
     /**
