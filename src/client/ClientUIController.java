@@ -139,8 +139,8 @@ public class ClientUIController extends ClientController implements Initializabl
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            double time = ClientUIModel.getInstance().getTimeElapsed();
-                            updateTimeElapsed(String.valueOf(time));
+                            double elapsedTime = ClientUIModel.getInstance().getTimeElapsed();
+                            updateTimeElapsed(String.valueOf(elapsedTime));
                         }
                     });
                 }
@@ -259,7 +259,6 @@ public class ClientUIController extends ClientController implements Initializabl
             @Override
             public void onReceiveData(EmotionalStatesData emoStates, EyeData eyeData, LowerFaceData lowerFaceData,
                     UpperFaceData upperFaceData) {
-                //updateTimeElapsed();
                 updateFaceExpressions();
                 updateFacialChart();
             }
@@ -267,10 +266,10 @@ public class ClientUIController extends ClientController implements Initializabl
     }
     
     /**
-     * Updates timer with new time received from server via addReceiveDataListner()
+     * Updates Elapsed time based on the data sending interval of the server
      */
-    public void updateTimeElapsed(String time) {
-        Time.setText(time);
+    public void updateTimeElapsed(String elapsedTime) {
+        Time.setText(elapsedTime);
     }
     
     /**
