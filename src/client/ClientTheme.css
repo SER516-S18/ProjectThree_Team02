@@ -1,0 +1,25 @@
+.chart {
+    -fx-padding: 0px;
+    -fx-background-color: white;
+}
+
+.chart-content {
+    -fx-padding: 0 0 -10 -10;
+}
+
+.chart-plot-background {
+    -fx-background-color: white;
+}
+
+.axis-tick-mark,
+.axis-minor-tick-mark,
+.chart-vertical-grid-lines,
+.chart-vertical-zero-line,
+.chart-horizontal-zero-line  {
+    -fx-stroke: transparent;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 1px;
+    -fx-stroke: black;
+}

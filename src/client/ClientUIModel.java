@@ -3,7 +3,6 @@ package client;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.*;
-import server.ServerUIModel;
 
 import java.util.ArrayList;
 

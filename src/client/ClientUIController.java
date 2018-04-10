@@ -9,6 +9,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,12 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.EmotionalStatesData;
@@ -40,9 +38,8 @@ import model.LowerFaceData;
 import model.UpperFaceData;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import static java.lang.Thread.sleep;
 
 public class ClientUIController extends ClientController implements Initializable {
 
@@ -70,6 +67,7 @@ public class ClientUIController extends ClientController implements Initializabl
     @FXML Ellipse head;
     @FXML Ellipse headOval;
     @FXML SubScene headScene;
+    @FXML AnchorPane facialChartPane;
 
     private int FACE_PANE_HEIGHT = 400;
     private int FACE_PANE_WIDTH = 400;
@@ -103,6 +101,9 @@ public class ClientUIController extends ClientController implements Initializabl
     private Rectangle clenchedTeeth;
     private Group clenchedMouth;
 
+    private ArrayList<XYChart.Series> seriesArray;
+    private int curFacialChartPos = 1;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         long startTime = System.currentTimeMillis();
@@ -127,6 +128,97 @@ public class ClientUIController extends ClientController implements Initializabl
         updateTimeElapsed();
         setConnectionStatus(DISCONNECTED);
         addReceiveDataListner();
+        initFacialChart();
+    }
+
+    private void initFacialChart(){
+
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        //xAxis.setAutoRanging(false);
+        //xAxis.setUpperBound(5);
+        //xAxis.setLowerBound(0);
+        final LineChart<Number,Number> facialChart = new LineChart<Number,Number>(xAxis,yAxis);
+        facialChart.prefWidthProperty().bind(facialChartPane.widthProperty());
+        facialChart.prefHeightProperty().bind(facialChartPane.heightProperty());
+        facialChart.setLegendVisible(false);
+        facialChart.getXAxis().setTickLabelsVisible(false);
+        facialChart.getYAxis().setTickLabelsVisible(false);
+        facialChart.setCreateSymbols(false);
+
+        facialChartPane.getChildren().add(facialChart);
+
+        seriesArray = new ArrayList<XYChart.Series>();
+
+        for(int i = 0; i < 12; i++){
+            seriesArray.add(new XYChart.Series());
+        }
+        for(int i = 0; i < 12; i++){
+            facialChart.getData().add(seriesArray.get(i));
+            if(i <= 4){
+                seriesArray.get(i).getData().add(new XYChart.Data(0, 11.25 - i));
+            }else{
+                seriesArray.get(i).getData().add(new XYChart.Data(0, 11 - i));
+            }
+
+        }
+
+    }
+
+    private void updateFacialChart(){
+
+        //Blink
+        if(ClientUIModel.getInstance().getEyeData().getBlink()){
+            seriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.75));
+        }else{
+            seriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.25));
+        }
+        //Right Wink
+        if(ClientUIModel.getInstance().getEyeData().getWinkRight()){
+            seriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.75));
+        }else{
+            seriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.25));
+        }
+        //Left Wink
+        if(ClientUIModel.getInstance().getEyeData().getWinkLeft()){
+            seriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.75));
+        }else{
+            seriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.25));
+        }
+        //Look Right
+        if(ClientUIModel.getInstance().getEyeData().getLookRight()){
+            seriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.75));
+        }else{
+            seriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.25));
+        }
+        //Look Left
+        if(ClientUIModel.getInstance().getEyeData().getLookLeft()){
+            seriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.75));
+        }else{
+            seriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.25));
+        }
+        //Raise Brow
+        seriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
+
+        //Furrow Brow
+        seriesArray.get(6).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow() + 5));
+
+        //Smile
+        seriesArray.get(7).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmile() + 4));
+
+        //Clench
+        seriesArray.get(8).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getClench() + 3));
+
+        //Right Smirk
+        seriesArray.get(9).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkRight() + 2));
+
+        //Left Smirk
+        seriesArray.get(10).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkLeft() + 1));
+
+        //Laugh
+        seriesArray.get(11).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getLaugh() + 0));
+
+        curFacialChartPos++;
     }
 
     public void addReceiveDataListner() {
@@ -136,6 +228,7 @@ public class ClientUIController extends ClientController implements Initializabl
                     UpperFaceData upperFaceData) {
                 updateTimeElapsed();
                 updateFaceExpressions();
+                updateFacialChart();
             }
         });
     }
