@@ -133,8 +133,20 @@ public class ClientUIController extends ClientController implements Initializabl
                     });
                 }
         );
+        
+        ClientUIModel.getInstance().timeElapsedProperty().addListener(
+                (observable,number, t1) -> {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            double time = ClientUIModel.getInstance().getTimeElapsed();
+                            updateTimeElapsed(String.valueOf(time));
+                        }
+                    });
+                }
+        );
 
-        updateTimeElapsed();
+        updateTimeElapsed("0.0");
         setConnectionStatus(CONNECTION_STATUS_DISCONNECTED);
         addReceiveDataListner();
         initFacialChart();
@@ -247,7 +259,7 @@ public class ClientUIController extends ClientController implements Initializabl
             @Override
             public void onReceiveData(EmotionalStatesData emoStates, EyeData eyeData, LowerFaceData lowerFaceData,
                     UpperFaceData upperFaceData) {
-                updateTimeElapsed();
+                //updateTimeElapsed();
                 updateFaceExpressions();
                 updateFacialChart();
             }
@@ -257,8 +269,8 @@ public class ClientUIController extends ClientController implements Initializabl
     /**
      * Updates timer with new time received from server via addReceiveDataListner()
      */
-    public void updateTimeElapsed() {
-        Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
+    public void updateTimeElapsed(String time) {
+        Time.setText(time);
     }
     
     /**
