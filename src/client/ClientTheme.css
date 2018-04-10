@@ -1,17 +1,24 @@
-.chart {
+.default-color0.chart-series-line { -fx-stroke: #f9d900; }
+.default-color1.chart-series-line { -fx-stroke: #a9e200; }
+.default-color2.chart-series-line { -fx-stroke: #22bad9; }
+.default-color3.chart-series-line { -fx-stroke: #0181e2; }
+.default-color4.chart-series-line { -fx-stroke: #2f357f; }
+.default-color5.chart-series-line { -fx-stroke: #860061; }
+
+#myFacialChart .chart {
     -fx-padding: 0px;
     -fx-background-color: white;
 }
 
-.chart-content {
+#myFacialChart .chart-content{
     -fx-padding: 0 0 -10 -10;
 }
 
-.chart-plot-background {
+#myFacialChart .chart-plot-background{
     -fx-background-color: white;
 }
 
-.axis-tick-mark,
+#myFacialChart .axis-tick-mark,
 .axis-minor-tick-mark,
 .chart-vertical-grid-lines,
 .chart-vertical-zero-line,
@@ -19,7 +26,52 @@
     -fx-stroke: transparent;
 }
 
-.chart-series-line {
+#myFacialChart .chart-series-line {
     -fx-stroke-width: 1px;
     -fx-stroke: black;
+}
+
+#myAffectiveChart .chart {
+    -fx-padding: 0px;
+    -fx-background-color: white;
+}
+
+#myAffectiveChart .chart-series-line {
+    -fx-stroke-width: 2px;
+}
+
+#myAffectiveChart .chart-plot-background{
+    -fx-background-color: white;
+}
+
+#myAffectiveChart .chart-horizontal-grid-line{
+    -fx-stroke: transparent;
+}
+
+#series-unselected{
+    -fx-stroke: white;
+}
+
+#series-selected{
+}
+
+#interestCheckbox {
+    -fx-background-color: #f9d900;
+}
+#engagementCheckbox {
+    -fx-background-color: #a9e200;
+}
+#stressCheckbox {
+    -fx-background-color: #22bad9;
+}
+#relaxationCheckbox{
+    -fx-background-color: #0181e2;
+}
+#excitementCheckbox {
+    -fx-background-color: #2f357f;
+    -fx-text-fill: white;
+}
+#focusCheckbox {
+    -fx-background-color: #860061;
+    -fx-text-fill: white;
 }

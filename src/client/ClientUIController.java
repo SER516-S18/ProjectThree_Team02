@@ -1,6 +1,8 @@
 package client;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +70,13 @@ public class ClientUIController extends ClientController implements Initializabl
     @FXML Ellipse headOval;
     @FXML SubScene headScene;
     @FXML AnchorPane facialChartPane;
+    @FXML AnchorPane affectiveChartPane;
+    @FXML CheckBox interestCheckbox;
+    @FXML CheckBox engagementCheckbox;
+    @FXML CheckBox stressCheckbox;
+    @FXML CheckBox relaxationCheckbox;
+    @FXML CheckBox excitementCheckbox;
+    @FXML CheckBox focusCheckbox;
 
     private int FACE_PANE_HEIGHT = 400;
     private int FACE_PANE_WIDTH = 400;
@@ -101,8 +110,12 @@ public class ClientUIController extends ClientController implements Initializabl
     private Rectangle clenchedTeeth;
     private Group clenchedMouth;
 
-    private ArrayList<XYChart.Series> seriesArray;
+    private LineChart<Number,Number> facialChart;
+    private ArrayList<XYChart.Series> facialSeriesArray;
     private int curFacialChartPos = 1;
+    private LineChart<Number,Number> affectiveChart;
+    private ArrayList<XYChart.Series> affectiveSeriesArray;
+    private int curAffectiveChartPos = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -129,96 +142,204 @@ public class ClientUIController extends ClientController implements Initializabl
         setConnectionStatus(DISCONNECTED);
         addReceiveDataListner();
         initFacialChart();
+        initialAffectiveChart();
+        addAffectiveChartCheckboxListener();
     }
 
     private void initFacialChart(){
 
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
-        //xAxis.setAutoRanging(false);
-        //xAxis.setUpperBound(5);
-        //xAxis.setLowerBound(0);
-        final LineChart<Number,Number> facialChart = new LineChart<Number,Number>(xAxis,yAxis);
+        facialChart = new LineChart<Number,Number>(xAxis,yAxis);
         facialChart.prefWidthProperty().bind(facialChartPane.widthProperty());
         facialChart.prefHeightProperty().bind(facialChartPane.heightProperty());
         facialChart.setLegendVisible(false);
         facialChart.getXAxis().setTickLabelsVisible(false);
         facialChart.getYAxis().setTickLabelsVisible(false);
         facialChart.setCreateSymbols(false);
+        facialChart.setId("myFacialChart");
 
         facialChartPane.getChildren().add(facialChart);
 
-        seriesArray = new ArrayList<XYChart.Series>();
+        facialSeriesArray = new ArrayList<XYChart.Series>();
 
         for(int i = 0; i < 12; i++){
-            seriesArray.add(new XYChart.Series());
-        }
-        for(int i = 0; i < 12; i++){
-            facialChart.getData().add(seriesArray.get(i));
+            XYChart.Series series = new XYChart.Series();
+            facialSeriesArray.add(series);
+            facialChart.getData().add(series);
             if(i <= 4){
-                seriesArray.get(i).getData().add(new XYChart.Data(0, 11.25 - i));
+                series.getData().add(new XYChart.Data(0, 11.25 - i));
             }else{
-                seriesArray.get(i).getData().add(new XYChart.Data(0, 11 - i));
+                series.getData().add(new XYChart.Data(0, 11 - i));
             }
+        }
+    }
 
+    private void initialAffectiveChart(){
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setAutoRanging(false);
+        yAxis.setUpperBound(1.0);
+        yAxis.setLowerBound(0.0);
+        affectiveChart = new LineChart<Number,Number>(xAxis,yAxis);
+        affectiveChart.prefWidthProperty().bind(affectiveChartPane.widthProperty());
+        affectiveChart.prefHeightProperty().bind(affectiveChartPane.heightProperty());
+        affectiveChart.setLegendVisible(false);
+        affectiveChart.setCreateSymbols(false);
+        affectiveChart.setId("myAffectiveChart");
+
+        affectiveChartPane.getChildren().add(affectiveChart);
+
+        affectiveSeriesArray = new ArrayList<XYChart.Series>();
+
+        for(int i = 0; i < 6; i++){
+            XYChart.Series series = new XYChart.Series();
+            affectiveSeriesArray.add(series);
+            affectiveChart.getData().add(series);
         }
 
+        interestCheckbox.setSelected(true);
+        engagementCheckbox.setSelected(true);
+        stressCheckbox.setSelected(true);
+        relaxationCheckbox.setSelected(true);
+        excitementCheckbox.setSelected(true);
+        focusCheckbox.setSelected(true);
     }
 
     private void updateFacialChart(){
 
         //Blink
         if(ClientUIModel.getInstance().getEyeData().getBlink()){
-            seriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.75));
+            facialSeriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.75));
         }else{
-            seriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.25));
+            facialSeriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.25));
         }
         //Right Wink
         if(ClientUIModel.getInstance().getEyeData().getWinkRight()){
-            seriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.75));
+            facialSeriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.75));
         }else{
-            seriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.25));
+            facialSeriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.25));
         }
         //Left Wink
         if(ClientUIModel.getInstance().getEyeData().getWinkLeft()){
-            seriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.75));
+            facialSeriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.75));
         }else{
-            seriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.25));
+            facialSeriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.25));
         }
         //Look Right
         if(ClientUIModel.getInstance().getEyeData().getLookRight()){
-            seriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.75));
+            facialSeriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.75));
         }else{
-            seriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.25));
+            facialSeriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.25));
         }
         //Look Left
         if(ClientUIModel.getInstance().getEyeData().getLookLeft()){
-            seriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.75));
+            facialSeriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.75));
         }else{
-            seriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.25));
+            facialSeriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.25));
         }
         //Raise Brow
-        seriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
+        facialSeriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
 
         //Furrow Brow
-        seriesArray.get(6).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow() + 5));
+        facialSeriesArray.get(6).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow() + 5));
 
         //Smile
-        seriesArray.get(7).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmile() + 4));
+        facialSeriesArray.get(7).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmile() + 4));
 
         //Clench
-        seriesArray.get(8).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getClench() + 3));
+        facialSeriesArray.get(8).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getClench() + 3));
 
         //Right Smirk
-        seriesArray.get(9).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkRight() + 2));
+        facialSeriesArray.get(9).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkRight() + 2));
 
         //Left Smirk
-        seriesArray.get(10).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkLeft() + 1));
+        facialSeriesArray.get(10).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkLeft() + 1));
 
         //Laugh
-        seriesArray.get(11).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getLaugh() + 0));
+        facialSeriesArray.get(11).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getLaugh() + 0));
 
         curFacialChartPos++;
+    }
+
+    private void updateAffectiveChart(){
+        //Interest
+        affectiveSeriesArray.get(0).getData().add(new XYChart.Data(curAffectiveChartPos, ClientUIModel.getInstance().getEmoStates().getInterest()));
+        //Engagement
+        affectiveSeriesArray.get(1).getData().add(new XYChart.Data(curAffectiveChartPos, ClientUIModel.getInstance().getEmoStates().getEngagement()));
+        //Stress
+        affectiveSeriesArray.get(2).getData().add(new XYChart.Data(curAffectiveChartPos, ClientUIModel.getInstance().getEmoStates().getStress()));
+        //Relaxation
+        affectiveSeriesArray.get(3).getData().add(new XYChart.Data(curAffectiveChartPos, ClientUIModel.getInstance().getEmoStates().getRelaxation()));
+        //Excitement
+        affectiveSeriesArray.get(4).getData().add(new XYChart.Data(curAffectiveChartPos, ClientUIModel.getInstance().getEmoStates().getExcitement()));
+        //Focus
+        affectiveSeriesArray.get(5).getData().add(new XYChart.Data(curAffectiveChartPos, ClientUIModel.getInstance().getEmoStates().getFocus()));
+
+        curAffectiveChartPos++;
+    }
+
+    public void addAffectiveChartCheckboxListener(){
+        interestCheckbox.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if((boolean)oldValue){
+                    affectiveChart.getData().get(0).getNode().setId("series-unselected");
+                }else{
+                    affectiveChart.getData().get(0).getNode().setId("series-selected");
+                }
+            }
+        });
+        engagementCheckbox.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if((boolean)oldValue){
+                    affectiveChart.getData().get(1).getNode().setId("series-unselected");
+                }else{
+                    affectiveChart.getData().get(1).getNode().setId("series-selected");
+                }
+            }
+        });
+        stressCheckbox.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if((boolean)oldValue){
+                    affectiveChart.getData().get(2).getNode().setId("series-unselected");
+                }else{
+                    affectiveChart.getData().get(2).getNode().setId("series-selected");
+                }
+            }
+        });
+        relaxationCheckbox.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if((boolean)oldValue){
+                    affectiveChart.getData().get(3).getNode().setId("series-unselected");
+                }else{
+                    affectiveChart.getData().get(3).getNode().setId("series-selected");
+                }
+            }
+        });
+        excitementCheckbox.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if((boolean)oldValue){
+                    affectiveChart.getData().get(4).getNode().setId("series-unselected");
+                }else{
+                    affectiveChart.getData().get(4).getNode().setId("series-selected");
+                }
+            }
+        });
+        focusCheckbox.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if((boolean)oldValue){
+                    affectiveChart.getData().get(5).getNode().setId("series-unselected");
+                }else{
+                    affectiveChart.getData().get(5).getNode().setId("series-selected");
+                }
+            }
+        });
     }
 
     public void addReceiveDataListner() {
@@ -229,10 +350,10 @@ public class ClientUIController extends ClientController implements Initializabl
                 updateTimeElapsed();
                 updateFaceExpressions();
                 updateFacialChart();
+                updateAffectiveChart();
             }
         });
     }
-    
 
     public void updateTimeElapsed() {
         Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
