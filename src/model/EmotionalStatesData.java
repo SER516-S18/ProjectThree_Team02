@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Wrapper class for emotional states Data
+ * Data consists of interest, engagement, stress, relexation, excitement, and focus
+ *
+ * @author Team 2, SER 516
+ * @version 1.0 April 10, 2018
+ */
 public class EmotionalStatesData {
 
     public static final String INTEREST = "Interest";
@@ -20,6 +27,7 @@ public class EmotionalStatesData {
         reset();
     }
 
+    /* reset all data to its default value */
     public void reset() {
         interest = 0;
         engagement = 0;

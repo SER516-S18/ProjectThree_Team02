@@ -1,9 +1,16 @@
 package server;
 
 import javafx.beans.property.*;
-import javafx.scene.control.SpinnerValueFactory;
 import model.*;
 
+/**
+ * The Mordel in MVC for the Server. Manages all critical status of the server.
+ * Provide APIs for updating and querying data.
+ *
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ServerUIModel {
 
     public static final double DEFAULT_EMO_STATE_INTERVAL = 0.25;
@@ -12,23 +19,24 @@ public class ServerUIModel {
 
     private volatile boolean isSendingData = false;
     private volatile boolean sendOnce = false;
+    
     private SimpleDoubleProperty emoStateInterval;
     private SimpleDoubleProperty timeElapsed;
     private SimpleBooleanProperty autoRest;
+    // Expressive
     private SimpleStringProperty eyeDataType;
     private SimpleStringProperty lowerfaceDataType;
     private SimpleStringProperty upperfaceDataType;
-
+    private SimpleBooleanProperty eyeDataValue;
+    private SimpleDoubleProperty lowerfaceDataValue;
+    private SimpleDoubleProperty upperfaceDataValue;
+    // Affective
     private SimpleDoubleProperty interest;
     private SimpleDoubleProperty engagement;
     private SimpleDoubleProperty stress;
     private SimpleDoubleProperty relaxation;
     private SimpleDoubleProperty excitement;
     private SimpleDoubleProperty focus;
-
-    private SimpleBooleanProperty eyeDataValue;
-    private SimpleDoubleProperty lowerfaceDataValue;
-    private SimpleDoubleProperty upperfaceDataValue;
 
     private ServerUIModel() {
         emoStateInterval = new SimpleDoubleProperty(DEFAULT_EMO_STATE_INTERVAL);

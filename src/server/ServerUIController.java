@@ -145,7 +145,6 @@ public class ServerUIController implements Initializable{
                 LowerFaceData.SMILE,
                 LowerFaceData.CLENCH,
                 LowerFaceData.LAUGH,
-                LowerFaceData.SMILE,
                 LowerFaceData.SMIRK_LEFT,
                 LowerFaceData.SMIRK_RIGHT));
         choiceboxLowerface.getSelectionModel().selectedItemProperty()

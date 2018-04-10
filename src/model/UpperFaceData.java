@@ -1,10 +1,12 @@
 package model;
 
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-
+/**
+ * Wrapper class for the upper face data
+ * Data consists of raiseBrow, and furrowBrow
+ *
+ * @author Team 2, SER 516
+ * @version 1.0 April 10, 2018
+ */
 public class UpperFaceData {
 
     public static final String RAISE_BROW = "Raise Brow";
@@ -17,6 +19,7 @@ public class UpperFaceData {
         reset();
     }
 
+    /* reset all data to its default value */
     public void reset() {
         raiseBrow = 0;
         furrowBrow = 0;

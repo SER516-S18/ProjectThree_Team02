@@ -2,14 +2,34 @@ package client;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import java.util.ArrayList;
 import model.*;
 
-import java.util.ArrayList;
-
+/**
+ * The Mordel in MVC for the client. Manages all critical status of the Client.
+ * Provide APIs for updating and querying data.
+ * Provide an interface to add listeners to the class to get notified when new data is received
+ *
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ClientUIModel {
 
+    /**
+     * Implement this interface and add to the class via addReceviveDataListner
+     * to get notified when new data is received
+     */
     public interface ReceviveDataListner {
 
+        /**
+         * Called when a new data is received from the server
+         *
+         * @param emoStates
+         * @param eyeData
+         * @param lowerFaceData
+         * @param upperFaceData
+         */
         public void onReceiveData(EmotionalStatesData emoStates, EyeData eyeData,
                                   LowerFaceData lowerFaceData, UpperFaceData upperFaceData);
     }
@@ -25,7 +45,7 @@ public class ClientUIModel {
     private SimpleIntegerProperty connectionStatus;
     private ArrayList<ReceviveDataListner> dataListners = new ArrayList<ReceviveDataListner>();
 
-    private ClientUIModel(){
+    private ClientUIModel() {
         connectionStatus = new SimpleIntegerProperty(
                 ClientUIController.CONNECTION_STATUS_DISCONNECTED);
     }
@@ -40,18 +60,28 @@ public class ClientUIModel {
         return instance;
     }
 
+    /**
+     * Add an listerner to get notified when new data is received
+     *
+     * @param listner
+     */
     public void addReceviveDataListner(ReceviveDataListner listner) {
         if (listner != null) {
             dataListners.add(listner);
         }
     }
 
+    /**
+     * Remove the listerner. Call it when you do not want to receive the new
+     * data event anymore.
+     *
+     * @param listner
+     */
     public void removeReceviveDataListner(ReceviveDataListner listner) {
         if (dataListners.contains(listner)) {
             dataListners.remove(listner);
         }
     }
-
 
     public int getConnectionStatus() {
         return connectionStatus.get();
@@ -117,6 +147,15 @@ public class ClientUIModel {
         this.timeElapsed.set(timeElapsed);
     }
 
+    /**
+     * Called when a new data is received from the server
+     *
+     * @param emoStates
+     * @param eyeData
+     * @param lowerFaceData
+     * @param upperFaceData
+     * @param emoStateIntervalData
+     */
     public void onReceiveData(EmotionalStatesData emoStates, EyeData eyeData,
                               LowerFaceData lowerFaceData, UpperFaceData upperFaceData,
                               EmoStateIntervalData emoStateIntervalData) {

@@ -48,7 +48,7 @@ import java.util.ResourceBundle;
  * Contains logic for face. Adds face to pane.
  * Contains logic for facial expression graphs. Adds graphs to pane.
  * Contains logic for connection status indicator. Adds indicator status to pane.
- * 
+ *
  * @version 1.0 April 10, 2018
  * @author Team 2, SER 516
  *
@@ -253,7 +253,7 @@ public class ClientUIController extends ClientController implements Initializabl
         } else {
             facialSeriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.25));
         }
-        
+
         //Look Right
         if(ClientUIModel.getInstance().getEyeData().getLookRight()) {
             facialSeriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.75));
@@ -266,7 +266,7 @@ public class ClientUIController extends ClientController implements Initializabl
         } else {
             facialSeriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.25));
         }
-        
+
         //Raise Brow
         facialSeriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos,
                     ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
@@ -401,7 +401,7 @@ public class ClientUIController extends ClientController implements Initializabl
     public void updateTimeElapsed(String elapsedTime) {
         Time.setText(elapsedTime);
     }
-    
+
     /**
      * Updates expressions on face with new values from server received via addReceiveDataListner()
      */
@@ -422,35 +422,35 @@ public class ClientUIController extends ClientController implements Initializabl
         if (eyebrowRaiseData != 0) {
             this.raiseBothEyebrows(eyebrowRaiseData);
         }
-        
+
         if (eyebrowFurrowData != 0) {
             this.furrowBothEyebrows(eyebrowFurrowData);
         }
-        
+
         if (smileData != 0) {
             this.setSmileAmount(smileData);
         }
-        
+
         if (laughData != 0) {
             this.setLaughAmount(laughData);
         }
-        
+
         if (clenchData != 0) {
             this.setClenchedAmount(clenchData);
         }
-        
+
         if (smirkLeftData != 0) {
             this.setLeftSmirk(smirkLeftData);
         }
-        
+
         if (smirkRightData != 0) {
             this.setRightSmirk(smirkRightData);
         }
-        
+
         if (lookLeftData) {
             this.lookLeft();
         }
-        
+
         if (lookRightData) {
             this.lookRight();
         }
@@ -570,7 +570,7 @@ public class ClientUIController extends ClientController implements Initializabl
 
         mouth.setVisible(true);
         clenchedMouth.setVisible(false);
-        
+
         headGroup.getChildren().addAll(head, leftEye, rightEye, mouth, leftEyebrow, rightEyebrow, nose, clenchedMouth);
 
         return headGroup;
@@ -822,7 +822,7 @@ public class ClientUIController extends ClientController implements Initializabl
         mouth.setVisible(false);
         clenchedMouth.setVisible(true);
     }
-    
+
     /**
      * Updates mouth with clenched amount
      *
@@ -831,7 +831,7 @@ public class ClientUIController extends ClientController implements Initializabl
     public void setClenchedAmount(double clenchAmount) {
         clenchAmount = clenchAmount * 10 * 6;
         clench.setHeight(clenchAmount);
-        
+
         mouth.setVisible(false);
         clenchedMouth.setVisible(true);
     }
