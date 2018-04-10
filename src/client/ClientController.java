@@ -41,7 +41,7 @@ public class ClientController {
      * 
      * @param jString   Message received
      */
-    protected void decodeMessage(String jString) {
+    public void decodeMessage(String jString) {
         JsonReader reader = Json.createReader(new StringReader(jString));
         JsonObject jobj = reader.readObject();
         reader.close();
@@ -54,7 +54,7 @@ public class ClientController {
      * @param ip    IP address for server connection
      * @param port  Port number for server connection
      */
-    protected void connectToServer(String ip, String port){
+    public void connectToServer(String ip, String port){
         if( networkThread != null ){
             networkThread.cancel();
         }
@@ -65,7 +65,8 @@ public class ClientController {
     /**
      * Starts the server from Client application
      */
-    protected void launchServer(){
+    public void launchServer(){
+
         // Get the file in which this program is running
         // Default will be "client.jar"
         String path = ClientController.class.getProtectionDomain()
