@@ -240,9 +240,8 @@ public class ClientUIController extends ClientController implements Initializabl
         } else {
             facialSeriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.25));
         }
-
-        //Right Wink
-
+        
+        //Right WinkS
         if(ClientUIModel.getInstance().getEyeData().getWinkRight()) {
             facialSeriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.75));
         } else{
@@ -383,9 +382,15 @@ public class ClientUIController extends ClientController implements Initializabl
             @Override
             public void onReceiveData(EmotionalStatesData emoStates, EyeData eyeData, LowerFaceData lowerFaceData,
                     UpperFaceData upperFaceData) {
-                updateFaceExpressions();
-                updateFacialChart();
-                updateAffectiveChart();
+                //updateTimeElapsed();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateFaceExpressions();
+                        updateFacialChart();
+                        updateAffectiveChart();
+                    }
+                });
             }
         });
     }
