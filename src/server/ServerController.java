@@ -1,24 +1,30 @@
 package server;
 
 import model.*;
-
 import javax.json.Json;
-import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
+/**
+ * Accepts and handles user input on Server UI
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ServerController {
-
     public static final String JSON_FACE_KEY = "Expressive";
-    public static final String JSON_EMO_KEY = "Affective";
+    public static final String JSON_EMOTION_KEY = "Affective";
     public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
     private static ServerController instance;
-    private EmotionalStatesData emoStates;
+    private EmotionalStatesData emotionalStates;
     private EyeData eyeData;
     private LowerFaceData lowerFaceData;
     private UpperFaceData upperFaceData;
-    private EmoStateIntervalData emoStateIntervalData;
+    private EmoStateIntervalData emotionalStateIntervalData;
 
     /**
+     * Provides access to a Singleton
+     * 
      * @return Singleton instance of ServerController
      */
     public static ServerController getInstance(){
@@ -29,11 +35,11 @@ public class ServerController {
     }
 
     private ServerController(){
-        emoStates = new EmotionalStatesData();
+        emotionalStates = new EmotionalStatesData();
         eyeData = new EyeData();
         lowerFaceData = new LowerFaceData();
         upperFaceData = new UpperFaceData();
-        emoStateIntervalData = new EmoStateIntervalData();
+        emotionalStateIntervalData = new EmoStateIntervalData();
     }
 
     /**
@@ -44,12 +50,12 @@ public class ServerController {
         updateDataToSend();
         // Affective
         JsonObjectBuilder emoJson = Json.createObjectBuilder()
-                .add(EmotionalStatesData.INTEREST, emoStates.getInterest())
-                .add(EmotionalStatesData.ENGAGEMENT, emoStates.getEngagement())
-                .add(EmotionalStatesData.STRESS, emoStates.getStress())
-                .add(EmotionalStatesData.RELAXATION, emoStates.getRelaxation())
-                .add(EmotionalStatesData.EXCITEMENT, emoStates.getExcitement())
-                .add(EmotionalStatesData.FOCUS, emoStates.getFocus());
+                .add(EmotionalStatesData.INTEREST, emotionalStates.getInterest())
+                .add(EmotionalStatesData.ENGAGEMENT, emotionalStates.getEngagement())
+                .add(EmotionalStatesData.STRESS, emotionalStates.getStress())
+                .add(EmotionalStatesData.RELAXATION, emotionalStates.getRelaxation())
+                .add(EmotionalStatesData.EXCITEMENT, emotionalStates.getExcitement())
+                .add(EmotionalStatesData.FOCUS, emotionalStates.getFocus());
         // Expressive
         JsonObjectBuilder faceJson = Json.createObjectBuilder()
                 .add(EyeData.BLINK, eyeData.getBlink())
@@ -67,30 +73,30 @@ public class ServerController {
         
         //EmoStateInterval
         JsonObjectBuilder emoStateIntervalJson = Json.createObjectBuilder()
-        		.add(EmoStateIntervalData.INTERVAL, emoStateIntervalData.getInterval());
+        		.add(EmoStateIntervalData.INTERVAL, emotionalStateIntervalData.getInterval());
         
         return Json.createObjectBuilder()
                 .add(JSON_FACE_KEY, faceJson)
-                .add(JSON_EMO_KEY, emoJson)
+                .add(JSON_EMOTION_KEY, emoJson)
                 .add(JSON_INTERVAL_KEY, emoStateIntervalJson)
                 .build().toString();
     }
 
     private void updateDataToSend() {
-        emoStates.reset();
+        emotionalStates.reset();
         eyeData.reset();
         lowerFaceData.reset();
         upperFaceData.reset();
-        emoStateIntervalData.reset();
+        emotionalStateIntervalData.reset();
 
         ServerUIModel modelUI = ServerUIModel.getInstance();
 
-        emoStates.setInterest(modelUI.getInterest());
-        emoStates.setEngagement(modelUI.getEngagement());
-        emoStates.setExcitement(modelUI.getExcitement());
-        emoStates.setFocus(modelUI.getFocus());
-        emoStates.setRelaxation(modelUI.getRelaxation());
-        emoStates.setStress(modelUI.getStress());
+        emotionalStates.setInterest(modelUI.getInterest());
+        emotionalStates.setEngagement(modelUI.getEngagement());
+        emotionalStates.setExcitement(modelUI.getExcitement());
+        emotionalStates.setFocus(modelUI.getFocus());
+        emotionalStates.setRelaxation(modelUI.getRelaxation());
+        emotionalStates.setStress(modelUI.getStress());
 
         boolean eyeValue = modelUI.getEyeDataValue();
         switch (modelUI.getEyeDataType()) {
@@ -117,7 +123,6 @@ public class ServerController {
         }
         
         double interval = modelUI.getEmoStateInterval();
-        emoStateIntervalData.setInterval(interval);
-        
+        emotionalStateIntervalData.setInterval(interval);
     }
 }

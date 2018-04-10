@@ -1,24 +1,20 @@
 package server;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
-import util.MyNumberStringConverter;
 
 /**
- * TODO: Add comment
+ * Runs the Server
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
  */
 public class Server extends Application {
-
-    //UI scene
     private static Scene scene;
-
 
     /**
      * The main entry point for all JavaFX applications.
@@ -42,16 +38,12 @@ public class Server extends Application {
 
         primaryStage.setScene(scene);
 
-        //Set window non-resizable
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         primaryStage.show();
     }
 
     public static void main(String[] args) {
-
-        //Launch JavaFX UI
-        //Main Thread
         launch(args);
     }
 }

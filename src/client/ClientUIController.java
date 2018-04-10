@@ -43,12 +43,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Creates pane for client class.
+ * Contains logic for face. Adds face to pane.
+ * Contains logic for facial expression graphs. Adds graphs to pane.
+ * Contains logic for connection status indicator. Adds indicator status to pane.
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ClientUIController extends ClientController implements Initializable {
-
-    // Connection status'
-    public static final int DISCONNECTED = 0;
-    public static final int CONNECTING = 1;
-    public static final int CONNECTED = 2;
+    public static final int CONNECTION_STATUS_DISCONNECTED = 0;
+    public static final int CONNECTION_STATUS_CONNECTING = 1;
+    public static final int CONNECTION_STATUS_CONNECTED = 2;
 
     public static final int STATUS_ICON_SIZE = 10;
     public static final int STATUS_ICON_PADDNG = 10;
@@ -80,7 +88,6 @@ public class ClientUIController extends ClientController implements Initializabl
 
     private int FACE_PANE_HEIGHT = 400;
     private int FACE_PANE_WIDTH = 400;
-
     private int FACE_WIDTH = 160;
     private int FACE_HEIGHT = 200;
 
@@ -117,11 +124,13 @@ public class ClientUIController extends ClientController implements Initializabl
     private ArrayList<XYChart.Series> affectiveSeriesArray;
     private int curAffectiveChartPos = 0;
 
+    /**
+     * Creates entire Client pane with face, graphs, and connection status
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         long startTime = System.currentTimeMillis();
         ClientController cc = new ClientController();
-        // ClientUIModel clientUIModel = new ClientUIModel();
         Group headGroup = initializeHead();
         facePane.getChildren().add(headGroup);
 
@@ -139,17 +148,20 @@ public class ClientUIController extends ClientController implements Initializabl
         );
 
         updateTimeElapsed();
-        setConnectionStatus(DISCONNECTED);
+        setConnectionStatus(CONNECTION_STATUS_DISCONNECTED);
         addReceiveDataListner();
         initFacialChart();
         initialAffectiveChart();
         addAffectiveChartCheckboxListener();
     }
 
+    /**
+     * Creates basic structure for facial expression graphs
+     */
     private void initFacialChart(){
-
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
+
         facialChart = new LineChart<Number,Number>(xAxis,yAxis);
         facialChart.prefWidthProperty().bind(facialChartPane.widthProperty());
         facialChart.prefHeightProperty().bind(facialChartPane.heightProperty());
@@ -206,58 +218,70 @@ public class ClientUIController extends ClientController implements Initializabl
         focusCheckbox.setSelected(true);
     }
 
+    /**
+     * Gives facial expression graphs data received from server.
+     */
     private void updateFacialChart(){
-
         //Blink
-        if(ClientUIModel.getInstance().getEyeData().getBlink()){
+        if(ClientUIModel.getInstance().getEyeData().getBlink()) {
             facialSeriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.75));
-        }else{
+        } else {
             facialSeriesArray.get(0).getData().add(new XYChart.Data(curFacialChartPos, 11.25));
         }
+        
         //Right Wink
-        if(ClientUIModel.getInstance().getEyeData().getWinkRight()){
+
+        if(ClientUIModel.getInstance().getEyeData().getWinkRight()) {
             facialSeriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.75));
-        }else{
+        } else{
             facialSeriesArray.get(1).getData().add(new XYChart.Data(curFacialChartPos, 10.25));
         }
         //Left Wink
-        if(ClientUIModel.getInstance().getEyeData().getWinkLeft()){
+        if(ClientUIModel.getInstance().getEyeData().getWinkLeft()) {
             facialSeriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.75));
-        }else{
+        } else {
             facialSeriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.25));
         }
+        
         //Look Right
-        if(ClientUIModel.getInstance().getEyeData().getLookRight()){
+        if(ClientUIModel.getInstance().getEyeData().getLookRight()) {
             facialSeriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.75));
-        }else{
+        } else {
             facialSeriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.25));
         }
         //Look Left
-        if(ClientUIModel.getInstance().getEyeData().getLookLeft()){
+        if(ClientUIModel.getInstance().getEyeData().getLookLeft()) {
             facialSeriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.75));
-        }else{
+        } else {
             facialSeriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.25));
         }
+        
         //Raise Brow
-        facialSeriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
-
+        facialSeriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos,
+                    ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
         //Furrow Brow
-        facialSeriesArray.get(6).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow() + 5));
+        facialSeriesArray.get(6).getData().add(new XYChart.Data(curFacialChartPos,
+                ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow() + 5));
 
         //Smile
-        facialSeriesArray.get(7).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmile() + 4));
+        facialSeriesArray.get(7).getData().add(new XYChart.Data(curFacialChartPos,
+                ClientUIModel.getInstance().getLowerFaceData().getSmile() + 4));
 
         //Clench
-        facialSeriesArray.get(8).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getClench() + 3));
+        facialSeriesArray.get(8).getData().add(new XYChart.Data(curFacialChartPos,
+                ClientUIModel.getInstance().getLowerFaceData().getClench() + 3));
 
         //Right Smirk
-        facialSeriesArray.get(9).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkRight() + 2));
+        facialSeriesArray.get(9).getData().add(new XYChart.Data(curFacialChartPos,
+                ClientUIModel.getInstance().getLowerFaceData().getSmirkRight() + 2));
 
         //Left Smirk
-        facialSeriesArray.get(10).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getSmirkLeft() + 1));
+        facialSeriesArray.get(10).getData().add(new XYChart.Data(curFacialChartPos,
+                ClientUIModel.getInstance().getLowerFaceData().getSmirkLeft() + 1));
 
         //Laugh
-        facialSeriesArray.get(11).getData().add(new XYChart.Data(curFacialChartPos, ClientUIModel.getInstance().getLowerFaceData().getLaugh() + 0));
+        facialSeriesArray.get(11).getData().add(new XYChart.Data(curFacialChartPos,
+                ClientUIModel.getInstance().getLowerFaceData().getLaugh() + 0));
 
         curFacialChartPos++;
     }
@@ -355,10 +379,16 @@ public class ClientUIController extends ClientController implements Initializabl
         });
     }
 
+    /**
+     * Updates timer with new time received from server via addReceiveDataListner()
+     */
     public void updateTimeElapsed() {
         Time.setText(String.valueOf(ClientUIModel.getInstance().getTimeElapsed()));
     }
     
+    /**
+     * Updates expressions on face with new values from server received via addReceiveDataListner()
+     */
     public void updateFaceExpressions() {
         double eyebrowFurrowData = ClientUIModel.getInstance().getUpperFaceData().getFurrowBrow();
         double eyebrowRaiseData = ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow();
@@ -442,19 +472,19 @@ public class ClientUIController extends ClientController implements Initializabl
         connectionStatusPanel.getChildren().clear();
         Text text;
         switch(conn){
-            case DISCONNECTED:
+            case CONNECTION_STATUS_DISCONNECTED:
                 text = new Text("Disconnected");
                 connectionStatusPanel.getChildren().add(
                         getStatusIconPanel(Color.RED));
                 connectionStatusPanel.getChildren().add(text);
                 break;
-            case CONNECTED:
+            case CONNECTION_STATUS_CONNECTED:
                 text = new Text("Connected");
                 connectionStatusPanel.getChildren().add(
                         getStatusIconPanel(Color.GREEN));
                 connectionStatusPanel.getChildren().add(text);
                 break;
-            case CONNECTING:
+            case CONNECTION_STATUS_CONNECTING:
                 text = new Text("Connecting...");
                 ProgressIndicator prog = new ProgressIndicator();
                 prog.setMaxHeight(STATUS_ICON_SIZE * 2);
