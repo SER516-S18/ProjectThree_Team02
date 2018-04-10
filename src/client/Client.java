@@ -2,23 +2,21 @@ package client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
-/* This is the main Client class with should be Run*/
+/**
+ * Run the client from this class
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class Client extends Application {
-
-
+    /**
+     * Runs the client and adds client logic and data for the UI
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Client.fxml"));
@@ -32,6 +30,4 @@ public class Client extends Application {
     public static void main(String[] args) throws Exception {
         launch(args);
     }
-
-
 }

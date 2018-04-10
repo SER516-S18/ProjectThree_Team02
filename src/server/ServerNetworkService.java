@@ -5,12 +5,17 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javax.websocket.Session;
-
 import java.io.IOException;
 import java.util.logging.LogManager;
 
+/**
+ * Establishes service between Server and Network
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ServerNetworkService<T> extends Service<T>{
-
     public static final int PORT = 1726;
     public static final String HOST_NAME = "localhost";
     public static final String ROOT_PATH = "/";
@@ -40,13 +45,11 @@ public class ServerNetworkService<T> extends Service<T>{
 
                 try {
                     server.start();
-                    //When Main JavaFX thread call cancel() method, isCancelled
-                    //will become true.
+                    //When Main JavaFX thread call cancel() method, isCancelled becomes true.
                     while(!isCancelled()){
-
+                       
                         // Send data with auto-repeat
                         if( ServerUIModel.getInstance().isSendingData() ){
-
                             sendPayloadToAllClients();
                             double timeElapsed = ServerUIModel.getInstance().getTimeElapsed();
                             double interval = ServerUIModel.getInstance().getEmoStateInterval();
@@ -64,7 +67,7 @@ public class ServerNetworkService<T> extends Service<T>{
 
                         Thread.sleep( POLLING_SLEEP_TIME );
                     }
-                } catch ( InterruptedException e ){
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                     System.out.println("Internal Error while " +
                             "sending to clients");

@@ -27,7 +27,7 @@ public class ClientUIModel {
 
     private ClientUIModel(){
         connectionStatus = new SimpleIntegerProperty(
-                ClientUIController.DISCONNECTED);
+                ClientUIController.CONNECTION_STATUS_DISCONNECTED);
     }
 
     /**

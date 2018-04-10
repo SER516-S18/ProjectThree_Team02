@@ -24,7 +24,12 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
- * TODO: Add comment
+ * Creates pane for Server class.
+ * Contains logic for handling input to Server UI.
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
  */
 public class ServerUIController implements Initializable{
 
@@ -61,8 +66,7 @@ public class ServerUIController implements Initializable{
             focusTextField;
 
     /**
-     * All works after create controller
-     * All initial works should in this method
+     * All initializing work done in this method
      * @param location
      * @param resources
      */

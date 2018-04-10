@@ -4,14 +4,18 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import org.glassfish.tyrus.client.ClientManager;
 import javax.websocket.Session;
-
 import java.net.URI;
 import java.util.logging.LogManager;
 
+/**
+ * Establishes service between Client and Network
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ClientNetworkService<T> extends Service<T> {
     public static final String SERVER_ENDPOINT = "face";
     public static final String PROTOCOL = "ws://";
@@ -19,7 +23,7 @@ public class ClientNetworkService<T> extends Service<T> {
     private static final long POLLING_SLEEP_TIME = 10; // ms
     private Session session;
 
-    ClientNetworkService( String ip, String port ){
+    ClientNetworkService(String ip, String port){
         url = PROTOCOL + ip + ":" + port + "/" + SERVER_ENDPOINT;
     }
 
@@ -37,14 +41,14 @@ public class ClientNetworkService<T> extends Service<T> {
             protected Void call() throws Exception {
                 ClientManager client = ClientManager.createClient();
                 ClientUIModel.getInstance().setConnectionStatus(
-                        ClientUIController.CONNECTING );
+                        ClientUIController.CONNECTION_STATUS_CONNECTING );
                 session = client.connectToServer(
                         ClientEndpoint.class,
                         new URI( url ) );
                 if( session.isOpen() ){
                     System.out.println("Connected to: " + url);
                     ClientUIModel.getInstance().setConnectionStatus(
-                            ClientUIController.CONNECTED );
+                            ClientUIController.CONNECTION_STATUS_CONNECTED );
                 }
 
                 //Disable default websocket client logger
@@ -79,7 +83,7 @@ public class ClientNetworkService<T> extends Service<T> {
                 ClientUIController.showErrorDialog(
                         "Failed to connect to the server");
                 ClientUIModel.getInstance().setConnectionStatus(
-                        ClientUIController.DISCONNECTED );
+                        ClientUIController.CONNECTION_STATUS_DISCONNECTED );
             }
         });
 
@@ -88,7 +92,7 @@ public class ClientNetworkService<T> extends Service<T> {
             public void handle(WorkerStateEvent event) {
                 System.out.println("Websocket Stopped\n");
                 ClientUIModel.getInstance().setConnectionStatus(
-                        ClientUIController.DISCONNECTED );            }
+                        ClientUIController.CONNECTION_STATUS_DISCONNECTED );            }
         });
     }
 }

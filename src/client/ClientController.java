@@ -1,10 +1,6 @@
 package client;
 
 import model.*;
-import server.Server;
-import server.ServerNetworkService;
-import server.ServerUIModel;
-
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -12,19 +8,26 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
+/**
+ * Accepts and handles user input on Client UI
+ * 
+ * @version 1.0 April 10, 2018
+ * @author Team 2, SER 516
+ *
+ */
 public class ClientController {
     public static final String JSON_FACE_KEY = "Expressive";
-    public static final String JSON_EMO_KEY = "Affective";
+    public static final String JSON_EMOTION_KEY = "Affective";
     public static final String JSON_INTERVAL_KEY = "EmoStateInterval";
-    public static final String SERVER_LOC =
-            ".." + File.pathSeparator + "server" +
+    public static final String SERVER_LOCATION = ".." + File.pathSeparator + "server" + 
             File.pathSeparator + "Server.java";
-
     private static ClientController instance;
     private ClientNetworkService<Void> networkThread;
 
     /**
-     * @return Singleton instance of ServerController
+     * Provides access to a Singleton
+     * 
+     * @return Singleton instance of ClientController
      */
     public static ClientController getInstance(){
         if( instance == null ){
@@ -33,13 +36,24 @@ public class ClientController {
         return instance;
     }
 
-    protected void decodeMessage(String jstr) {
-        JsonReader reader = Json.createReader(new StringReader(jstr));
+    /**
+     * Converts the JSON data and updates the ClientModel with data
+     * 
+     * @param jString   Message received
+     */
+    protected void decodeMessage(String jString) {
+        JsonReader reader = Json.createReader(new StringReader(jString));
         JsonObject jobj = reader.readObject();
         reader.close();
         updateClientModel(jobj);
     }
 
+    /**
+     * Establishes connection with server, used for pop-up connection in Client
+     * 
+     * @param ip    IP address for server connection
+     * @param port  Port number for server connection
+     */
     protected void connectToServer(String ip, String port){
         if( networkThread != null ){
             networkThread.cancel();
@@ -49,10 +63,9 @@ public class ClientController {
     }
 
     /**
-     * Launch a new server instance
+     * Starts the server from Client application
      */
     protected void launchServer(){
-
         // Get the file in which this program is running
         // Default will be "client.jar"
         String path = ClientController.class.getProtectionDomain()
@@ -74,8 +87,12 @@ public class ClientController {
         }
     }
 
-    private void updateClientModel(JsonObject jobj) {
-
+    /**
+     * Sets values of variables with data received from user input
+     * 
+     * @param jObject   Input received from user
+     */
+    private void updateClientModel(JsonObject jObject) {
         // Create models
         EmotionalStatesData emoStates = new EmotionalStatesData();
         EyeData eyeData = new EyeData();
@@ -84,7 +101,7 @@ public class ClientController {
         EmoStateIntervalData emoStateIntervalData = new EmoStateIntervalData();
 
         // Affective
-        JsonObject emoJson = jobj.getJsonObject(JSON_EMO_KEY);
+        JsonObject emoJson = jObject.getJsonObject(JSON_EMOTION_KEY);
         emoStates.setInterest(emoJson.getJsonNumber(EmotionalStatesData.INTEREST).doubleValue());
         emoStates.setEngagement(emoJson.getJsonNumber(EmotionalStatesData.ENGAGEMENT).doubleValue());
         emoStates.setStress(emoJson.getJsonNumber(EmotionalStatesData.STRESS).doubleValue());
@@ -93,7 +110,7 @@ public class ClientController {
         emoStates.setFocus(emoJson.getJsonNumber(EmotionalStatesData.FOCUS).doubleValue());
 
         // Face
-        JsonObject faceJson = jobj.getJsonObject(JSON_FACE_KEY);
+        JsonObject faceJson = jObject.getJsonObject(JSON_FACE_KEY);
         eyeData.setBlink(faceJson.getBoolean(EyeData.BLINK));
         eyeData.setWinkLeft(faceJson.getBoolean(EyeData.WINK_LEFT));
         eyeData.setWinkRight(faceJson.getBoolean(EyeData.WINK_RIGHT));
@@ -109,13 +126,14 @@ public class ClientController {
         upperFaceData.setRaiseBrow(faceJson.getJsonNumber(UpperFaceData.RAISE_BROW).doubleValue());
         upperFaceData.setFurrowBrow(faceJson.getJsonNumber(UpperFaceData.FURROW_BROW).doubleValue());
         
-        JsonObject emoStateIntervalJson = jobj.getJsonObject(JSON_INTERVAL_KEY);
-        emoStateIntervalData.setInterval(emoStateIntervalJson.getJsonNumber(EmoStateIntervalData.INTERVAL).doubleValue());
+        JsonObject emoStateIntervalJson = jObject.getJsonObject(JSON_INTERVAL_KEY);
+        emoStateIntervalData.
+            setInterval(emoStateIntervalJson.getJsonNumber(EmoStateIntervalData.INTERVAL).doubleValue());
 
         double currTime = ClientUIModel.getInstance().getTimeElapsed();
         currTime += emoStateIntervalData.getInterval();
         ClientUIModel.getInstance().setTimeElapsed(currTime);
-        ClientUIModel.getInstance().onReceiveData(emoStates, eyeData, lowerFaceData, upperFaceData, emoStateIntervalData);
+        ClientUIModel.getInstance().
+            onReceiveData(emoStates, eyeData, lowerFaceData, upperFaceData, emoStateIntervalData);
     }
 }
-
