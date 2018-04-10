@@ -1,10 +1,5 @@
 # ProjectThree_Team02
 
-## For People that want to Run it (Grader)
-
-
-## For People that want to Build and Run it (Developer)
-
 ### 1. Compile The Project
 Linux, Mac or Git Bash: `chmod +x compile.sh` then `./compile.sh `.
 
