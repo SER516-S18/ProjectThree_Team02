@@ -49,7 +49,7 @@
 }
 
 #series-unselected{
-    -fx-stroke: white;
+    -fx-stroke: transparent;
 }
 
 #series-selected{
