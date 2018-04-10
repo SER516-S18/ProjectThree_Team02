@@ -8,10 +8,9 @@ import javafx.stage.Stage;
 
 /**
  * Run the client from this class
- * 
- * @version 1.0 April 10, 2018
- * @author Team 2, SER 516
  *
+ * @author Team 2, SER 516
+ * @version 1.0 April 10, 2018
  */
 public class Client extends Application {
     /**
@@ -25,7 +24,7 @@ public class Client extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        }
+    }
 
     public static void main(String[] args) throws Exception {
         launch(args);
