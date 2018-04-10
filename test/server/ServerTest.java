@@ -13,14 +13,23 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.StringReader;
+import java.util.Random;
 
+/**
+ * Unit tests for the server package
+ *
+ * @author Team 2
+ */
 public class ServerTest {
-    ServerController servController;
-    ServerUIModel uiModel;
-    EmotionalStatesData emoStates;
-    EyeData eyeData;
-    LowerFaceData lowerFaceData;
-    UpperFaceData upperFaceData;
+    public static double DOUBLE_DELTA = 0.01;
+
+    private Random rand;
+    private ServerController servController;
+    private ServerUIModel uiModel;
+    private EmotionalStatesData emoStates;
+    private EyeData eyeData;
+    private LowerFaceData lowerFaceData;
+    private UpperFaceData upperFaceData;
 
     @BeforeEach
     void setUp() {
@@ -30,65 +39,102 @@ public class ServerTest {
         eyeData = servController.getEyeData();
         lowerFaceData = servController.getLowerFaceData();
         upperFaceData = servController.getUpperFaceData();
+
+        rand = new Random();
     }
 
-
+    /**
+     * Test emotion JSON data being sent from the server
+     */
     @Test
-    void serverJSONEmoTest() {
+    void serverJSONEmotionTest() {
 
-        double relax = 0.1;
-        double engage = 0.3;
-        double excite = 0.7;
-        double focus = 0.4;
-        double interest = 0.8;
-        double stress = 0.9;
-
-        uiModel.setRelaxation(relax);
-        uiModel.setEngagement(engage);
-        uiModel.setExcitement(excite);
-        uiModel.setFocus(focus);
-        uiModel.setInterest(interest);
-        uiModel.setStress(stress);
-
-
-        // Get emo json obj
+        // Test initial values
+        double testVal = 0.0;
         JsonObject emoJ = getJsonObject(ServerController.JSON_EMOTION_KEY);
         assertEquals(
                 emoJ.getJsonNumber(EmotionalStatesData.RELAXATION).doubleValue(),
-                relax,
-                0.01
+                testVal,
+                DOUBLE_DELTA
         );
         assertEquals(
                 emoJ.getJsonNumber(EmotionalStatesData.ENGAGEMENT).doubleValue(),
-                engage,
-                0.01
+                testVal,
+                DOUBLE_DELTA
         );
         assertEquals(
                 emoJ.getJsonNumber(EmotionalStatesData.EXCITEMENT).doubleValue(),
-                excite,
-                0.01
+                testVal,
+                DOUBLE_DELTA
         );
         assertEquals(
                 emoJ.getJsonNumber(EmotionalStatesData.FOCUS).doubleValue(),
-                focus,
-                0.01
+                testVal,
+                DOUBLE_DELTA
         );
         assertEquals(
                 emoJ.getJsonNumber(EmotionalStatesData.INTEREST).doubleValue(),
-                interest,
-                0.01
+                testVal,
+                DOUBLE_DELTA
         );
         assertEquals(
                 emoJ.getJsonNumber(EmotionalStatesData.STRESS).doubleValue(),
-                stress,
-                0.01
+                testVal,
+                DOUBLE_DELTA
+        );
+
+
+        testVal = rand.nextDouble();
+
+        uiModel.setRelaxation(testVal);
+        uiModel.setEngagement(testVal);
+        uiModel.setExcitement(testVal);
+        uiModel.setFocus(testVal);
+        uiModel.setInterest(testVal);
+        uiModel.setStress(testVal);
+
+        // Change emo data and make sure change is applied
+        // in the JSON obj
+        emoJ = getJsonObject(ServerController.JSON_EMOTION_KEY);
+        assertEquals(
+                emoJ.getJsonNumber(EmotionalStatesData.RELAXATION).doubleValue(),
+                testVal,
+                DOUBLE_DELTA
+        );
+        assertEquals(
+                emoJ.getJsonNumber(EmotionalStatesData.ENGAGEMENT).doubleValue(),
+                testVal,
+                DOUBLE_DELTA
+        );
+        assertEquals(
+                emoJ.getJsonNumber(EmotionalStatesData.EXCITEMENT).doubleValue(),
+                testVal,
+                DOUBLE_DELTA
+        );
+        assertEquals(
+                emoJ.getJsonNumber(EmotionalStatesData.FOCUS).doubleValue(),
+                testVal,
+                DOUBLE_DELTA
+        );
+        assertEquals(
+                emoJ.getJsonNumber(EmotionalStatesData.INTEREST).doubleValue(),
+                testVal,
+                DOUBLE_DELTA
+        );
+        assertEquals(
+                emoJ.getJsonNumber(EmotionalStatesData.STRESS).doubleValue(),
+                testVal,
+                DOUBLE_DELTA
         );
     }
 
+    /**
+     * Test eye JSON data being sent from the server
+     */
     @Test
     void serverJSONEyeTest() {
 
-        // Before
+        // Make sure everything starts as false
         JsonObject faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
         assertTrue(!faceJ.getBoolean(EyeData.BLINK));
         assertTrue(!faceJ.getBoolean(EyeData.WINK_LEFT));
@@ -122,6 +168,115 @@ public class ServerTest {
         uiModel.setEyeDataValue(true);
         faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
         assertTrue(faceJ.getBoolean(EyeData.LOOK_RIGHT));
+    }
+
+    /**
+     * Test lower face JSON data being sent from the server
+     */
+    @Test
+    void serverJSONLowerFaceTest() {
+
+        // Make sure everything starts at 0.0
+        double testVal = 0.0;
+        JsonObject faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.SMILE).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.CLENCH).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.SMIRK_RIGHT).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.SMIRK_LEFT).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.LAUGH).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+
+        // Change lower face data and make sure change is applied
+        // in the JSON obj
+        testVal = rand.nextDouble();
+        uiModel.setLowerfaceDataType(LowerFaceData.SMILE);
+        uiModel.setLowerfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.SMILE).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        uiModel.setLowerfaceDataType(LowerFaceData.CLENCH);
+        uiModel.setLowerfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.CLENCH).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        uiModel.setLowerfaceDataType(LowerFaceData.SMIRK_RIGHT);
+        uiModel.setLowerfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.SMIRK_RIGHT).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        uiModel.setLowerfaceDataType(LowerFaceData.SMIRK_LEFT);
+        uiModel.setLowerfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.SMIRK_LEFT).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        uiModel.setLowerfaceDataType(LowerFaceData.LAUGH);
+        uiModel.setLowerfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(LowerFaceData.LAUGH).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+
+    }
+
+    /**
+     * Test upper face JSON data being sent from the server
+     */
+    @Test
+    void serverJSONUpperFaceTest() {
+
+        // Make sure everything starts at 0.0
+        double testVal = 0.0;
+        JsonObject faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(UpperFaceData.RAISE_BROW).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        assertEquals(
+                faceJ.getJsonNumber(UpperFaceData.FURROW_BROW).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+
+        // Change upper face data and make sure change is applied
+        // in the JSON obj
+        testVal = rand.nextDouble();
+        uiModel.setUpperfaceDataType(UpperFaceData.RAISE_BROW);
+        uiModel.setUpperfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(UpperFaceData.RAISE_BROW).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+        uiModel.setUpperfaceDataType(UpperFaceData.FURROW_BROW);
+        uiModel.setUpperfaceDataValue(testVal);
+        faceJ = getJsonObject( ServerController.JSON_FACE_KEY );
+        assertEquals(
+                faceJ.getJsonNumber(UpperFaceData.FURROW_BROW).doubleValue(),
+                testVal,
+                DOUBLE_DELTA);
+
     }
 
     private JsonObject getJsonObject( String parent ){
