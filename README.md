@@ -13,7 +13,7 @@ Windows Command Prompt: `call compile.bat`
 ### 2. Run The JAR
 `java -jar client.jar ` 
 
-### Guide to the User-Interface
+### 3. Guide to the User-Interface
 Server can be launched by menu Server->Launch New in Client.
 
 
