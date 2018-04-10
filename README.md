@@ -4,7 +4,7 @@
 
 ### Run The JAR
 `java -jar client.jar` 
-
+Server can be launched by menu Server->Launch New in Client.
 
 ## For People that want to Build and Run it (Developer)
 
