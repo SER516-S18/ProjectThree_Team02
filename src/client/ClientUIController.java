@@ -15,15 +15,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -61,19 +57,11 @@ public class ClientUIController extends ClientController implements Initializabl
     public static final int STATUS_ICON_SIZE = 10;
     public static final int STATUS_ICON_PADDNG = 10;
 
-    @FXML MenuBar initalMenu;
-    @FXML Menu Detections;
-    @FXML Menu ConnectToServer;
+    @FXML MenuBar initalMenu;;
     @FXML AnchorPane rootPane;
-    @FXML MenuItem PerformanceItem;
-    @FXML MenuItem Connect;
-    @FXML Pane Graph1;
-    @FXML Pane Graph2;
-    @FXML Label Time;
+    @FXML Label timeLabel;
     @FXML HBox connectionStatusPanel;
     @FXML VBox facePane;
-    @FXML Button SelectIp;
-    @FXML Button SelectPort;
     @FXML Ellipse head;
     @FXML Ellipse headOval;
     @FXML SubScene headScene;
@@ -399,7 +387,7 @@ public class ClientUIController extends ClientController implements Initializabl
      * Updates Elapsed time based on the data sending interval of the server
      */
     public void updateTimeElapsed(String elapsedTime) {
-        Time.setText(elapsedTime);
+        timeLabel.setText(elapsedTime);
     }
 
     /**
