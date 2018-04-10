@@ -15,15 +15,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -48,7 +44,7 @@ import java.util.ResourceBundle;
  * Contains logic for face. Adds face to pane.
  * Contains logic for facial expression graphs. Adds graphs to pane.
  * Contains logic for connection status indicator. Adds indicator status to pane.
- * 
+ *
  * @version 1.0 April 10, 2018
  * @author Team 2, SER 516
  *
@@ -61,19 +57,11 @@ public class ClientUIController extends ClientController implements Initializabl
     public static final int STATUS_ICON_SIZE = 10;
     public static final int STATUS_ICON_PADDNG = 10;
 
-    @FXML MenuBar initalMenu;
-    @FXML Menu Detections;
-    @FXML Menu ConnectToServer;
+    @FXML MenuBar initalMenu;;
     @FXML AnchorPane rootPane;
-    @FXML MenuItem PerformanceItem;
-    @FXML MenuItem Connect;
-    @FXML Pane Graph1;
-    @FXML Pane Graph2;
-    @FXML Label Time;
+    @FXML Label timeLabel;
     @FXML HBox connectionStatusPanel;
     @FXML VBox facePane;
-    @FXML Button SelectIp;
-    @FXML Button SelectPort;
     @FXML Ellipse head;
     @FXML Ellipse headOval;
     @FXML SubScene headScene;
@@ -253,7 +241,7 @@ public class ClientUIController extends ClientController implements Initializabl
         } else {
             facialSeriesArray.get(2).getData().add(new XYChart.Data(curFacialChartPos, 9.25));
         }
-        
+
         //Look Right
         if(ClientUIModel.getInstance().getEyeData().getLookRight()) {
             facialSeriesArray.get(3).getData().add(new XYChart.Data(curFacialChartPos, 8.75));
@@ -266,7 +254,7 @@ public class ClientUIController extends ClientController implements Initializabl
         } else {
             facialSeriesArray.get(4).getData().add(new XYChart.Data(curFacialChartPos, 7.25));
         }
-        
+
         //Raise Brow
         facialSeriesArray.get(5).getData().add(new XYChart.Data(curFacialChartPos,
                     ClientUIModel.getInstance().getUpperFaceData().getRaiseBrow() + 6));
@@ -399,9 +387,9 @@ public class ClientUIController extends ClientController implements Initializabl
      * Updates Elapsed time based on the data sending interval of the server
      */
     public void updateTimeElapsed(String elapsedTime) {
-        Time.setText(elapsedTime);
+        timeLabel.setText(elapsedTime);
     }
-    
+
     /**
      * Updates expressions on face with new values from server received via addReceiveDataListner()
      */
@@ -422,35 +410,35 @@ public class ClientUIController extends ClientController implements Initializabl
         if (eyebrowRaiseData != 0) {
             this.raiseBothEyebrows(eyebrowRaiseData);
         }
-        
+
         if (eyebrowFurrowData != 0) {
             this.furrowBothEyebrows(eyebrowFurrowData);
         }
-        
+
         if (smileData != 0) {
             this.setSmileAmount(smileData);
         }
-        
+
         if (laughData != 0) {
             this.setLaughAmount(laughData);
         }
-        
+
         if (clenchData != 0) {
             this.setClenchedAmount(clenchData);
         }
-        
+
         if (smirkLeftData != 0) {
             this.setLeftSmirk(smirkLeftData);
         }
-        
+
         if (smirkRightData != 0) {
             this.setRightSmirk(smirkRightData);
         }
-        
+
         if (lookLeftData) {
             this.lookLeft();
         }
-        
+
         if (lookRightData) {
             this.lookRight();
         }
@@ -570,7 +558,7 @@ public class ClientUIController extends ClientController implements Initializabl
 
         mouth.setVisible(true);
         clenchedMouth.setVisible(false);
-        
+
         headGroup.getChildren().addAll(head, leftEye, rightEye, mouth, leftEyebrow, rightEyebrow, nose, clenchedMouth);
 
         return headGroup;
@@ -822,7 +810,7 @@ public class ClientUIController extends ClientController implements Initializabl
         mouth.setVisible(false);
         clenchedMouth.setVisible(true);
     }
-    
+
     /**
      * Updates mouth with clenched amount
      *
@@ -831,7 +819,7 @@ public class ClientUIController extends ClientController implements Initializabl
     public void setClenchedAmount(double clenchAmount) {
         clenchAmount = clenchAmount * 10 * 6;
         clench.setHeight(clenchAmount);
-        
+
         mouth.setVisible(false);
         clenchedMouth.setVisible(true);
     }

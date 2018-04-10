@@ -1,10 +1,12 @@
 package model;
 
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-
+/**
+ * Wrapper class for the eye data
+ * Data consists of blink, winkLeft, winkRight, lookLeft, and lookRight
+ *
+ * @author Team 2, SER 516
+ * @version 1.0 April 10, 2018
+ */
 public class EyeData {
 
     public static final String BLINK = "Blink";
@@ -23,6 +25,7 @@ public class EyeData {
         reset();
     }
 
+    /* reset all data to its default value */
     public void reset() {
         blink = false;
         winkLeft = false;

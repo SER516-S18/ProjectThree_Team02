@@ -4,7 +4,7 @@
 
 ### Run The JAR
 `java -jar client.jar` 
-
+Server can be launched by menu Server->Launch New in Client.
 
 ## For People that want to Build and Run it (Developer)
 
@@ -26,7 +26,7 @@ Kaustuv Deolal [vutsuak](http://vutsuak16.github.io/) | kdeolal@asu.edu
 
 Zeyong Cai [NewCai](https://github.com/NewCai) | zcai26@asu.edu
 
-Yuan Cao [caoyuan0816](https://github.com/caoyuan0816?tab=stars) |ycao87@asu.edu
+Yuan Cao [caoyuan0816](https://github.com/caoyuan0816?tab=stars) | ycao87@asu.edu
 
 Douglas Carroll [dcarrol3](https://github.com/dcarrol3) | dcarrol3@asu.edu
 

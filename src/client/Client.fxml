@@ -68,7 +68,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="Time" style="-: ;" textFill="#eb0707" />
+                              <Label fx:id="timeLabel" style="-: ;" textFill="#eb0707" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
