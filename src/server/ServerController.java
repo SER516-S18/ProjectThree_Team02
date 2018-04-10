@@ -34,6 +34,46 @@ public class ServerController {
         return instance;
     }
 
+    public EmotionalStatesData getEmoStates() {
+        return emotionalStates;
+    }
+
+    public void setEmoStates(EmotionalStatesData emoStates) {
+        this.emotionalStates = emoStates;
+    }
+
+    public EyeData getEyeData() {
+        return eyeData;
+    }
+
+    public void setEyeData(EyeData eyeData) {
+        this.eyeData = eyeData;
+    }
+
+    public LowerFaceData getLowerFaceData() {
+        return lowerFaceData;
+    }
+
+    public void setLowerFaceData(LowerFaceData lowerFaceData) {
+        this.lowerFaceData = lowerFaceData;
+    }
+
+    public UpperFaceData getUpperFaceData() {
+        return upperFaceData;
+    }
+
+    public void setUpperFaceData(UpperFaceData upperFaceData) {
+        this.upperFaceData = upperFaceData;
+    }
+
+    public EmoStateIntervalData getEmoStateIntervalData() {
+        return emotionalStateIntervalData;
+    }
+
+    public void setEmoStateIntervalData(EmoStateIntervalData emoStateIntervalData) {
+        this.emotionalStateIntervalData = emoStateIntervalData;
+    }
+
     private ServerController(){
         emotionalStates = new EmotionalStatesData();
         eyeData = new EyeData();
@@ -46,7 +86,7 @@ public class ServerController {
      * Format JSON message for sending to the clients
      * @return Json payload as a string for sending
      */
-    protected String getJsonMessage() {
+    public String getJsonMessage() {
         updateDataToSend();
         // Affective
         JsonObjectBuilder emoJson = Json.createObjectBuilder()
