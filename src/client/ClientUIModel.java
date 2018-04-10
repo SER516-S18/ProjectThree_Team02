@@ -165,7 +165,6 @@ public class ClientUIModel {
         setEyeData(eyeData);
         setLowerFaceData(lowerFaceData);
         setUpperFaceData(upperFaceData);
-        setEmoStateIntervalData(emoStateIntervalData);
 
         for (ReceviveDataListner listner : dataListners) {
             listner.onReceiveData(emoStates,
