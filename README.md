@@ -2,9 +2,6 @@
 
 ## For People that want to Run it (Grader)
 
-### Run The JAR
-`java -jar client.jar` 
-Server can be launched by menu Server->Launch New in Client.
 
 ## For People that want to Build and Run it (Developer)
 
@@ -15,6 +12,9 @@ Windows Command Prompt: `call compile.bat`
 
 ### 2. Run The JAR
 `java -jar client.jar ` 
+
+### Guide to the User-Interface
+Server can be launched by menu Server->Launch New in Client.
 
 
 ## Contributors
