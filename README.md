@@ -13,11 +13,11 @@ Server can be launched by menu Server->Launch New in Client.
 
 
 ## Contributors
-Desai Dhruti [dhruti21](https://github.com/dhruti21) | dadesai2@asu.edu
-
 Chirag Bumb [Chiragb7](https://github.com/Chiragb7) | cbumb@asu.edu
 
 Kaustuv Deolal [vutsuak](http://vutsuak16.github.io/) | kdeolal@asu.edu 
+
+Desai Dhruti [dhruti21](https://github.com/dhruti21) | dadesai2@asu.edu
 
 Zeyong Cai [NewCai](https://github.com/NewCai) | zcai26@asu.edu
 
