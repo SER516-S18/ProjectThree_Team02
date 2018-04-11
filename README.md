@@ -10,6 +10,7 @@ Windows Command Prompt: `call compile.bat`
 
 ### 3. Guide to the User-Interface
 Server can be launched by menu Server->Launch New in Client.
+Then Server -> Connect to Existing. Click Connect in the Popup.
 
 
 ## Contributors
