@@ -21,7 +21,7 @@ import java.util.Random;
  * @author Team 2
  */
 public class ServerTest {
-    public static double DOUBLE_DELTA = 0.01;
+    public static double DOUBLE_DELTA = 1e-10;
 
     private Random rand;
     private ServerController servController;
